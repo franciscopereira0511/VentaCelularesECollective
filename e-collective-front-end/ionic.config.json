@@ -1,0 +1,7 @@
+{
+  "name": "ECollective - Front End",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
