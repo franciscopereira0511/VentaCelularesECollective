@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod": "ng build --prod --base-href=\"./\"" 
+    "prod": "ng build --prod --base-href=\"./\""
   },
   "private": true,
   "dependencies": {
@@ -30,13 +30,14 @@
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1000.0",
+    "@angular-devkit/build-angular": "^0.1002.0",
     "@angular/cli": "~10.0.5",
     "@angular/compiler": "~10.0.0",
     "@angular/compiler-cli": "~10.0.0",
     "@angular/language-service": "~10.0.0",
     "@capacitor/cli": "2.4.2",
     "@ionic/angular-toolkit": "^2.3.0",
+    "@ionic/app-scripts": "^3.2.4",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",

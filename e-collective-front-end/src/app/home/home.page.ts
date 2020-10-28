@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  constructor() {}
+  private dynamicColor: string;
+  constructor() {
+    this.dynamicColor = 'light';
+  }
 
 }
