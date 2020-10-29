@@ -1,3 +1,84 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" content-id="menuContent">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="ion-text-center">Menú</ion-title>
+      </ion-toolbar>
+    </ion-header>
+      <ion-content>
+        <ion-list>
+  
+          <ion-item lines="none">
+            <ion-avatar>
+              <img src="assets/avatar.svg">
+            </ion-avatar>
+          </ion-item>
+  
+          <div class="ion-text-center">
+            <h6><b>Hola, Usuario</b></h6>
+          </div>
+  
+          <ion-menu-toggle>
+            <ion-button fill="clear" expand="full" mode="ios"> <!--(click)="onClickEditarPerfil()" [routerLink]="['../perfil']"-->
+              <ion-label>Editar perfil</ion-label>
+            </ion-button>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item lines="none" button [routerLink]="['../home']"> 
+              <ion-icon name="home-outline" slot="start"></ion-icon>
+              <ion-label>Inicio</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item lines="none" button [routerLink]="['../locations']"> 
+              <ion-icon name="location-outline" slot= "start"></ion-icon>
+              <ion-label>Ubicaciones</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+  
+          <ion-menu-toggle>
+            <ion-item lines="none" button [routerLink]="['../about-us']"> 
+              <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+              <ion-label>Acerca de Nosotros</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item lines="none" button [routerLink]="['../news']"> 
+              <ion-icon name="newspaper-outline" slot="start"></ion-icon>
+              <ion-label>Noticias</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+  
+          <ion-menu-toggle>
+            <ion-item lines="none" button [routerLink]="['../history']"> 
+              <ion-icon name="business-outline" slot = "start"></ion-icon>
+              <ion-label>Historia de la Empresa</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item lines="none" button [routerLink]="['../faq']"> 
+              <ion-icon name="help-circle-outline" slot = "start"></ion-icon>
+              <ion-label>Preguntas frecuentes</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+  
+          <ion-menu-toggle>
+            <ion-item lines="none" button>
+              <ion-icon color="danger" name="log-out-sharp" slot="start"></ion-icon>
+              <ion-label color="danger">Cerrar Sesión</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+  
+        </ion-list>
+      </ion-content>
+  
+
+  
+
+  </ion-menu>
+  <ion-router-outlet id="menuContent"></ion-router-outlet>
 </ion-app>

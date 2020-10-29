@@ -10,7 +10,27 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'locations',
+    loadChildren: () => import('./locations/locations.module').then( m => m.LocationsPageModule)
   },
+  {
+    path: 'about-us',
+    loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule)
+  },
+  {
+    path: 'news',
+    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
+  },
+  {
+    path: 'history',
+    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+  },
+  {
+    path: 'faq',
+    loadChildren: () => import('./faq/faq.module').then( m => m.FAQPageModule)
+  },
+
 ];
 
 @NgModule({

@@ -6,10 +6,18 @@ ion-menu-button {
   color: white;
 }
 
+ion-searchbar {
+  max-width: 800px;
+}
+
 ion-title {
   color: white;
 }
 
 ion-content{
-  --ion-background-color:#b5b6b3;
+  --ion-background-color:#f0f0f0;
+}
+
+.leftmargin {
+  margin-left: 20px;
 }

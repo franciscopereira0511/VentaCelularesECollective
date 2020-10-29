@@ -1,94 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <div class="ion-page" id="main-content">
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-          <ion-title slot="start">           
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title slot="start">           
             E-Collective
-          </ion-title>
-          <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar>          
-          <button ion-button slot="end">
-            <ion-icon>
-              <img alt="logo" id="header_logo" height="40" float-left src="../../assets/images/logo.png"> 
-            </ion-icon>
-          </button>
-          <ion-buttons slot="end">
-            <ion-icon slot="end" name="cart" shape="round" color="light"></ion-icon>
-          </ion-buttons> 
-        </ion-toolbar>
+        </ion-title>
+        <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar> 
+        <ion-button slot="end" fill="clear">
+          <ion-icon slot="icon-only" name="cart" shape="round" color="light"></ion-icon>
+        </ion-button> 
+      </ion-toolbar>
       </ion-header>
-    </div> 
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-app>
-    <ion-menu side="start" content-id="main-content">
-      <ion-header>
-        <ion-toolbar translucent>
-          <ion-title>Hola, Usuario</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list>
-          <ion-item>
-            <ion-icon name="location-outline" slot= "start"></ion-icon>
-            <ion-label>Ubicaciones</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="help-circle-outline" slot="start"></ion-icon>
-            <ion-label>Acerca de Nosotros</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="newspaper-outline" slot="start"></ion-icon>
-            <ion-label>Noticias</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="business-outline" slot = "start"></ion-icon>
-            <ion-label>Historia de la Empreas</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-icon name="log-out-outline" slot = "start"></ion-icon>
-            <ion-label>Cerrar Sesion</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-menu>    
+    
   </ion-app>
 </ion-content>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <button ion-button slot="start">
-      <ion-icon>
-        <img alt="logo" id="header_logo" height="40" src="../../assets/images/logo.png"> 
-      </ion-icon>
-    </button>
-    <ion-title slot = "start">
+    <img slot="start" alt="logo" height="100px" src="../../assets/images/LogoFortechBlanco.png">
+
+
+    <ion-label color="light" slot = "start">
       <p>FAQs<br>
         Ubicacion: Parque Industrial Z, Planta F29, Cartago<br>
-        Contacto Tel: 2241-4722 Correo: administrativo@fortech.cr<br>     
-    </ion-title>
-    <ion-title slot = "start">
+        Contacto Tel: 2241-4722 Correo: administrativo@fortech.cr<br>  
+      </p>   
+    </ion-label>
+    <ion-label class="leftmargin" slot = "start" color="light">
       Redes Sociales:    
-    </ion-title>
-    <button ion-button slot="start">
-      <ion-icon>
-        <img alt="logo" id="header_logo" height="40" src="../../assets/images/facebook.png"> 
-      </ion-icon>
-    </button>
-    <button ion-button slot="start">
-      <ion-icon>
-        <img alt="logo" id="header_logo" height="40" src="../../assets/images/instagram.png"> 
-      </ion-icon>
-    </button>
-    <ion-title slot = "end"> 
+    </ion-label>
+    <a href="https://www.facebook.com/fortech.cr/">
+      <img class="leftmargin" alt="facebook" height="35px" src="../../assets/images/facebook.png"> 
+    </a>
+    <a href="https://www.instagram.com/fortechquimica/" >
+      <img  class="leftmargin" alt="instagram" height="40px" src="../../assets/images/instagram.png"> 
+    </a>
+    
+
+    
+    <ion-label slot="end" color="light" style="margin-right: 10px;"> 
       <p>Mariano Soto<br>
         Francisco Pereira<br>
-        Kenner Ortiz<br>       
-    </ion-title>
+        Kenner Ortiz<br>
+      </p>    
+    </ion-label>
   </ion-toolbar>
 </ion-footer>
