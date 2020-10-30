@@ -11,3 +11,20 @@ ion-title {
 ion-toolbar {
     --background: #050446;
 }
+
+ion-content {
+    --background: #f0f0f0; // Replace this with color of your choice
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+
+ion-card {
+    max-width: 700px; 
+    margin:auto
+}
+

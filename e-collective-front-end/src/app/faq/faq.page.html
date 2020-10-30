@@ -9,5 +9,24 @@
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-list>
+      <app-accordion *ngFor="let pregunta of preguntas">
+        <app-accordion-item title={{pregunta.pregunta}}>
+          <ion-item>
+            <div align="justify">
+              <ion-text style="white-space: pre-line;"><p> {{pregunta.respuesta}} </p></ion-text>
+            </div>
+          </ion-item>
+
+        </app-accordion-item>
+      </app-accordion>
+
+    </ion-list>
+
+
+
+  </ion-card>
+
 
 </ion-content>

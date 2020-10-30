@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { FAQPageRoutingModule } from './faq-routing.module';
 
 import { FAQPage } from './faq.page';
+import { AccordionModule } from '../accordion/accordion.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FAQPageRoutingModule
+    FAQPageRoutingModule,
+    AccordionModule
   ],
   declarations: [FAQPage]
 })

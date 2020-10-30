@@ -1,0 +1,9 @@
+<ion-item lines="none" class="acc-header" (click)="toggle()">
+  <ion-text><b>{{title}}</b></ion-text>
+  <ion-text *ngIf="textoDerecha!=undefined" color="dark" style="font-size: 14px;" slot="end">{{textoDerecha}}</ion-text>
+  <ion-icon [@rotatedState]="!showBody? 'default':'rotated'" name="chevron-down-outline" slot="end"></ion-icon>
+</ion-item>
+
+<ion-list style="padding: 0px;" lines="none" [@smoothCollapse]="!showBody? 'initial': 'final'" >
+  <ng-content></ng-content>
+</ion-list>

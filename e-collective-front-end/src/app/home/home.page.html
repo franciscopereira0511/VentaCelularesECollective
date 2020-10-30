@@ -8,7 +8,13 @@
         <ion-title slot="start">           
             E-Collective
         </ion-title>
-        <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar> 
+        <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar>
+        <ion-button mode="ios" fill="clear">
+          <ion-label color="light">Iniciar sesión</ion-label>
+        </ion-button>
+        <ion-button mode="ios" fill="clear">
+          <ion-label color="light">Registrarse</ion-label>
+        </ion-button>
         <ion-button slot="end" fill="clear">
           <ion-icon slot="icon-only" name="cart" shape="round" color="light"></ion-icon>
         </ion-button> 
@@ -17,10 +23,25 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-app>
-    
-  </ion-app>
+<ion-content class="ion-padding">
+  <div style="padding-left: 100px; padding-right: 100px; margin:auto;">
+    <ion-grid>
+      <ion-col>
+        <ion-card>
+
+          <ion-label>
+            Test
+          </ion-label>
+          <ion-button>Añadir al carrito</ion-button>
+        </ion-card>
+
+      </ion-col>
+    </ion-grid>
+
+
+  </div>
+
+
 </ion-content>
 
 <ion-footer class="ion-no-border">
@@ -29,7 +50,10 @@
 
 
     <ion-label color="light" slot = "start">
-      <p>FAQs<br>
+      <p [routerLink]="['../faq']">
+        FAQs
+      </p>
+      <p>
         Ubicacion: Parque Industrial Z, Planta F29, Cartago<br>
         Contacto Tel: 2241-4722 Correo: administrativo@fortech.cr<br>  
       </p>   
