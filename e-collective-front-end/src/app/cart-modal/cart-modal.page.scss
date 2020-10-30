@@ -1,2 +1,18 @@
-
+ion-img{
+display: inline-block;
+height:90px;
+width:100%;
+}
   
+.product-price{
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.item-counter{
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 13px;
+}

@@ -27,6 +27,11 @@ ion-content{
   color: white;
 }
 
+.add-product{
+  font-size: 25px;
+  color: #050446
+}
+
 .cart-lenght{
   color: #050446;
   position: absolute;
@@ -38,8 +43,14 @@ ion-content{
   z-index: 10;
 }
 
-.cart-modal{
-  --height: 50%;
-  --border-radius: 10px;
-  padding: 25px;
+.horizontal-cards {
+  ion-card {
+      display: inline-block;
+      width: 256px;
+  }
+}
+ 
+ion-img{
+height:280px;
+width:100%;
 }
