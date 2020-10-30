@@ -10,7 +10,8 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'locations',
     loadChildren: () => import('./locations/locations.module').then( m => m.LocationsPageModule)
   },
@@ -30,6 +31,10 @@ const routes: Routes = [
     path: 'faq',
     loadChildren: () => import('./faq/faq.module').then( m => m.FAQPageModule)
   },
+  {
+    path: 'cart-modal',
+    loadChildren: () => import('./cart-modal/cart-modal.module').then( m => m.CartModalPageModule)
+  }
 
 ];
 
