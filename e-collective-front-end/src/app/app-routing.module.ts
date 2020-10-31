@@ -27,9 +27,18 @@ const routes: Routes = [
     path: 'faq',
     loadChildren: () => import('./faq/faq.module').then( m => m.FAQPageModule)
   },
+  {
+    path: 'cart-modal',
+    loadChildren: () => import('./cart-modal/cart-modal.module').then( m => m.CartModalPageModule)
+  }
 
 ];
 
+<<<<<<< HEAD
+];
+
+=======
+>>>>>>> d4ce0b0bb991cd0b26945be245a4141ae245d22a
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

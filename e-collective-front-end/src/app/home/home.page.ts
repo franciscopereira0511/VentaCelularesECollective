@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { Device } from 'src/models/device.model';
+=======
+import { ModalController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
+import { CartModalPage } from '../cart-modal/cart-modal.page';
+import { CarritoService } from '../services/carrito.service';
+>>>>>>> d4ce0b0bb991cd0b26945be245a4141ae245d22a
 
 @Component({
   selector: 'app-home',
@@ -8,6 +15,7 @@ import { Device } from 'src/models/device.model';
 })
 export class HomePage {
   private dynamicColor: string;
+<<<<<<< HEAD
   devices: Device[] = [
     {name: 'Iphone', model: '9', price: 284.000, photoURL: '../../assets/images/Iphone.jpg'},
     {name: 'Samsung', model: 'Galaxy 4', price: 128.000, photoURL: '../../assets/images/Samsung.jpg'},
@@ -25,5 +33,34 @@ export class HomePage {
     this.dynamicColor = 'light';
   }
 
+=======
+  carro = [];
+  productos = [];
+  contadorItems :  BehaviorSubject <number>;
+
+  constructor(/*private carritoCtrl: PopoverController*/ private carritoServicio: CarritoService,private modalCtrl: ModalController) {
+    this.dynamicColor = 'light';
+  }
+
+  ngOnInit(){
+    this.productos = this.carritoServicio.getProductos();
+    this.carro = this.carritoServicio.getCarro();
+    this.contadorItems = this.carritoServicio.getContadorItems();
+
+  }
+
+  agregarEnCarrito(producto){
+    this.carritoServicio.agregarProducto(producto);
+
+  }
+
+ async abrirCarrito(){
+    let modal = await this.modalCtrl.create({
+      component: CartModalPage,
+      cssClass: 'cart-modal'
+    });
+    modal.present();
+  }
+>>>>>>> d4ce0b0bb991cd0b26945be245a4141ae245d22a
 
 }

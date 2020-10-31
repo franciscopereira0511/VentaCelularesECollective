@@ -8,6 +8,7 @@
         <ion-title slot="start">           
             E-Collective
         </ion-title>
+<<<<<<< HEAD
         <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar>
         <ion-button mode="ios" fill="clear">
           <ion-label color="light">Iniciar sesión</ion-label>
@@ -18,11 +19,18 @@
         <ion-button slot="end" fill="clear">
           <ion-icon slot="icon-only" name="cart" shape="round" color="light"></ion-icon>
         </ion-button> 
+=======
+        <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar> 
+        <ion-button slot="end" fill="clear" (click)= "abrirCarrito()" #carro>
+          <div class = "cart-lenght"> {{contadorItems | async}} </div>
+          <ion-icon name = "cart" class = "cart-icon"></ion-icon>        </ion-button> 
+>>>>>>> d4ce0b0bb991cd0b26945be245a4141ae245d22a
       </ion-toolbar>
       </ion-header>
   </ion-toolbar>
 </ion-header>
 
+<<<<<<< HEAD
 <ion-content class="ion-padding">
 
     <ion-grid>
@@ -50,6 +58,34 @@
     </ion-grid>
 
 
+=======
+<ion-content>
+
+  <ion-list class="horizontal-cards">
+    <ion-card *ngFor= "let producto of productos">
+      <ion-card-header>
+        <ion-img [src] = "producto.imgUrl"> </ion-img>
+        <ion-card-title class = "ion-text-center"> {{producto.nombre}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="10">
+            <ion-label color = "black">
+              <b>{{ producto.precio | currency:'₡' }}</b>
+            </ion-label>
+          </ion-col>
+          <ion-col size = "2" class = "ion-align-right">
+            <ion-button fill = "clear" (click) = "agregarEnCarrito(producto)">
+              <ion-icon name = "add" class = "add-product"></ion-icon>
+            </ion-button>
+          </ion-col>  
+        </ion-row>
+      </ion-card-content>
+
+    </ion-card>
+  </ion-list>
+>>>>>>> d4ce0b0bb991cd0b26945be245a4141ae245d22a
 </ion-content>
 
 <ion-footer class="ion-no-border">

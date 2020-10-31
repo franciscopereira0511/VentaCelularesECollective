@@ -22,9 +22,43 @@ ion-content {
   margin-left: 20px;
 }
 
+<<<<<<< HEAD
 .deviceImage {
   width: 300px;
   height: 300px;
   margin: auto;
 
+=======
+.cart-icon{
+  font-size: 40px;
+  color: white;
+}
+
+.add-product{
+  font-size: 25px;
+  color: #050446
+}
+
+.cart-lenght{
+  color: #050446;
+  position: absolute;
+  top: 8px;
+  left: 2px;
+  font-weight: 600;
+  font-size: 1em;
+  min-width: 25px;
+  z-index: 10;
+}
+
+.horizontal-cards {
+  ion-card {
+      display: inline-block;
+      width: 256px;
+  }
+}
+ 
+ion-img{
+height:280px;
+width:100%;
+>>>>>>> d4ce0b0bb991cd0b26945be245a4141ae245d22a
 }
