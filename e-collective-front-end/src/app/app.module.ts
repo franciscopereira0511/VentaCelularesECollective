@@ -14,11 +14,7 @@ import { CartModalPageModule } from './cart-modal/cart-modal.module';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-<<<<<<< HEAD
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule],
-=======
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,CartModalPageModule],
->>>>>>> d4ce0b0bb991cd0b26945be245a4141ae245d22a
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, CartModalPageModule],
   providers: [
     StatusBar,
     SplashScreen,

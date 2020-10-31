@@ -1,10 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Carrito de compras</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click) = "close()" fill = "clear" color = "dark" >
+        <ion-icon name = "close" slot = "start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+
+
+
+</ion-header>
+
+
+
 <ion-content fullscreen>
 
-  <div class = "ion-text-end">
-    <ion-button (click) = "close()" fill = "clear" color = "dark">
-      <ion-icon name = "close" slot = "start"></ion-icon>
-    </ion-button>
-  </div>
+
 
   <div class = "ion-padding">
     <ion-list>
@@ -26,7 +40,7 @@
             </ion-col>
 
             <ion-col size = "6" class = "ion-align-self-center">
-              <b>{{p.nombre}}</b> <br>
+              <b>{{p.nombre}} {{p.modelo}}</b> <br>
               <i>Mini descripción</i>
             </ion-col>
 
