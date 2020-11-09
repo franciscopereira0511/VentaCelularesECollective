@@ -5,9 +5,9 @@
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title slot="start">           
-            E-Collective
-        </ion-title>
+        <ion-button mode="ios" fill="clear" slot="start" href="/home">
+          <ion-label color="light">E - Collective</ion-label>
+        </ion-button>
         <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar>
         <ion-button mode="ios" fill="clear">
           <ion-label color="light">Iniciar sesión</ion-label>
@@ -24,8 +24,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-
+<ion-content >
     <ion-grid>
       <ion-row>
         <ion-col size-xl="3" size-md="6" size-xs="12" *ngFor="let producto of productos">
@@ -54,40 +53,41 @@
       </ion-row>
     </ion-grid>
 
+    <ion-footer>
+      <ion-toolbar>
+        <img slot="start" alt="logo" height="100px" src="../../assets/images/LogoFortechBlanco.png">
+    
+    
+        <ion-label color="light" slot = "start">
+          <p [routerLink]="['../faq']">
+            FAQs
+          </p>
+          <p [routerLink]="['../locations']">
+          Ubicacion: Parque Industrial Z, Planta F29, Cartago<br>
+          </p>
+          <p>      
+            Contacto Tel: 2241-4722 Correo: administrativo@fortech.cr<br>  
+          </p>   
+        </ion-label>
+        <ion-label class="leftmargin" slot = "start" color="light">
+          Redes Sociales:    
+        </ion-label>
+        <a href="https://www.facebook.com/fortech.cr/">
+          <img class="leftmargin" alt="facebook" height="35px" src="../../assets/images/facebook.png"> 
+        </a>
+        <a href="https://www.instagram.com/fortechquimica/" >
+          <img  class="leftmargin" alt="instagram" height="40px" src="../../assets/images/instagram.png"> 
+        </a>
+        
+    
+        
+        <ion-label slot="end" color="light" style="margin-right: 10px;"> 
+          <p>Mariano Soto<br>
+            Francisco Pereira<br>
+            Kenner Ortiz<br>
+          </p>    
+        </ion-label>
+      </ion-toolbar>
+    </ion-footer>
 
 </ion-content>
-
-<ion-footer class="ion-no-border">
-  <ion-toolbar>
-    <img slot="start" alt="logo" height="100px" src="../../assets/images/LogoFortechBlanco.png">
-
-
-    <ion-label color="light" slot = "start">
-      <p [routerLink]="['../faq']">
-        FAQs
-      </p>
-      <p>
-        Ubicacion: Parque Industrial Z, Planta F29, Cartago<br>
-        Contacto Tel: 2241-4722 Correo: administrativo@fortech.cr<br>  
-      </p>   
-    </ion-label>
-    <ion-label class="leftmargin" slot = "start" color="light">
-      Redes Sociales:    
-    </ion-label>
-    <a href="https://www.facebook.com/fortech.cr/">
-      <img class="leftmargin" alt="facebook" height="35px" src="../../assets/images/facebook.png"> 
-    </a>
-    <a href="https://www.instagram.com/fortechquimica/" >
-      <img  class="leftmargin" alt="instagram" height="40px" src="../../assets/images/instagram.png"> 
-    </a>
-    
-
-    
-    <ion-label slot="end" color="light" style="margin-right: 10px;"> 
-      <p>Mariano Soto<br>
-        Francisco Pereira<br>
-        Kenner Ortiz<br>
-      </p>    
-    </ion-label>
-  </ion-toolbar>
-</ion-footer>
