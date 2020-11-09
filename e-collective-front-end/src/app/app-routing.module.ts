@@ -30,7 +30,15 @@ const routes: Routes = [
   {
     path: 'cart-modal',
     loadChildren: () => import('./cart-modal/cart-modal.module').then( m => m.CartModalPageModule)
+  },  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   }
+
 
 ];
 

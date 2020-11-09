@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Device } from 'src/models/device.model';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { CartModalPage } from '../cart-modal/cart-modal.page';
 import { CarritoService } from '../services/carrito.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   private dynamicColor: string;
   devices: Device[] = [
 
@@ -20,7 +21,8 @@ export class HomePage {
   productos = [];
   contadorItems: BehaviorSubject <number>;
 
-  constructor(/*private carritoCtrl: PopoverController*/ private carritoServicio: CarritoService,private modalCtrl: ModalController) {
+  constructor(/*private carritoCtrl: PopoverController*/ private carritoServicio: CarritoService, private modalCtrl: ModalController,
+                                                         private router: Router,) {
     this.dynamicColor = 'light';
   }
 
@@ -42,6 +44,10 @@ export class HomePage {
       cssClass: 'cart-modal'
     });
     modal.present();
+  }
+
+  onClickLogin() {
+    this.router.navigate(['/login']);
   }
 
 }

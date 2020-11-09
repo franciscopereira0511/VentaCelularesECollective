@@ -1,0 +1,40 @@
+<ion-content class="centered">
+
+  <ion-img class="logo-image" src="assets/images/e-collective.png"></ion-img>
+
+  <ion-card >
+    <ion-card-header lines="none">
+      <ion-card-title>Iniciar sesión</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="mail-outline"></ion-icon>
+          Correo electrónico
+        </ion-label>
+        <ion-input type="email" [(ngModel)]="inputUser"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          Contraseña
+        </ion-label>
+        <ion-input type="password" [(ngModel)]="inputPassword" (keydown.enter)="onClickLogin()"></ion-input>
+      </ion-item>
+
+      <ion-button mode="ios" expand="full" class="top-margin" (click)="onClickLogin()">Iniciar sesión</ion-button>
+
+<!--       <ion-button fill="clear" expand="full" mode="ios">
+        <ion-label>Olvidé mi contraseña</ion-label>
+      </ion-button> -->
+
+      <h3 class="top-margin">¿Eres nuevo en E-Collective?</h3>
+
+      <ion-button fill="clear" mode="ios" expand="full" (click)="onClickRegister()">Crear una cuenta</ion-button>
+
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>
