@@ -1,0 +1,21 @@
+ion-avatar { 
+    width: 30%;  
+    height: auto;  
+}
+
+ion-card {
+    max-width: 500px;
+    margin:auto;
+}
+
+ion-toolbar {
+    --background: #050446;
+}
+  
+ion-title {
+    color: white;
+}
+  
+ion-content {
+    --background: #f0f0f0; // Replace this with color of your choice
+}
