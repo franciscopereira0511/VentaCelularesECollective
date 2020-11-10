@@ -9,8 +9,8 @@
           <ion-label color="light">E - Collective</ion-label>
         </ion-button>
         <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar>
-        <ion-button mode="ios" fill="clear">
-          <ion-label color="light">Iniciar sesión</ion-label>
+        <ion-button mode="ios" fill="clear" (click)="addProduct()">
+          <ion-label color="light" >Iniciar sesión</ion-label>
         </ion-button>
         <ion-button mode="ios" fill="clear">
           <ion-label color="light">Registrarse</ion-label>
@@ -39,8 +39,8 @@
 
                 
               </div>
-              <ion-card-title>{{producto.nombre}} {{producto.modelo}}</ion-card-title>
-              <ion-label><b>₡ {{producto.precio}} c/IVA</b></ion-label>
+              <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
+              <ion-label><b>₡ {{producto.price}} c/IVA</b></ion-label>
             </ion-card-header>
             <ion-card-content>
 

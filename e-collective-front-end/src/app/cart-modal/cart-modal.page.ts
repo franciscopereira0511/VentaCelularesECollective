@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { CarritoService, Producto } from '../services/carrito.service';
+import { CarritoService } from '../services/carrito.service';
+import { Product } from '../models/product'
 
 @Component({
   selector: 'app-cart-modal',
@@ -8,7 +9,7 @@ import { CarritoService, Producto } from '../services/carrito.service';
   styleUrls: ['./cart-modal.page.scss'],
 })
 export class CartModalPage implements OnInit {
-  carro: Producto[] = [];
+  carro: Product[] = [];
 
   constructor(private carritoServicio: CarritoService, private modalCtr:ModalController) { }
 
@@ -16,8 +17,8 @@ export class CartModalPage implements OnInit {
     this.carro = this.carritoServicio.getCarro();
   }
 
-  decrementarProducto(producto){
-    this.carritoServicio.decrementarProducto(producto);
+  decrementarProducto(product){
+    this.carritoServicio.decrementarProducto(product);
   }
 
   incrementarProducto(product){
@@ -29,7 +30,7 @@ export class CartModalPage implements OnInit {
   }
 
   obtenerTotal(){
-    return this.carro.reduce((i,j) => i+ j.precio *j.cantidad,0);
+    return this.carro.reduce((i,j) => i+ j.price *j.quantity,0);
   }
 
 

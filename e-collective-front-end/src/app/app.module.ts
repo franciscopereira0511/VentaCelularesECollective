@@ -11,11 +11,21 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CartModalPageModule } from './cart-modal/cart-modal.module';
 
+//firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule}  from 'angularfire2/database';
+import { environment }  from '../environments/environment'
+
+
+//Services
+import {ProductService} from './services/product/product.service'
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, CartModalPageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, CartModalPageModule, AngularFireDatabaseModule, AngularFireModule.initializeApp(environment.firebase)],
   providers: [
+    ProductService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
