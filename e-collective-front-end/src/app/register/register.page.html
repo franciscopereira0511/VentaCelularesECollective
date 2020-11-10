@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Registrar usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card >
+    <ion-card-header lines="none">
+      <ion-card-title class="ion-text-center">Registrar usuario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="ion-text-center">
+        <ion-title size="small" color="dark">Foto de perfil</ion-title>
+        <ion-avatar style="margin:auto" height="300">
+          <img [src]="previewImage"><br>
+        </ion-avatar>
+    
+        <input style="display:none" type="file" accept="image/*" (change)="onProfilePictureSelected($event)" #fileInput>
+        <ion-button mode="ios" fill="clear" (click)="fileInput.click()">Seleccionar</ion-button>
+      </div>
+    
+      <form [formGroup]="userForm">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Nombre completo *</ion-label>
+            <ion-input formControlName="nombre"></ion-input> 
+          </ion-item>
+    
+          <ion-text *ngIf="!userForm.get('nombre').valid && userForm.get('nombre').touched" color="danger">
+            <p>Es necesario ingresar un nombre. </p>
+          </ion-text>
+    
+          <ion-item>
+            <ion-label position="floating">Fecha de nacimiento *</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" min="1910-03-14" formControlName="fchNacimiento"></ion-datetime>
+          </ion-item>
+    
+          <ion-text *ngIf="!userForm.get('fchNacimiento').valid && userForm.get('fchNacimiento').touched" color="danger">
+            <p>Es necesario ingresar una fecha de nacimiento. </p>
+          </ion-text>
+    
+          <ion-item>
+            <ion-label position="floating">Correo Electrónico *</ion-label>
+            <ion-input formControlName="correo"></ion-input> 
+          </ion-item>
+    
+          <ion-text *ngIf="!userForm.get('correo').valid && userForm.get('correo').touched" color="danger">
+            <p>Es necesario ingresar un correo electrónico válido para su cuenta. </p>
+          </ion-text>
+    
+          <ion-item>
+            <ion-label position="floating">Contraseña *</ion-label>
+            <ion-input formControlName="contrasena"></ion-input> 
+          </ion-item>
+    
+          <ion-text *ngIf="!userForm.get('contrasena').valid && userForm.get('contrasena').touched" color="danger">
+            <p>Es necesario ingresar una contraseña de 8 o más dígitos para su cuenta. </p>
+          </ion-text>
+        </ion-list>
+      </form>
+    
+      <ion-button 
+        expand="full" 
+        class="ion-margin-top"
+        (click)="onClickCreateUser()"
+        mode="ios"
+      >Registrar usuario
+      </ion-button>
+
+      <ion-item lines="none">
+        <h3>¿Ya tienes una cuenta?</h3>
+        <ion-button fill="clear" mode="ios" expand="full" (click)="onClickLogin()">
+          <h3>Iniciar sesión</h3>
+        </ion-button>
+        <h3>o</h3>
+        <ion-button fill="clear" mode="ios" expand="full" (click)="onClickHome()">
+          <h3>Volver al inicio</h3>
+        </ion-button>
+      </ion-item>
+
+
+
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
