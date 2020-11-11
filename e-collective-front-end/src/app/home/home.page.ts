@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CartModalPage } from '../cart-modal/cart-modal.page';
 import { CarritoService } from '../services/carrito.service';
 import { ProductService } from '../services/product/product.service'
-import { Product } from '../models/product';
+import { Product } from '../models/product/product';
 import { Router } from '@angular/router';
 
 @Component({
@@ -44,7 +44,6 @@ export class HomePage implements OnInit {
 
   agregarEnCarrito(producto){
     this.carritoServicio.agregarProducto(producto);
-
   }
 
   addProduct(){
@@ -75,4 +74,7 @@ export class HomePage implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  onClickRegister(){
+    this.router.navigate(['/register'])
+  }
 }

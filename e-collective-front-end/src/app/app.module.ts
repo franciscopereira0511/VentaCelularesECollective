@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { CartModalPageModule } from './cart-modal/cart-modal.module';
 
 //firebase
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule}  from 'angularfire2/database';
 import { environment }  from '../environments/environment'
@@ -25,6 +27,8 @@ import {ProductService} from './services/product/product.service'
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, CartModalPageModule, AngularFireDatabaseModule, AngularFireModule.initializeApp(environment.firebase)],
   providers: [
+    AngularFireAuth,
+    AngularFirestore,
     ProductService,
     StatusBar,
     SplashScreen,

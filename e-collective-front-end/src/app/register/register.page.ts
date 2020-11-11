@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { User } from '../models/user/user';
+import { AuthService } from '../services/auth/auth.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  styleUrls: ['./register.page.scss']
 })
 export class RegisterPage implements OnInit {
 
@@ -15,7 +18,8 @@ export class RegisterPage implements OnInit {
   previewImage: any = 'assets/avatar.svg';
 
   constructor(private fb: FormBuilder, private router: Router,
-              private toastCtrl: ToastController) { }
+              private toastCtrl: ToastController,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.userForm = this.fb.group({
@@ -63,18 +67,15 @@ export class RegisterPage implements OnInit {
       this.showToast('Favor llenar los campos marcados con asterisco (*).', 'danger');
     }
     else {
-      this.showToast('Usuario creado exitosamente.', 'success');
-
-      const usuario = {
+      const usuario: User = {
         email: this.userForm.get('correo').value,
         name: this.userForm.get('nombre').value,
         password: this.userForm.get('contrasena').value,
         birthdate: this.userForm.get('fchNacimiento').value,
         imageData: this.profilePicture
       };
-
-      // this.dataService.createUser(usuario);
-
+      this.authService.register(usuario.email,usuario.password);
+      this.showToast('Usuario creado exitosamente.', 'success');
       this.router.navigate(['/']);
     }
 

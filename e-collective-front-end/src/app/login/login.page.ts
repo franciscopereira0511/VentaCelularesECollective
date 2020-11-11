@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
+import { AuthService } from '../services/auth/auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -11,7 +13,7 @@ export class LoginPage implements OnInit {
   inputUser = '';
   inputPassword = '';
 
-  constructor(private router: Router, private toastCtrl: ToastController) { }
+  constructor(private router: Router, private toastCtrl: ToastController, private authService:AuthService) { }
 
   ngOnInit() {
     
@@ -28,7 +30,15 @@ export class LoginPage implements OnInit {
   }
 
   onClickLogin() {
-    this.router.navigate(['/courses'], {state: {
+
+    const usuario = {
+      email: this.inputUser,
+      password: this.inputPassword
+    }
+
+    this.authService.login(usuario.email,usuario.password);
+    
+    this.router.navigate(['/home'], {state: {
       user: this.inputUser
     }});
   }

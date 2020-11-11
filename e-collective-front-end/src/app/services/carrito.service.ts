@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 
-import {Product} from '../models/product'
-
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +24,7 @@ export class CarritoService {
   agregarProducto(producto){
     let agregado = false;
     for (const p of this.carro){
-      if (p.id === producto.id){
+      if (p.$id === producto.$id){
         p.quantity += 1;
         agregado = true;
         break;
@@ -40,7 +38,7 @@ export class CarritoService {
 
   decrementarProducto(producto){
     for (const [index, p] of this.carro.entries()){
-      if (p.id === producto.id){
+      if (p.$id === producto.$id){
         p.quantity -= 1;
         if (p.quantity == 0){
           this.carro.splice(index, 1);
@@ -52,7 +50,7 @@ export class CarritoService {
 
   eliminarProducto(producto){
     for (const [index, p] of this.carro.entries()){
-      if (p.id === producto.id){
+      if (p.$id === producto.$id){
         this.contadorItems.next(this.contadorItems.value - p.quantity);
         this.carro.splice(index, 1);
       }

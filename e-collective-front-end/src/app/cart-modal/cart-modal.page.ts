@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CarritoService } from '../services/carrito.service';
-import { Product } from '../models/product'
+import { Product } from '../models/product/product'
 
 @Component({
   selector: 'app-cart-modal',
@@ -15,21 +15,22 @@ export class CartModalPage implements OnInit {
 
   ngOnInit() {
     this.carro = this.carritoServicio.getCarro();
+    console.log(this.carritoServicio.getCarro());
   }
 
-  decrementarProducto(product){
+  decreaseProduct(product){
     this.carritoServicio.decrementarProducto(product);
   }
 
-  incrementarProducto(product){
+  increaseProduct(product){
     this.carritoServicio.agregarProducto(product);
   }
 
-  removerItem(product){
+  deleteProduct(product){
     this.carritoServicio.eliminarProducto(product)
   }
 
-  obtenerTotal(){
+  getTotal(){
     return this.carro.reduce((i,j) => i+ j.price *j.quantity,0);
   }
 
