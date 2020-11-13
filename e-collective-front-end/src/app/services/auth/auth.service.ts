@@ -19,10 +19,25 @@ export class AuthService {
   };
 
   constructor(private auth: AngularFireAuth, private firestore:AngularFirestore) { }
-
+ 
   login(email: string, password: string) {
     return this.auth.auth.signInWithEmailAndPassword(email, password)
   }
+
+  /*
+  login(email: string, password: string) {
+    this.auth.auth.signInWithEmailAndPassword(email, password).then
+    (
+      response => {
+        this.auth.auth.currentUser.getIdToken().then(function(jsonToken){
+          localStorage.setItem('token',jsonToken);
+          return jsonToken;
+        });
+      }
+    ).catch(error => console.log(error)
+    );
+  }
+*/
 
   register(email:string,password:string) {
     return this.auth.auth.createUserWithEmailAndPassword(email, password)

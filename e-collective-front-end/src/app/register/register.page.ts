@@ -5,6 +5,8 @@ import { ToastController } from '@ionic/angular';
 import { User } from '../models/user/user';
 import { AuthService } from '../services/auth/auth.service';
 import { AngularFirestore } from 'angularfire2/firestore';
+import * as firebase from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +21,8 @@ export class RegisterPage implements OnInit {
 
   constructor(private fb: FormBuilder, private router: Router,
               private toastCtrl: ToastController,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private firebase: AngularFireDatabase) { }
 
   ngOnInit() {
     this.userForm = this.fb.group({
@@ -72,11 +75,20 @@ export class RegisterPage implements OnInit {
         name: this.userForm.get('nombre').value,
         password: this.userForm.get('contrasena').value,
         birthdate: this.userForm.get('fchNacimiento').value,
-        imageData: this.profilePicture
+        imageData: this.profilePicture,
+        uid: ''
       };
-      this.authService.register(usuario.email,usuario.password);
-      this.showToast('Usuario creado exitosamente.', 'success');
-      this.router.navigate(['/']);
+      this.authService.register(usuario.email,usuario.password)
+      .then((res) =>{
+        usuario.uid = firebase.auth().currentUser.uid
+        this.firebase.list('users').push(usuario);
+        this.showToast('Usuario creado exitosamente.', 'success');
+        this.router.navigate(['/']);
+
+      }).catch((error) =>{
+        this.showToast('El correo ya está asociado a un usuario.', 'danger');
+      })
+
     }
 
   }

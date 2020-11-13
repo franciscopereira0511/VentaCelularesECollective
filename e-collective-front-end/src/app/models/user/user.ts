@@ -4,4 +4,5 @@ export class User {
     password:string;
     birthdate:string;
     imageData:File;
+    uid: string;
 }

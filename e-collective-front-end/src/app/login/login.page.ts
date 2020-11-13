@@ -36,11 +36,18 @@ export class LoginPage implements OnInit {
       password: this.inputPassword
     }
 
-    this.authService.login(usuario.email,usuario.password);
+    this.authService.login(usuario.email,usuario.password)
+    .then((res) =>{
+      this.showToast('Bienvenido!', 'success');
+      this.router.navigate(['/home'], {state: {
+        user: this.inputUser
+      }});
+
+    }).catch((error) =>{
+      this.showToast('Verifique sus credenciales.', 'danger');
+    })
     
-    this.router.navigate(['/home'], {state: {
-      user: this.inputUser
-    }});
+    
   }
 
   onClickRegister() {
