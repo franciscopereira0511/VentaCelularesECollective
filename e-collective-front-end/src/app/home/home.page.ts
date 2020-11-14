@@ -1,12 +1,14 @@
+import { AuthService } from './../services/auth/auth.service';
+import { User } from './../models/user/user';
 import { Component, OnInit } from '@angular/core';
 import { Device } from 'src/models/device.model';
 import { ModalController } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CartModalPage } from '../cart-modal/cart-modal.page';
 import { CarritoService } from '../services/carrito.service';
-import { ProductService } from '../services/product/product.service'
+import { ProductService } from '../services/product/product.service';
 import { Product } from '../models/product/product';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +21,37 @@ export class HomePage implements OnInit {
 
   ];
 
+  emailUsuario: string;
+  observableUsuario: Observable<any>;
+  usuario: User;
   carro = [];
-  producto:Product;
+  producto: Product;
   productos: Product[];
   contadorItems: BehaviorSubject <number>;
 
-  constructor( private carritoServicio: CarritoService,private modalCtrl: ModalController,private router: Router, private productService: ProductService) {
+  constructor( private carritoServicio: CarritoService,
+               private modalCtrl: ModalController,
+               private router: Router,
+               private productService: ProductService,
+               private auth: AuthService,
+               private route: ActivatedRoute) {
     this.dynamicColor = 'light';
+
+    // Se recupera por medio del state, el correo que se envió desde register o desde login
+    const state = this.router.getCurrentNavigation().extras.state;
+    if (state) {
+      this.emailUsuario = state.email ? state.email : '';
+      console.log(this.emailUsuario);
+    }
+
+    this.observableUsuario = this.auth.getUserData(this.emailUsuario);
+    this.observableUsuario.subscribe(user => {
+      if (user) {
+        this.usuario = user;
+        console.log(this.usuario);
+      }
+    });
+
   }
 
   ngOnInit(){
@@ -35,9 +61,9 @@ export class HomePage implements OnInit {
     .snapshotChanges().subscribe(item => {
       this.productos = [];
       item.forEach(element => {
-        let x = JSON.parse(JSON.stringify(element.payload));
-        x["$id"] = element.key;
-        this.productos.push(x as Product);
+        const productJSON = JSON.parse(JSON.stringify(element.payload));
+        productJSON.$id = element.key;
+        this.productos.push(productJSON as Product);
       });
     });
   }
@@ -47,20 +73,10 @@ export class HomePage implements OnInit {
   }
 
   addProduct(){
-    this.producto =  {$id: 'fre6hh', name: 'Iphone', model: 'Galaxy 6', price: 284900, quantity: 1, imgUrl: '../../assets/images/Iphone.jpg'}
+    this.producto =  {$id: 'fre6hh', name: 'Iphone', model: 'Galaxy 6', price: 284900, quantity: 1, imgUrl: '../../assets/images/Iphone.jpg'};
     this.productService.insertProduct(this.producto);
   }
-  /*= [
-    {id: '34f3rv', name: 'Iphone', model: '9', price: 284000, quantity: 1, imgUrl: '../../assets/images/Iphone.jpg'},
-    {$id: 'gtr45d', name: 'Samsung', model: 'Galaxy 4', price: 128000, quantity: 1, imgUrl: '../../assets/images/Samsung.jpg'},
-    {$id: 'vre3d2', name: 'Huaweii', model: 'P30', price: 250000, quantity: 1, imgUrl: '../../assets/images/Huaweii.jpg'},
-    {$id: 'grtr2d', name: 'Samsung', model: 'a5', price: 194000, quantity: 1, imgUrl: '../../assets/images/Samsung.jpg'},
-    {$id: 'gre32e', name: 'Iphone', model: '9', price: 288000, quantity: 1, imgUrl: '../../assets/images/Iphone.jpg'},
-    {$id: 'ferr3d', name: 'Iphone', model: '7', price: 235770, quantity: 1, imgUrl: '../../assets/images/Iphone.jpg'},
-    {$id: 'f3r3rg', name: 'Huaweii', model: 'P40', price: 345678, quantity: 1, imgUrl: '../../assets/images/Huaweii.jpg'},
-    {$id: 'vre34v', name: 'Samsung', model: 'a7', price: 232300, quantity: 1, imgUrl: '../../assets/images/Samsung.jpg'},
-    {$id: 'fre6hh', name: 'Iphone', model: 'Galaxy 6', price: 284900, quantity: 1, imgUrl: '../../assets/images/Iphone.jpg'}
-  ];*/
+
   async abrirCarrito(){
     const modal = await this.modalCtrl.create({
       component: CartModalPage,
@@ -75,6 +91,6 @@ export class HomePage implements OnInit {
   }
 
   onClickRegister(){
-    this.router.navigate(['/register'])
+    this.router.navigate(['/register']);
   }
 }

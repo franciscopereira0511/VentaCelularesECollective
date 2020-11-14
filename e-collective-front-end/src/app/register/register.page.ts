@@ -78,16 +78,20 @@ export class RegisterPage implements OnInit {
         imageData: this.profilePicture,
         uid: ''
       };
-      this.authService.register(usuario.email,usuario.password)
-      .then((res) =>{
-        usuario.uid = firebase.auth().currentUser.uid
+      console.log(this.profilePicture);
+      this.authService.register(usuario.email, usuario.password);
+/*       .then((res) => {
+        usuario.uid = firebase.auth().currentUser.uid;
         this.firebase.list('users').push(usuario);
-        this.showToast('Usuario creado exitosamente.', 'success');
-        this.router.navigate(['/']);
+        this.showToast('Usuario creado exitosamente.', 'success'); */
 
-      }).catch((error) =>{
+      this.router.navigate(['/'],
+        {state:{ email: usuario.email}}
+      );
+
+/*       }).catch((error) => {
         this.showToast('El correo ya está asociado a un usuario.', 'danger');
-      })
+      }); */
 
     }
 

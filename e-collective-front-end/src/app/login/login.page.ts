@@ -13,10 +13,10 @@ export class LoginPage implements OnInit {
   inputUser = '';
   inputPassword = '';
 
-  constructor(private router: Router, private toastCtrl: ToastController, private authService:AuthService) { }
+  constructor(private router: Router, private toastCtrl: ToastController, private authService: AuthService) { }
 
   ngOnInit() {
-    
+
   }
 
   async showToast(msg: string, pColor: string) {
@@ -34,20 +34,18 @@ export class LoginPage implements OnInit {
     const usuario = {
       email: this.inputUser,
       password: this.inputPassword
-    }
+    };
 
-    this.authService.login(usuario.email,usuario.password)
-    .then((res) =>{
-      this.showToast('Bienvenido!', 'success');
+    this.authService.login(usuario.email, usuario.password)
+    .then((res) => {
+      this.showToast('¡Bienvenido!', 'success');
       this.router.navigate(['/home'], {state: {
-        user: this.inputUser
+        email: this.inputUser
       }});
 
-    }).catch((error) =>{
+    }).catch((error) => {
       this.showToast('Verifique sus credenciales.', 'danger');
-    })
-    
-    
+    });
   }
 
   onClickRegister() {
