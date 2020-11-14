@@ -23,6 +23,7 @@ export class HomePage implements OnInit {
 
   emailUsuario: string;
   observableUsuario: Observable<any>;
+
   usuario: User;
   carro = [];
   producto: Product;
@@ -37,22 +38,24 @@ export class HomePage implements OnInit {
                private route: ActivatedRoute) {
     this.dynamicColor = 'light';
 
-    // Se recupera por medio del state, el correo que se envió desde register o desde login
-    const state = this.router.getCurrentNavigation().extras.state;
-    if (state) {
-      this.emailUsuario = state.email ? state.email : '';
-      console.log(this.emailUsuario);
-    }
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.emailUsuario = this.router.getCurrentNavigation().extras.state.email;
+        console.log(this.emailUsuario);
 
-    this.observableUsuario = this.auth.getUserData(this.emailUsuario);
-    this.observableUsuario.subscribe(user => {
-      if (user) {
-        this.usuario = user;
-        console.log(this.usuario);
+        this.observableUsuario = this.auth.getUserData(this.emailUsuario);
+        this.observableUsuario.subscribe(user => {
+          if (user) {
+            this.usuario = user;
+            console.log(this.usuario);
+          }
+        });
       }
     });
 
   }
+
+
 
   ngOnInit(){
     this.carro = this.carritoServicio.getCarro();

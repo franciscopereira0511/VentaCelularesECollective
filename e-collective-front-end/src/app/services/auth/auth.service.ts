@@ -2,26 +2,24 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-//import { AngularFireDatabase } from 'angularfire2/database'
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
-  private loginID:string="";
+
+  private loginID = '';
   private user =
   {
-    name:"",
-    birthdate:"",
-    email:"",
-    id:""
+    name: '',
+    birthdate: '',
+    email: '',
+    id: ''
   };
 
-  constructor(private auth: AngularFireAuth, private firestore:AngularFirestore) { }
- 
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore) { }
+
   login(email: string, password: string) {
-    return this.auth.auth.signInWithEmailAndPassword(email, password)
+    return this.auth.auth.signInWithEmailAndPassword(email, password);
   }
 
   /*
@@ -39,8 +37,8 @@ export class AuthService {
   }
 */
 
-  register(email:string,password:string) {
-    return this.auth.auth.createUserWithEmailAndPassword(email, password)
+  register(email: string, password: string) {
+    return this.auth.auth.createUserWithEmailAndPassword(email, password);
   }
 
 /*
@@ -60,7 +58,7 @@ export class AuthService {
     this.user = user;
     this.loginID = user.id;
   }
-  
+
   getUser(){
     return this.user;
   }
@@ -74,14 +72,14 @@ export class AuthService {
   }
 
   getUserData(email){
-    return this.firestore.collection('users',ref=>ref.where('email','==',email)).valueChanges({idField: 'id'});
+    return this.firestore.collection('users', ref => ref.where('email', '==', email)).valueChanges({idField: 'id'});
   }
-  
-  setUserData(user,uid){
+
+  setUserData(user, uid){
     return this.firestore.collection('users').doc(uid).set({
-      name:user.name,
-      birthdate:user.birthdate,
-      email:user.email
+      name: user.name,
+      birthdate: user.birthdate,
+      email: user.email
     });
   }
 

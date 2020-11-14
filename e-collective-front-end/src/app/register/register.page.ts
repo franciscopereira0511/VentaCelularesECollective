@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { User } from '../models/user/user';
 import { AuthService } from '../services/auth/auth.service';
@@ -78,20 +78,23 @@ export class RegisterPage implements OnInit {
         imageData: this.profilePicture,
         uid: ''
       };
-      console.log(this.profilePicture);
-      this.authService.register(usuario.email, usuario.password);
-/*       .then((res) => {
+
+      const navigationExtras: NavigationExtras = {
+        state: {
+          email: usuario.email
+        }
+      };
+
+      this.authService.register(usuario.email, usuario.password)
+       .then((res) => {
         usuario.uid = firebase.auth().currentUser.uid;
         this.firebase.list('users').push(usuario);
-        this.showToast('Usuario creado exitosamente.', 'success'); */
+        this.showToast('Usuario creado exitosamente.', 'success');
+        this.router.navigate(['home'], navigationExtras);
 
-      this.router.navigate(['/'],
-        {state:{ email: usuario.email}}
-      );
-
-/*       }).catch((error) => {
+       }).catch((error) => {
         this.showToast('El correo ya está asociado a un usuario.', 'danger');
-      }); */
+      });
 
     }
 

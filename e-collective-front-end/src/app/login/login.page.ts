@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 import { AuthService } from '../services/auth/auth.service';
@@ -36,12 +36,18 @@ export class LoginPage implements OnInit {
       password: this.inputPassword
     };
 
+    const navigationExtras: NavigationExtras = {
+      state: {
+        email: this.inputUser
+      }
+    };
+
+
     this.authService.login(usuario.email, usuario.password)
     .then((res) => {
       this.showToast('¡Bienvenido!', 'success');
-      this.router.navigate(['/home'], {state: {
-        email: this.inputUser
-      }});
+
+      this.router.navigate(['home'], navigationExtras);
 
     }).catch((error) => {
       this.showToast('Verifique sus credenciales.', 'danger');
