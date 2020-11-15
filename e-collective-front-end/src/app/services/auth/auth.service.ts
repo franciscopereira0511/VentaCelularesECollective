@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage'
+import { firestore } from 'firebase';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators'
+import { User } from 'src/app/models/user/user';
+import { UsersService } from '../users/users.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,55 +15,54 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AuthService {
 
   private loginID = '';
-  private user =
-  {
-    name: '',
-    birthdate: '',
-    email: '',
-    id: ''
-  };
+  private user : User = new User();
+  private filePath:any;
+  private downloadURL: Observable<string>;
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore) { }
+  constructor(private auth: AngularFireAuth, 
+              private firestore: AngularFirestore,
+              private storage: AngularFireStorage,
+              private userService: UsersService) { }
 
+
+            
   login(email: string, password: string) {
     return this.auth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  /*
-  login(email: string, password: string) {
-    this.auth.auth.signInWithEmailAndPassword(email, password).then
-    (
-      response => {
-        this.auth.auth.currentUser.getIdToken().then(function(jsonToken){
-          localStorage.setItem('token',jsonToken);
-          return jsonToken;
-        });
-      }
-    ).catch(error => console.log(error)
-    );
-  }
-*/
 
   register(email: string, password: string) {
     return this.auth.auth.createUserWithEmailAndPassword(email, password);
   }
 
-/*
- register(email: string, password: string) {
-    return new Promise((resolve,reject) =>{
-      this.auth.auth.createUserWithEmailAndPassword(email, password)
-    .then(user => resolve(user),
-    error => reject(error));
-    });
+  uploadImage(user:User,image:File){
+    this.filePath = `users/${image.name}`;
+
+    const fileRef = this.storage.ref(this.filePath);
+    const task = this.storage.upload(this.filePath,image);
+
+    task.snapshotChanges()
+    .pipe(
+      finalize(()=>{
+        fileRef.getDownloadURL().subscribe(urlImage =>{
+          this.downloadURL = urlImage;
+          console.log('IMG_URL: ',urlImage);
+          user.imageData = this.downloadURL;
+          console.log(user);
+          this.userService.insertUser(user);
+          this.setUser(user);
+        })
+      })
+    ).subscribe();
   }
-*/
+
   logout() {
     this.auth.auth.signOut();
   }
 
   setUser(user){
     this.user = user;
-    this.loginID = user.id;
+    this.loginID = user.email;
   }
 
   getUser(){
@@ -68,18 +74,19 @@ export class AuthService {
   }
 
   getLogin(){
-    return this.loginID;
+    return this.loginID; 
   }
 
   getUserData(email){
-    return this.firestore.collection('users', ref => ref.where('email', '==', email)).valueChanges({idField: 'id'});
+    return this.firestore.collection<User>('users', ref => ref.where('email', '==', email)).valueChanges({idField: 'id'});
   }
 
   setUserData(user, uid){
     return this.firestore.collection('users').doc(uid).set({
       name: user.name,
       birthdate: user.birthdate,
-      email: user.email
+      email: user.email,
+      imageData: user.profilePhoto
     });
   }
 

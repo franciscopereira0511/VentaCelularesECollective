@@ -9,6 +9,8 @@ import { CarritoService } from '../services/carrito.service';
 import { ProductService } from '../services/product/product.service';
 import { Product } from '../models/product/product';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as firebase from 'firebase';
+import { UsersService } from '../services/users/users.service';
 
 @Component({
   selector: 'app-home',
@@ -24,10 +26,10 @@ export class HomePage implements OnInit {
   emailUsuario: string;
   observableUsuario: Observable<any>;
 
-  usuario: User;
+  usuario: User = new User();
   carro = [];
   producto: Product;
-  productos: Product[];
+  productos: Product[] = [];
   contadorItems: BehaviorSubject <number>;
 
   constructor( private carritoServicio: CarritoService,
@@ -35,7 +37,8 @@ export class HomePage implements OnInit {
                private router: Router,
                private productService: ProductService,
                private auth: AuthService,
-               private route: ActivatedRoute) {
+               private route: ActivatedRoute,
+               private userService:UsersService) {
     this.dynamicColor = 'light';
 
     this.route.queryParams.subscribe(params => {
@@ -43,21 +46,51 @@ export class HomePage implements OnInit {
         this.emailUsuario = this.router.getCurrentNavigation().extras.state.email;
         console.log(this.emailUsuario);
 
-        this.observableUsuario = this.auth.getUserData(this.emailUsuario);
-        this.observableUsuario.subscribe(user => {
+        //this.observableUsuario = this.auth.getUserData(this.emailUsuario);
+        if (firebase.auth().currentUser != null){
+          this.usuario = this.auth.getUser();
+
+          console.log(this.usuario);
+
+          const usuarioActual:Product  = {
+            $id : '',
+            name : this.usuario.name,
+            model : this.usuario.password,
+            price : 5000,
+            quantity : 10,
+            imgUrl: this.usuario.imageData
+            }
+            console.log(this.usuario.imageData);
+            this.productos.push(usuarioActual as Product);
+
+        }
+/*        this.observableUsuario.subscribe(user => {
           if (user) {
             this.usuario = user;
             console.log(this.usuario);
+
+            const usuarioActual:Product  = {
+              $id : '',
+              name : this.usuario.name,
+              model : this.usuario.password,
+              price : 5000,
+              quantity : 10,
+              imgUrl: this.usuario.imageData
+              }
+              console.log(this.usuario.imageData);
+              this.productos.push(usuarioActual as Product);
+            
+
           }
-        });
+        });*/
       }
     });
 
   }
 
 
-
   ngOnInit(){
+    this.userService.getUsers();
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
     return this.productService.getProducts()

@@ -17,6 +17,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule}  from 'angularfire2/database';
 import { environment }  from '../environments/environment'
+import { AngularFireStorageModule } from '@angular/fire/storage'
 
 
 //Services
@@ -25,7 +26,7 @@ import {ProductService} from './services/product/product.service'
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, CartModalPageModule, AngularFireDatabaseModule, AngularFireModule.initializeApp(environment.firebase)],
+  imports: [BrowserModule, AngularFireStorageModule,IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, CartModalPageModule, AngularFireDatabaseModule, AngularFireModule.initializeApp(environment.firebase)],
   providers: [
     AngularFireAuth,
     AngularFirestore,

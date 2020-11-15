@@ -3,6 +3,6 @@ export class User {
     name:string;
     password:string;
     birthdate:string;
-    imageData:File;
+    imageData:any;
     uid: string;
 }

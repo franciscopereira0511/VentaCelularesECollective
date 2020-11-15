@@ -4,9 +4,10 @@ import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { User } from '../models/user/user';
 import { AuthService } from '../services/auth/auth.service';
-import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
+import { UsersService } from '../services/users/users.service';
 
 @Component({
   selector: 'app-register',
@@ -14,15 +15,18 @@ import { AngularFireDatabase } from 'angularfire2/database';
   styleUrls: ['./register.page.scss']
 })
 export class RegisterPage implements OnInit {
-
   userForm: FormGroup;
   profilePicture: File = null;
+  filePath:any;
+  downloadURL: Observable<string>;
+
   previewImage: any = 'assets/avatar.svg';
 
   constructor(private fb: FormBuilder, private router: Router,
               private toastCtrl: ToastController,
               private authService: AuthService,
-              private firebase: AngularFireDatabase) { }
+              private firestore: AngularFirestore,
+              private userService: UsersService) { }
 
   ngOnInit() {
     this.userForm = this.fb.group({
@@ -57,6 +61,7 @@ export class RegisterPage implements OnInit {
     }
   }
 
+
   onClickLogin() {
     this.router.navigate(['/login']);
   }
@@ -64,6 +69,8 @@ export class RegisterPage implements OnInit {
   onClickHome() {
     this.router.navigate(['/']);
   }
+
+
 
   onClickCreateUser() {
     if (!this.userForm.valid){
@@ -86,11 +93,17 @@ export class RegisterPage implements OnInit {
       };
 
       this.authService.register(usuario.email, usuario.password)
-       .then((res) => {
+       .then( (res) => {
         usuario.uid = firebase.auth().currentUser.uid;
-        this.firebase.list('users').push(usuario);
+         if(usuario.imageData != null){
+          this.authService.uploadImage(usuario,this.profilePicture);
+          
+         }
+        else{
+          this.userService.insertUser(usuario);
+        }
         this.showToast('Usuario creado exitosamente.', 'success');
-        this.router.navigate(['home'], navigationExtras);
+        this.router.navigate(['login'], navigationExtras);
 
        }).catch((error) => {
         this.showToast('El correo ya está asociado a un usuario.', 'danger');
