@@ -1,5 +1,7 @@
+import { query } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import * as firebase from 'firebase';
 import { User } from 'src/app/models/user/user';
 
 @Injectable({
@@ -14,6 +16,18 @@ export class UsersService {
 
   getUsers(){
     return this.users = this.firebase.list('users');
+  }
+
+  getUser(email){
+    var user;
+    const db = firebase.database().ref('users/');
+    const documento = db.child('users').orderByChild('email').equalTo(email);
+    documento.once("value")
+    .then(function(snapshot) {
+      user = snapshot.val();
+  });
+  
+    return user;
   }
 
   insertUser(user: User){

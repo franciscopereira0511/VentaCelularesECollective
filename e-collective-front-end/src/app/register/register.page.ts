@@ -7,7 +7,6 @@ import { AuthService } from '../services/auth/auth.service';
 import * as firebase from 'firebase';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
-import { UsersService } from '../services/users/users.service';
 
 @Component({
   selector: 'app-register',
@@ -25,8 +24,7 @@ export class RegisterPage implements OnInit {
   constructor(private fb: FormBuilder, private router: Router,
               private toastCtrl: ToastController,
               private authService: AuthService,
-              private firestore: AngularFirestore,
-              private userService: UsersService) { }
+              private firestore: AngularFirestore) { }
 
   ngOnInit() {
     this.userForm = this.fb.group({
@@ -96,12 +94,13 @@ export class RegisterPage implements OnInit {
        .then( (res) => {
         usuario.uid = firebase.auth().currentUser.uid;
          if(usuario.imageData != null){
-          this.authService.uploadImage(usuario,this.profilePicture);
-          
+          this.authService.uploadImage(usuario,this.profilePicture); 
          }
         else{
-          this.userService.insertUser(usuario);
+          usuario.imageData = 'assets/avatar.svg'
+          this.firestore.collection('users').add(usuario);
         }
+        
         this.showToast('Usuario creado exitosamente.', 'success');
         this.router.navigate(['login'], navigationExtras);
 

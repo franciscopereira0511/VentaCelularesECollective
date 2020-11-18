@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage'
-import { firestore } from 'firebase';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators'
+import { AngularFirestore } from 'angularfire2/firestore';
+import * as firebase from 'firebase';
+import { Observable, Subject } from 'rxjs';
+import { finalize, map } from 'rxjs/operators'
 import { User } from 'src/app/models/user/user';
-import { UsersService } from '../users/users.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private fooSubject = new Subject<any>();
 
   private loginID = '';
   private user : User = new User();
@@ -20,9 +20,8 @@ export class AuthService {
   private downloadURL: Observable<string>;
 
   constructor(private auth: AngularFireAuth, 
-              private firestore: AngularFirestore,
-              private storage: AngularFireStorage,
-              private userService: UsersService) { }
+              private firestore : AngularFirestore,
+              private storage: AngularFireStorage) { }
 
 
             
@@ -30,6 +29,12 @@ export class AuthService {
     return this.auth.auth.signInWithEmailAndPassword(email, password);
   }
 
+  setSubject(data){
+    this.fooSubject.next(data);
+  }
+  getObservable(): Subject<any> {
+    return this.fooSubject;
+}
 
   register(email: string, password: string) {
     return this.auth.auth.createUserWithEmailAndPassword(email, password);
@@ -49,7 +54,7 @@ export class AuthService {
           console.log('IMG_URL: ',urlImage);
           user.imageData = this.downloadURL;
           console.log(user);
-          this.userService.insertUser(user);
+          this.firestore.collection('users').add(user);
           this.setUser(user);
         })
       })
@@ -77,8 +82,20 @@ export class AuthService {
     return this.loginID; 
   }
 
-  getUserData(email){
-    return this.firestore.collection<User>('users', ref => ref.where('email', '==', email)).valueChanges({idField: 'id'});
+  getUserByEmail(email: string): Observable<User> {
+    return this.firestore.collection<User>('users', ref => ref.where('email','==', email))
+      .snapshotChanges()
+      .pipe(map(users => {
+        const user = users[0];
+        if (user) {
+          const data = user.payload.doc.data() as User;
+          const id = user.payload.doc.id;
+          return data;
+        }
+        else {
+          return null;
+        }
+      }));
   }
 
   setUserData(user, uid){
@@ -89,6 +106,7 @@ export class AuthService {
       imageData: user.profilePhoto
     });
   }
+
 
   resetPassword(email){
     return this.auth.auth.sendPasswordResetEmail(email);

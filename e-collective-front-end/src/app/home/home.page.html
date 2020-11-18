@@ -9,12 +9,25 @@
           <ion-label color="light">E - Collective</ion-label>
         </ion-button>
         <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar>
-        <ion-button mode="ios" fill="clear" (click)= "onClickLogin()">
-          <ion-label color="light">Iniciar sesión</ion-label>
-        </ion-button>
-        <ion-button mode="ios" fill="clear" (click) = "onClickRegister()">
-          <ion-label color="light">Registrarse</ion-label>
-        </ion-button>
+
+        <div style="display: flex; align-items: center; justify-content: center;" *ngIf="(observableUser | async) as user; else noLogin">
+          <ion-button mode="ios" fill="clear" (click)= "onClickLogin()">
+            <ion-label color="light">{{user.name}}</ion-label>
+          </ion-button>
+          <ion-button mode="ios" fill="clear" (click)= "onClickLogin()">
+            <ion-label color="light">Cerrar sesión</ion-label>
+          </ion-button> 
+        </div>
+        
+        <ng-template #noLogin>
+          <ion-button mode="ios" fill="clear" (click)= "onClickLogin()">
+            <ion-label color="light">Iniciar sesión</ion-label>
+          </ion-button>
+          <ion-button mode="ios" fill="clear" (click) = "onClickRegister()">
+            <ion-label color="light">Registrarse</ion-label>
+          </ion-button>
+        </ng-template>
+
         <ion-button slot="end" fill="clear" (click)= "abrirCarrito()" #carro>
           <div class = "cart-lenght"> {{contadorItems | async}} </div>
           <ion-icon name = "cart" class = "cart-icon"></ion-icon>        
@@ -25,6 +38,9 @@
 </ion-header>
 
 <ion-content >
+
+
+
     <ion-grid>
       <ion-row>
         <ion-col size-xl="3" size-md="6" size-xs="12" *ngFor="let producto of productos">

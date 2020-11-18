@@ -7,17 +7,31 @@
     </ion-header>
       <ion-content>
         <ion-list>
-  
-          <ion-item lines="none">
-            <ion-avatar>
-              <img src="assets/avatar.svg">
-            </ion-avatar>
-          </ion-item>
-  
-          <div class="ion-text-center">
-            <h6><b>Hola, Usuario</b></h6>
+          
+          <div *ngIf = "user; else noUser">
+            <ion-item lines="none">
+              <ion-avatar>
+                <img [src] = "user.imageData" >
+              </ion-avatar>
+            </ion-item>
+
+            <div class="ion-text-center" *ngIf = "user; else noUser">
+              <h6><b>Hola, {{user.name}}</b></h6>
+            </div> 
           </div>
-  
+        
+          <ng-template #noUser>
+            <ion-item lines="none">
+              <ion-avatar>
+                <img src="assets/avatar.svg">
+              </ion-avatar>
+            </ion-item>
+
+            <div class="ion-text-center">
+              <h6><b>Hola, Usuario</b></h6>
+            </div>
+          </ng-template>
+
           <ion-menu-toggle>
             <ion-button fill="clear" expand="full" mode="ios"> <!--(click)="onClickEditarPerfil()" [routerLink]="['../perfil']"-->
               <ion-label>Editar perfil</ion-label>
@@ -58,13 +72,26 @@
               <ion-label>Preguntas frecuentes</ion-label>
             </ion-item>
           </ion-menu-toggle>
-  
-          <ion-menu-toggle>
-            <ion-item lines="none" button>
-              <ion-icon color="danger" name="log-out-sharp" slot="start"></ion-icon>
-              <ion-label color="danger">Cerrar Sesión</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
+          
+          <div *ngIf = "user && user.email == admin">
+
+            <ion-menu-toggle>
+              <ion-item lines="none" button [routerLink]="['../faq']"> 
+                <ion-icon name="bar-chart-outline" slot = "start"></ion-icon>
+                <ion-label>Administrar</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+
+
+            <ion-menu-toggle>
+              <ion-item lines="none" button (click)= "onClickLogOut()">
+                <ion-icon color="danger" name="log-out-sharp" slot="start" ></ion-icon>
+                <ion-label color="danger">Cerrar Sesión</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+            
+
+          </div>
   
         </ion-list>
       </ion-content>
