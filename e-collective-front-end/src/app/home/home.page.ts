@@ -11,6 +11,9 @@ import { Product } from '../models/product/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { tap } from 'rxjs/operators';
+import { MatDialog,MatDialogRef } from '@angular/material/dialog';
+import { BannerComponent } from '../banner/banner.component'
+import { AdComponent } from '../ad/ad.component'
 
 @Component({
   selector: 'app-home',
@@ -35,8 +38,10 @@ export class HomePage implements OnInit {
                private modalCtrl: ModalController,
                private router: Router,
                private productService: ProductService,
-               private auth: AuthService,
-               private route: ActivatedRoute) {
+               private auth: AuthService,             
+               private route: ActivatedRoute,
+               private dialog: MatDialog,
+               ) {
     this.dynamicColor = 'light';
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -64,6 +69,7 @@ export class HomePage implements OnInit {
 
 
   ngOnInit(){
+    let x = this.dialog.open(AdComponent,{});
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
     return this.productService.getProducts()

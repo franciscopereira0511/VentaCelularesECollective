@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CartModalPageModule } from './cart-modal/cart-modal.module';
+import {CommonModule} from '@angular/common';
 
 //firebase
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -23,10 +24,19 @@ import { AngularFireStorageModule } from '@angular/fire/storage'
 //Services
 import {ProductService} from './services/product/product.service'
 
+//Materials
+import {MatDialogModule} from '@angular/material/dialog';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, AngularFireStorageModule,IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, CartModalPageModule, AngularFireDatabaseModule, AngularFireModule.initializeApp(environment.firebase)],
+  imports: [BrowserModule, 
+    AngularFireStorageModule,IonicModule.forRoot(),
+     AppRoutingModule, BrowserAnimationsModule, 
+     CartModalPageModule, AngularFireDatabaseModule,
+      AngularFireModule.initializeApp(environment.firebase),
+      CommonModule,
+      MatDialogModule,],
   providers: [
     AngularFireAuth,
     AngularFirestore,
