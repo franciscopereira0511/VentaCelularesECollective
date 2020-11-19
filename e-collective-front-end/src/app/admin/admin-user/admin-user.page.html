@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-button mode="ios" fill="clear" slot="end" href="/home">
+      <ion-label color="light">E - Collective</ion-label>
+    </ion-button>
+    
+    <ion-title>Administrativo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col class = "center" size-xl="3" size-md="6" size-xs="12" >
+        <ion-card>
+          <ion-card-header (click)="toEmployees()">
+
+            <div style="display: flex; align-items: center; justify-content: center;">
+            <img class="deviceImage" src="https://icon-library.com/images/employee-icon-png/employee-icon-png-27.jpg" />
+            </div>
+            <ion-card-title style="display: flex; align-items: center; justify-content: center;" >Empleados</ion-card-title>
+
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-button mode="ios" expand="block" (click)="toEmployees()">
+              <ion-icon name="body-outline"></ion-icon> Administrar
+            </ion-button> 
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col class = "center" size-xl="3" size-md="6" size-xs="12">
+        <ion-card>
+          <ion-card-header (click)="toProducts()">
+
+            <div style="display: flex; align-items: center; justify-content: center;">
+            <img class="deviceImage" src="https://image.flaticon.com/icons/png/512/107/107831.png" />
+            </div>
+            <ion-card-title style="display: flex; align-items: center; justify-content: center;">Productos</ion-card-title>
+
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-button mode="ios" expand="block" (click)="toProducts()">
+              <ion-icon name="cart-outline"></ion-icon> Administrar
+            </ion-button> 
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col class = "center" size-xl="3" size-md="6" size-xs="12">
+        <ion-card>
+          <ion-card-header (click)="toOffers()"> 
+
+            <div style="display: flex; align-items: center; justify-content: center;">
+            <img class="deviceImage" src="https://cdn.iconscout.com/icon/free/png-256/offers-1817266-1538138.png" />
+            </div>
+            <ion-card-title style="display: flex; align-items: center; justify-content: center;">Promociones</ion-card-title>
+
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-button mode="ios" expand="block" (click)="toOffers()">
+              <ion-icon name="megaphone-outline"></ion-icon> Administrar
+            </ion-button> 
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

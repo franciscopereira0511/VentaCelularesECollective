@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CartModalPageModule } from './cart-modal/cart-modal.module';
 
+
 //firebase
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -21,7 +22,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage'
 
 
 //Services
-import {ProductService} from './services/product/product.service'
+import {ProductsService} from './services/products/products.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +31,7 @@ import {ProductService} from './services/product/product.service'
   providers: [
     AngularFireAuth,
     AngularFirestore,
-    ProductService,
+    ProductsService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

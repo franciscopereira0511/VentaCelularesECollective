@@ -7,6 +7,8 @@ import { AuthService } from '../services/auth/auth.service';
 import * as firebase from 'firebase';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
+import * as _ from 'lodash';
+
 
 @Component({
   selector: 'app-register',
@@ -75,10 +77,11 @@ export class RegisterPage implements OnInit {
       this.showToast('Favor llenar los campos marcados con asterisco (*).', 'danger');
     }
     else {
+      const credenciales = this.userForm.get('contrasena').value;
       const usuario: User = {
         email: this.userForm.get('correo').value,
         name: this.userForm.get('nombre').value,
-        password: this.userForm.get('contrasena').value,
+        rol: 3,
         birthdate: this.userForm.get('fchNacimiento').value,
         imageData: this.profilePicture,
         uid: ''
@@ -90,7 +93,7 @@ export class RegisterPage implements OnInit {
         }
       };
 
-      this.authService.register(usuario.email, usuario.password)
+      this.authService.register(usuario.email, credenciales)
        .then( (res) => {
         usuario.uid = firebase.auth().currentUser.uid;
          if(usuario.imageData != null){
@@ -98,7 +101,7 @@ export class RegisterPage implements OnInit {
          }
         else{
           usuario.imageData = 'assets/avatar.svg'
-          this.firestore.collection('users').add(usuario);
+          this.firestore.collection('users').doc(usuario.email).set(_.omit(usuario, ['email']));
         }
         
         this.showToast('Usuario creado exitosamente.', 'success');

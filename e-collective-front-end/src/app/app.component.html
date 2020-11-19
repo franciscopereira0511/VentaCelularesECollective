@@ -73,10 +73,10 @@
             </ion-item>
           </ion-menu-toggle>
           
-          <div *ngIf = "user && user.email == admin">
+          <div *ngIf = "user && (user.rol == 1 || user.rol == 2)">
 
             <ion-menu-toggle>
-              <ion-item lines="none" button [routerLink]="['../faq']"> 
+              <ion-item lines="none" button [routerLink]="['../admin-user']"> 
                 <ion-icon name="bar-chart-outline" slot = "start"></ion-icon>
                 <ion-label>Administrar</ion-label>
               </ion-item>

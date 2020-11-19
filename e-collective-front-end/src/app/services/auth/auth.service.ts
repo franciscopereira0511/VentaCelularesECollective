@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorage } from '@angular/fire/storage'
-import { AngularFirestore } from 'angularfire2/firestore';
-import * as firebase from 'firebase';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable, Subject } from 'rxjs';
 import { finalize, map } from 'rxjs/operators'
 import { User } from 'src/app/models/user/user';
-
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private fooSubject = new Subject<any>();
-
+  usersList: AngularFirestoreCollection<User>;;
   private loginID = '';
   private user : User = new User();
   private filePath:any;
@@ -54,7 +53,7 @@ export class AuthService {
           console.log('IMG_URL: ',urlImage);
           user.imageData = this.downloadURL;
           console.log(user);
-          this.firestore.collection('users').add(user);
+          this.firestore.collection('users').doc(user.email).set(_.omit(user, ['email']));
           this.setUser(user);
         })
       })
@@ -72,6 +71,11 @@ export class AuthService {
 
   getUser(){
     return this.user;
+  }
+
+  getUsers():Observable<User[]>{
+    this.usersList = this.firestore.collection<User>('users');
+    return this.usersList.valueChanges({idField: 'email'});
   }
 
   setLogin(id){
