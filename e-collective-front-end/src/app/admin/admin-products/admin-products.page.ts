@@ -32,6 +32,9 @@ export class AdminProductsPage implements OnInit {
       marca: [null, Validators.required],
       modelo: [null, [Validators.required]],
       precio: [null, [Validators.required]],
+      condicion: [null, [Validators.required]],
+      descripcion: [null],
+      almacenamiento: [null, [Validators.required]],
     });
     this.searchForm = this.fb.group({
       idProduct:[null, Validators.required]
@@ -75,6 +78,9 @@ export class AdminProductsPage implements OnInit {
         name: this.productForm.get('marca').value,
         model: this.productForm.get('modelo').value,
         price: this.productForm.get('precio').value,
+        condition: this.productForm.get('condicion').value,
+        storage: this.productForm.get('almacenamiento').value,
+        description: this.productForm.get('descripcion').value,
         quantity: 1,
         imgUrl: this.productPicture,
         discount:0,

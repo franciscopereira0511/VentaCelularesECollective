@@ -64,6 +64,24 @@
                 <ion-text *ngIf="!productForm.get('modelo').valid && productForm.get('modelo').touched" color="danger">
                   <p>Es necesario ingresar un modelo de celular. </p>
                 </ion-text>
+
+                <ion-item>
+                  <ion-label position="floating">Espacio de memoria *</ion-label>
+                  <ion-input formControlName="almacenamiento"></ion-input> 
+                </ion-item>
+          
+                <ion-text *ngIf="!productForm.get('almacenamiento').valid && productForm.get('almacenamiento').touched" color="danger">
+                  <p>Es necesario ingresar el espacio de memoria. </p>
+                </ion-text>
+
+                <ion-item>
+                  <ion-label position="floating">Condición *</ion-label>
+                  <ion-input formControlName="condicion"></ion-input> 
+                </ion-item>
+          
+                <ion-text *ngIf="!productForm.get('condicion').valid && productForm.get('condicion').touched" color="danger">
+                  <p>Es necesario ingresar el espacio de memoria. </p>
+                </ion-text>
           
                 <ion-item>
                   <ion-label position="floating">Precio *</ion-label>
@@ -73,6 +91,13 @@
                 <ion-text *ngIf="!productForm.get('precio').valid && productForm.get('precio').touched" color="danger">
                   <p>Es necesario ingresar un precio de venta. </p>
                 </ion-text>
+
+                <ion-item>
+                  <ion-label position="floating">Descripción</ion-label>
+                  <ion-textarea auto-grow="true" formControlName="descripcion"></ion-textarea>
+                </ion-item>
+          
+
           
               </ion-list>
             </form>
