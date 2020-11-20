@@ -18,6 +18,25 @@ ion-searchbar {
   max-width: 800px;
 }
 
+ion-card-content {
+  padding-bottom: 0;
+}
+
+ion-footer {
+  max-height: 50px;
+}
+
+.slim {
+  max-height: 50px;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.smallicon {
+  padding-right: 5px;
+  font-size: 18px;
+}
+
 .leftmargin {
   margin-left: 20px;
 }
@@ -48,4 +67,12 @@ ion-searchbar {
   min-width: 25px;
   z-index: 10;
 }
+<<<<<<< HEAD
  
+=======
+ 
+ion-img {
+height:280px;
+width:100%;
+}
+>>>>>>> 845796db4d302e9412f43ec6fe9337bafd026d44

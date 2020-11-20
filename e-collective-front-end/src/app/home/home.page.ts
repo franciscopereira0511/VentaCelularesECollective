@@ -37,7 +37,7 @@ export class HomePage implements OnInit {
                private modalCtrl: ModalController,
                private router: Router,
                private productsService: ProductsService,
-               private auth: AuthService,             
+               private auth: AuthService,
                private route: ActivatedRoute,
                private dialog: MatDialog,
                ) {
@@ -46,13 +46,12 @@ export class HomePage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
 
         this.emailUsuario = this.router.getCurrentNavigation().extras.state.email;
-        console.log(this.emailUsuario);
 
         if (firebase.auth().currentUser != null){
           this.observableUser = this.auth.getUserByEmail(this.emailUsuario).pipe(
             tap(user => {
-              console.log("aaah perro");
               if (user) {
+                this.usuario = user;
                 console.log(user.imageData);
                 this.auth.setSubject(user);
                 console.log('success');
@@ -65,6 +64,11 @@ export class HomePage implements OnInit {
     });
 
   }
+
+  verDetalles(producto: Product) {
+    this.router.navigate(['/product-details'], {state: {producto, usuario: this.usuario}});
+  }
+
 
   ngOnInit(){
     this.dialog.open(AdComponent,{});

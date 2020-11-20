@@ -42,9 +42,18 @@ const routes: Routes = [
   {
     path: 'admin-user',
     loadChildren: () => import('./admin/admin-user/admin-user.module').then( m => m.AdminUserPageModule)
-  },  {
+  },
+  {
     path: 'admin-employees',
     loadChildren: () => import('./admin/admin-employees/admin-employees.module').then( m => m.AdminEmployeesPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'product-details',
+    loadChildren: () => import('./product-details/product-details.module').then( m => m.ProductDetailsPageModule)
   },
   {
     path: 'admin-employees',
