@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+
+    </ion-buttons>
+    <ion-button mode="ios" fill="clear" slot="start" href="/home">
+      <ion-label color="light">E - Collective</ion-label>
+    </ion-button>
+
+    <ion-title class="ion-text-center">Detalles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h3><b>Preguntas y respuestas</b></h3>
+
+  <h5>Preguntar</h5>
+  <ion-item style="margin-bottom: 50px;">
+        <ion-avatar style="margin-right: 15px;">
+          <img src="assets/avatar.svg">
+        </ion-avatar>
+
+
+
+        <textarea placeholder="Escribe tu pregunta aquí..." autosize [(ngModel)]="respuesta" class="message-input"></textarea>
+
+        <ion-button expand="block" mode="ios" color="primary" [disabled]="respuesta ===''" class="msg-btn" (click)="createComment()">
+          Preguntar
+        </ion-button>
+
+
+  </ion-item>
+
+  <app-question *ngFor="let question of questions">
+    <app-answer
+                textoDerecha="{{question.answers.length}} respuestas" 
+                user={{question.user}} 
+                time={{question.time}}
+                question={{question.question}} 
+    >
+      <ion-item *ngFor="let answer of question.answers">
+        <ion-avatar style="margin-right: 15px;">
+            <img src="assets/avatar.svg">
+        </ion-avatar>
+        <ion-label color="dark">
+            <h2>{{answer.user.name}}</h2>
+            <h4>{{answer.time | fromNow}}</h4>
+            <p style="overflow: visible">{{answer.answer}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-footer>
+        <ion-toolbar color="light">
+          <ion-row align-items-center no-padding>
+            <ion-col size="10">
+              <textarea autosize [(ngModel)]="respuesta" class="message-input"></textarea>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button expand="block" mode="ios" fill="clear" color="primary" [disabled]="respuesta ===''" class="msg-btn" (click)="createComment()">
+                Responder
+              </ion-button>
+            </ion-col>
+          </ion-row>
+      
+        </ion-toolbar>
+      </ion-footer>
+    </app-answer>
+
+  </app-question>
+
+
+  
+
+</ion-content>

@@ -1,0 +1,38 @@
+ion-toolbar {
+    --background: #050446;
+  }
+  
+  ion-title {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+  
+  ion-content {
+    --background: #f0f0f0; // Replace this with color of your choice
+  }
+  
+  ion-menu-button {
+    color: white;
+  }
+
+  .msg-btn{
+    --padding-start: 0.5em;
+    --padding-end: 0.5em;
+
+}
+
+.message-input{
+    color: black;
+    width: 100%;
+    border: 1px solid var(--ion-color-medium);
+    border-radius: 10px;
+    background: #fff;
+    resize: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
