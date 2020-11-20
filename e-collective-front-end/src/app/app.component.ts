@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { User } from './models/user/user';
 import { AuthService } from './services/auth/auth.service';
 import { Router } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-root',
@@ -43,7 +44,6 @@ export class AppComponent {
   onClickLogOut(){
     this.auth.logout();
     this.auth.setSubject(null);
-    console.log("JAJAJA");
     this.router.navigate(['/home'])
     .then(() => {
       window.location.reload();
