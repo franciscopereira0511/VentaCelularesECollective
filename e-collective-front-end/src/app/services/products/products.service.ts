@@ -95,4 +95,9 @@ export class ProductsService {
     return this.questionList.doc(idQuestion).delete();
   }
 
+  getPromo(idProduct: string): Observable<Product> {
+    console.log(idProduct);
+    return this.promosList.doc<Product>(idProduct).valueChanges();
+  }
+
 }

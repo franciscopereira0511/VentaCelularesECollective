@@ -41,7 +41,9 @@
         <ion-col size-xl="3" size-md="3" size-xs="12">
           <ion-list >
             <ion-item color="light" lines="none" class="ion-text-center">
-              <ion-label style="margin-bottom: 0px;"><h2><b>₡ {{producto.price}} c/IVA</b></h2></ion-label>
+              <ion-label *ngIf ="producto.discount==0" style="margin-bottom: 0px;"><h2><b>₡ {{producto.price}} c/IVA</b></h2></ion-label>
+              <ion-label *ngIf ="producto.discount!=0" style="margin-bottom: 0px;"><h2><b><s>₡ {{producto.price}} c/IVA </s></b></h2></ion-label>
+              <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
           </ion-item>
           <ion-item color="light" lines="none" text-center>
             <ion-label>

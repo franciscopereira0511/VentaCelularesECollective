@@ -40,9 +40,9 @@
 <ion-content>     
   
   <owl-carousel-o [options]="customOptions" *ngIf=" productos.length"> 
-    <ng-container>
-      <ng-template carouselSlide *ngFor="let producto of productos">
-        <div class="slider">
+    <ng-container *ngFor="let producto of productos">
+      <ng-template carouselSlide *ngIf ="producto.discount!=0">
+        <div class="slider" >
           <ion-card>           
             <h1 mat-card-title style = "color: green; font-size: 2em; font-style:italic;" > 
               <b>OFERTA ESPECIAL</b>
@@ -52,9 +52,14 @@
 
               <img style ="width: 50%;" class="deviceImage" [src]="producto.imgUrl" />
                 
-              </div>
+              </div>  
               <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
-              <ion-label><b>₡ {{producto.price}} c/IVA</b></ion-label>
+              <ion-label *ngIf ="producto.discount!=0"><b><s>₡ {{producto.price}} c/IVA</s></b></ion-label>
+              <div *ngIf ="producto.discount!=0"></div>
+              <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
+              
+              <ion-label *ngIf ="producto.discount==0"><b><s>₡ {{producto.price}} c/IVA</s></b></ion-label>
+
             </ion-card-header>
             <ion-card-content>
               <ion-footer>
@@ -96,7 +101,12 @@
                 
               </div>
               <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
-              <ion-label><b>₡ {{producto.price}} c/IVA</b></ion-label>
+              <ion-label *ngIf ="producto.discount!=0"><b><s>₡ {{producto.price}} c/IVA</s></b></ion-label>
+              <div *ngIf ="producto.discount!=0"></div>
+              <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
+              
+              <ion-label *ngIf ="producto.discount==0"><b>₡ {{producto.price}} c/IVA</b></ion-label>
+
             </ion-card-header>
             <ion-card-content>
               <ion-footer>
