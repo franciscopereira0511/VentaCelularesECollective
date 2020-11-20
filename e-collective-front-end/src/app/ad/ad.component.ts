@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/product/product';
-import { ProductService } from '../services/product/product.service';
+import { ProductsService } from '../services/products/products.service';
 
 
 @Component({
@@ -18,19 +18,11 @@ export class AdComponent implements OnInit {
   imagen = "../../assets/images/Samsung.jpg";
   name = "Samsung XL 21";
 
-  constructor(private productService: ProductService) { }
+  constructor(private productsService: ProductsService) { }
 
-  ngOnInit() {
-    this.productos = [];
-    return this.productService.getProducts()
-    .snapshotChanges().subscribe(item => {
-      this.productos = [];
-      item.forEach(element => {
-        const productJSON = JSON.parse(JSON.stringify(element.payload));
-        productJSON.$id = element.key;
-        this.productos.push(productJSON as Product);
-      });
+  ngOnInit(){
+    this.productsService.getProducts().subscribe(products=>{
+      this.productos=products;
     });
-
   }
 }
