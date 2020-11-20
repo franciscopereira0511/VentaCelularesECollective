@@ -13,7 +13,8 @@ export class AdComponent implements OnInit {
   producto: Product;
   productos = [];
   price = 500;
-  discounted  = this.price/2;
+  discountPercent = 20;
+  discounted  = this.price - (this.price*(this.discountPercent*0.01));
   imagen = "../../assets/images/Samsung.jpg";
   name = "Samsung XL 21";
 

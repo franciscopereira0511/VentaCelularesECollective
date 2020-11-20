@@ -55,3 +55,13 @@ ion-img {
 }
 
 
+.owl-carousel{
+  img {
+    height: 432px !important;
+    width:auto;
+    height:auto;
+  }
+}
+.owl-carousel .item{
+  max-height:432px
+}

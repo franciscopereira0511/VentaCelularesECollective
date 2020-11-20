@@ -1,29 +1,25 @@
-<header>
-  <spam><strong style = "color: red; float: right; font-size: 2em; margin-bottom: 10px;"> OFERTA ESPECIAL </strong></spam>
-</header>
+<h1 
+  mat-card-title style = "color: green; font-size: 2em; font-style:italic;" > <b>OFERTA ESPECIAL</b>
+</h1>
 
-<img src={{imagen}}/>
-  <ion-card-header >
-    <ion-card-title>   
-     
-      <div>
-        {{name}}
-      </div>
+<mat-card-content>
+  <img src={{imagen}}/>  
+  
+  <div style= "padding: 2%;">
+    <div style="font-size: 200%; padding-left: 1%;  margin-bottom: 5%; font-style:italic;">
+      {{name}}
+      <ion-button mode="ios" style="float: right; margin-top: 5%; margin-right: 1%; font-style:normal" slot="end">
+        <ion-label color="light"> Ir al Producto </ion-label>
+      </ion-button> 
+    </div>
 
-      <div>
-        Precio Anterior: <s>₡{{price}}</s>
-      </div>
-     
-      <div> 
-        Precio de Oferta: ₡{{discounted}}
-      </div> 
+    <div style="padding-left: 1%; font-size: 125%;  margin-bottom: 1%;">
+      <s>Precio Anterior: ₡{{price}}</s>
+    </div>
+    
+    <div style="padding-left: 1%; font-size: 155%; margin-bottom: 1%;"> 
+      <b>Precio de Oferta: ₡{{discounted}}</b> 
+    </div> 
+  </div>  
 
-      <div> 
-        <ion-button mode="ios" style="float: right;">
-          <ion-label color="light"> Ir al Producto </ion-label>
-        </ion-button> 
-      </div>
-
-      </ion-card-title>
-  </ion-card-header>
-
+</mat-card-content>

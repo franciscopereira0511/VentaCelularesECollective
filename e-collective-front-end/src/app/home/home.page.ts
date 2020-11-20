@@ -11,20 +11,19 @@ import { Product } from '../models/product/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { tap } from 'rxjs/operators';
-import { MatDialog,MatDialogRef } from '@angular/material/dialog';
-import { BannerComponent } from '../banner/banner.component'
+import { MatDialog } from '@angular/material/dialog';
 import { AdComponent } from '../ad/ad.component'
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage implements OnInit {
   private dynamicColor: string;
-  devices: Device[] = [
-
-  ];
+  devices: Device[] = [];
 
   emailUsuario: string;
   observableUser = new Observable<User>();
@@ -82,7 +81,30 @@ export class HomePage implements OnInit {
       });
     });
   }
-
+  
+   customOptions: OwlOptions = {
+    loop: true,
+    autoWidth: true,
+    center:true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      1: {
+        items: 1
+      },
+      2: {
+        items: 2
+      },
+      3: {
+        items: 3
+      },
+    },
+    nav: true
+  }
 
   agregarEnCarrito(producto){
     this.carritoServicio.agregarProducto(producto);

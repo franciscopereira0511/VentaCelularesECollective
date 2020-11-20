@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { User } from './models/user/user';
 import { AuthService } from './services/auth/auth.service';
 import { Router } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-root',
