@@ -39,19 +39,13 @@
 
 <ion-content>     
   
-  <div >
-    <owl-carousel-o [options]="customOptions" >
-      
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-    
-    </owl-carousel-o>
-  </div>
+  <div>Some tags before</div>
+  <owl-carousel-o [options]="customOptions">
+    <ng-template carouselSlide>Slide 1</ng-template>  
+    <ng-template carouselSlide>Slide 2</ng-template>  
+    <ng-template carouselSlide>Slide 3</ng-template>  
+  </owl-carousel-o>
+  <div>Some tags after</div>
   
   
   <ion-grid>
