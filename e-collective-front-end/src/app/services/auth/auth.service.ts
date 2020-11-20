@@ -87,19 +87,7 @@ export class AuthService {
   }
 
   getUserByEmail(email: string): Observable<User> {
-    return this.firestore.collection<User>('users', ref => ref.where('email','==', email))
-      .snapshotChanges()
-      .pipe(map(users => {
-        const user = users[0];
-        if (user) {
-          const data = user.payload.doc.data() as User;
-          const id = user.payload.doc.id;
-          return data;
-        }
-        else {
-          return null;
-        }
-      }));
+    return this.firestore.collection<User>('users').doc<User>(email).valueChanges();
   }
 
   setUserData(user, uid){

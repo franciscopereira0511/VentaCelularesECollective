@@ -5,6 +5,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/product/product';
 import { ProductsService } from 'src/app/services/products/products.service';
+import { tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-admin-products',
@@ -13,6 +15,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
 })
 export class AdminProductsPage implements OnInit {
   productForm: FormGroup;
+  searchForm: FormGroup;
   previewImage: any = 'assets/box.svg';
   productPicture: File = null;
   productos: Product[] = [];
@@ -29,6 +32,9 @@ export class AdminProductsPage implements OnInit {
       marca: [null, Validators.required],
       modelo: [null, [Validators.required]],
       precio: [null, [Validators.required]],
+    });
+    this.searchForm = this.fb.group({
+      idProduct:[null, Validators.required]
     });
     this.productService.getProducts().subscribe(products=>{
       this.productos=products;
@@ -83,10 +89,24 @@ export class AdminProductsPage implements OnInit {
     }
   }
 
-  getProduct(){
-    this.product = this.productService.getProduct('H1234');
-    console.log(this.product);
-    this.searching = true;
+  searchProduct(){
+    if (!this.searchForm.valid){
+      this.showToast('Favor llenar los campos marcados con asterisco (*).', 'danger');
+    }
+    else {
+      const identificador = this.searchForm.get('idProduct').value;
+      this.product = this.productService.getProduct(identificador).pipe(
+        tap(user => {
+          if (user) {
+            console.log(user);
+            console.log('success');
+            this.searching = true;
+          } else {
+            console.log('nelson');
+          }
+        }));
+
+    }
   }
 
 }
