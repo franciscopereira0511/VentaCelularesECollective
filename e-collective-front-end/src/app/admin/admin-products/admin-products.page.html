@@ -161,9 +161,13 @@
                 <h3>₡ {{producto.price}} c/IVA</h3>
               </ion-label>
               <ion-buttons>
-                <ion-button slot="end" fill="clear">
-                  <ion-icon name="build-outline"></ion-icon>                
+                <ion-button slot="end" fill="clear" (click) = "updateProduct(producto)">
+                  <ion-icon name="construct-outline"></ion-icon>                
               </ion-button> 
+
+              <ion-button slot="end" fill="clear" (click) = "deleteProduct(producto)">
+              <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
               </ion-buttons>
 
             </ion-item>

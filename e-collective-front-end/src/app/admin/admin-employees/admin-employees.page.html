@@ -51,15 +51,15 @@
               <ion-list id='lista-usuarios'>
                 <ion-item>
                   <ion-avatar>
-                    <img [src]="user.imageData">
+                    <img [src]="usuario.imageData">
                   </ion-avatar>
                   <ion-label style="margin-left: 15px;">
-                    <h3><b>{{user.name}}{{user.email}}</b></h3>
+                    <h3><b>{{usuario.name}}{{usuario.email}}</b></h3>
                     <h3>Breve descripcion</h3>
-                    <h3>{{user.birthdate}}</h3>
+                    <h3>{{usuario.birthdate}}</h3>
                   </ion-label>
                   <ion-buttons>
-                    <ion-button slot="end" fill="clear">
+                    <ion-button slot="end" fill="clear" (click) = "addEmployee()">
                       <ion-icon name="add-circle-outline"></ion-icon>      
                     </ion-button> 
                   </ion-buttons>
@@ -87,7 +87,7 @@
                 <h3>{{user.birthdate}}</h3>
               </ion-label>
               <ion-buttons>
-                <ion-button slot="end" fill="clear">
+                <ion-button slot="end" fill="clear" (click) = "deleteEmployee(user)">
                   <ion-icon name="close-outline"></ion-icon>      
                 </ion-button> 
               </ion-buttons>

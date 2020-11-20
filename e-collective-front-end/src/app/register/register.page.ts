@@ -81,7 +81,7 @@ export class RegisterPage implements OnInit {
       const usuario: User = {
         email: this.userForm.get('correo').value,
         name: this.userForm.get('nombre').value,
-        rol: 3,
+        rol: 1,
         birthdate: this.userForm.get('fchNacimiento').value,
         imageData: this.profilePicture,
         uid: ''
@@ -101,7 +101,7 @@ export class RegisterPage implements OnInit {
          }
         else{
           usuario.imageData = 'assets/avatar.svg'
-          this.firestore.collection('users').doc(usuario.email).set(_.omit(usuario, ['email']));
+          this.firestore.collection('users').doc(usuario.email).set(usuario);
         }
         
         this.showToast('Usuario creado exitosamente.', 'success');

@@ -98,15 +98,26 @@ export class AdminProductsPage implements OnInit {
       this.product = this.productService.getProduct(identificador).pipe(
         tap(user => {
           if (user) {
-            console.log(user);
             console.log('success');
             this.searching = true;
           } else {
+            this.searching = false;
             console.log('nelson');
           }
         }));
 
     }
   }
+  updateProduct(product){
+    this.productForm.get('codigo').setValue(product.id);
+    this.productForm.get('marca').setValue(product.name);
+    this.productForm.get('modelo').setValue(product.model);
+    this.productForm.get('precio').setValue(product.price);
+    this.previewImage = product.imgUrl;
+    console.log("Heeeeo")
+  }
 
+  deleteProduct(product){
+    this.productService.deleteProduct(product.id);
+  }
 }

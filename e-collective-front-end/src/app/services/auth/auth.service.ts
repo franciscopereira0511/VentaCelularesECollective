@@ -75,7 +75,7 @@ export class AuthService {
 
   getUsers():Observable<User[]>{
     this.usersList = this.firestore.collection<User>('users');
-    return this.usersList.valueChanges({idField: 'email'});
+    return this.usersList.valueChanges({idField: 'id'});
   }
 
   setLogin(id){
@@ -87,18 +87,37 @@ export class AuthService {
   }
 
   getUserByEmail(email: string): Observable<User> {
-    return this.firestore.collection<User>('users').doc<User>(email).valueChanges();
+    return this.firestore.collection<User>('users', ref => ref.where('email','==', email))
+      .snapshotChanges()
+      .pipe(map(users => {
+        const user = users[0];
+        if (user) {
+          const data = user.payload.doc.data() as User;
+          const id = user.payload.doc.id;
+          return data;
+        }
+        else {
+          return null;
+        }
+      }));
   }
 
-  setUserData(user, uid){
-    return this.firestore.collection('users').doc(uid).set({
-      name: user.name,
-      birthdate: user.birthdate,
-      email: user.email,
-      imageData: user.profilePhoto
-    });
+  getEmployees(){
+    var employees = this.firestore.collection<User>('users',ref =>{
+      return ref.where('rol','>',1)
+    })
+    return employees.valueChanges({idField: 'id'});
   }
 
+  deleteEmployee(user){
+    user.rol  = 1;
+    return this.firestore.collection('users').doc(user.email).set(_.omit(user, ['email']));
+  }
+
+  addEmployee(user){
+    user.rol = 3;
+    return this.firestore.collection('users').doc(user.email).set(user);
+  }
 
   resetPassword(email){
     return this.auth.auth.sendPasswordResetEmail(email);

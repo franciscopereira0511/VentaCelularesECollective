@@ -15,9 +15,12 @@ import { tap } from 'rxjs/operators';
 })
 export class AdminEmployeesPage implements OnInit {
   user:Observable<User> = new Observable<User>();
+  usuario:User;
+  
   searching:boolean = false;
   users;
   employeeForm: FormGroup;
+  userEmail: any;
   constructor(private auth: AuthService,private fb: FormBuilder, private toastCtrl: ToastController) { 
     
   }
@@ -27,7 +30,7 @@ export class AdminEmployeesPage implements OnInit {
       email: [null, [Validators.required, Validators.email]]
     });
 
-    this.auth.getUsers().subscribe(users=>{
+    this.auth.getEmployees().subscribe(users=>{
       this.users=users;
     });
   }
@@ -51,7 +54,9 @@ export class AdminEmployeesPage implements OnInit {
       this.user = this.auth.getUserByEmail(credenciales).pipe(
         tap(user => {
           if (user) {
-            console.log(user);
+            this.usuario = user;
+            this.userEmail = user.email;
+            console.log(user.email);
             console.log('success');
             this.searching = true;
           } else {
@@ -60,6 +65,15 @@ export class AdminEmployeesPage implements OnInit {
         }));
 
     }
+  }
+
+  deleteEmployee(employee){
+    this.auth.deleteEmployee(employee);
+  }
+
+  addEmployee(){
+    console.log(this.usuario);
+    this.auth.addEmployee(this.usuario);
   }
 
 }
