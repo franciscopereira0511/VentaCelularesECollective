@@ -1,9 +1,14 @@
+import { ProductsService } from './../services/products/products.service';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Product } from 'src/app/models/product/product';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Question } from '../question/question.model';
+import { Answer, Question } from '../question/question.model';
 import { User } from '../models/user/user';
 import * as moment from 'moment';
+import { CarritoService } from '../services/carrito.service';
+import { CartModalPage } from '../cart-modal/cart-modal.page';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -12,54 +17,62 @@ import * as moment from 'moment';
 })
 export class ProductDetailsPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private modalCtrl: ModalController,
+              private carritoServicio: CarritoService,
+              private productService: ProductsService,
+              private toastCtrl: ToastController) { }
   producto: Product;
   usuario: User;
-  respuesta: string;
+  respuesta = '';
+  pregunta = '';
+  carro = [];
+  contadorItems: BehaviorSubject <number>;
+  fecha: string = this.getFechaCreado();
 
 
   questions: Question[] = [
     {id: '23423',
     user: {email: 'f@gmail.com',
     name: 'Francisco Pereira',
-    password: '2323',
+    rol: 1,
     birthdate: '2323',
     imageData: '',
     uid: '223'},
     question: '¿Qué tal la calidad de este celulars?',
-    time: 0,
+    time: this.fecha,
 
     answers: [
       {id: '23423',
       questionId: '234234',
       user: {email: 'f@gmail.com',
-      name: 'Francisco Pereira',
-      password: '2323',
+      name: 'Kenner Ortiz',
+      rol: 3,
       birthdate: '2323',
       imageData: '',
       uid: '223'},
-      answer: 'Pues bastante bien si te soy honesto.',
-      time: 0},
+      answer: 'Pues bastante bien si te soy honesto. Está en perfecto estado.',
+      time: this.fecha},
       {id: '23423',
       questionId: '234234',
       user: {email: 'f@gmail.com',
-      name: 'Francisco Pereira',
-      password: '2323',
+      name: 'Mariano Torres',
+      rol: 1,
       birthdate: '2323',
       imageData: '',
       uid: '223'},
-      answer: 'Me gusta.',
-      time: 0},
+      answer: 'Opino que está muy bien. Sin quejas.',
+      time: this.fecha},
       {id: '23423',
       questionId: '234234',
       user: {email: 'f@gmail.com',
-      name: 'Francisco Pereira',
-      password: '2323',
+      name: 'David Mora',
+      rol: 1,
       birthdate: '2323',
       imageData: '',
       uid: '223'},
-      answer: 'Una cagada.',
-      time: 0}
+      answer: 'Fatal este producto, le pongo un rotundo 0.',
+      time: this.fecha}
     ]
     }
   ];
@@ -72,15 +85,69 @@ export class ProductDetailsPage implements OnInit {
       this.usuario = state.usuario;
       console.log(this.usuario);
     }
-    this.getFechaAsignado();
 
+    this.carro = this.carritoServicio.getCarro();
+    this.contadorItems = this.carritoServicio.getContadorItems();
+  }
+
+  async showToast(msg: string, pColor: string) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      color: pColor,
+      position: 'top'
+    });
+    (await toast).present();
+  }
+
+  createAnswer(question: Question) {
+    if(this.usuario.name === undefined) {
+      this.showToast('Debe iniciar sesión para agregar una respuesta.', 'danger')
+    } else {
+      const answer: Answer = {
+        id: '',
+        user: this.usuario,
+        answer: this.respuesta,
+        time: this.getFechaCreado(),
+        questionId: question.id
+      };
+      question.answers.push(answer);
+      this.respuesta = '';
+      // this.productService.addAnswer(question);
+    }
 
   }
 
-  createComment() {}
+  createQuestion() {
+    if(this.usuario.name === undefined) {
+      this.showToast('Debe iniciar sesión para agregar una pregunta.', 'danger')
+    } else {
+      console.log(this.usuario.name);
+      const question: Question = {
+        id: '',
+        user: this.usuario,
+        time: this.getFechaCreado(),
+        question: this.pregunta,
+        answers: []
+      };
+      this.questions.push(question);
+      this.pregunta = '';
+      // this.productService.addQuestion(question);
+    }
+  }
 
+  async abrirCarrito(){
+    const modal = await this.modalCtrl.create({
+      component: CartModalPage,
+      componentProps: { },
+      cssClass: 'cart-modal'
+    });
+    modal.present();
+  }
 
-
+  agregarEnCarrito(producto){
+    this.carritoServicio.agregarProducto(producto);
+  }
 
   formatDate(date) {
     if (date !== undefined && date !== '') {
@@ -93,13 +160,9 @@ export class ProductDetailsPage implements OnInit {
   }
 
   // Obtiene el día actual con formato deseado
-  getFechaAsignado() {
-    const a = moment();
-    a.format('dddd, MMMM Do YYYY, h:mm:ss a'); // "Sunday, February 14th 2010, 3:25:50 pm"
-    const aa = a.toString;
-    console.log(a);
-    console.log(typeof a);
-    console.log(aa);
+  getFechaCreado() {
+    const date: string = moment().format('dddd, MMMM Do YYYY, h:mm a');
+    return date;
   }
 
 }

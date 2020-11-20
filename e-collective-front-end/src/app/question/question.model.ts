@@ -5,13 +5,13 @@ export interface Answer {
     questionId: string;
     user: User;
     answer: string;
-    time: number;
+    time: string;
 }
 
 export interface Question {
     id: string;
     user: User;
     question: string;
-    time: number;
+    time: string;
     answers: Answer[];
 }

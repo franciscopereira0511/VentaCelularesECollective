@@ -11,6 +11,8 @@ ion-toolbar {
     height: 100%;
     text-align: center;
   }
+
+
   
   ion-content {
     --background: #f0f0f0; // Replace this with color of your choice
@@ -20,19 +22,48 @@ ion-toolbar {
     color: white;
   }
 
+  ion-card {
+    margin:auto
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
   .msg-btn{
     --padding-start: 0.5em;
     --padding-end: 0.5em;
-
 }
 
 .message-input{
     color: black;
     width: 100%;
     border: 1px solid var(--ion-color-medium);
-    border-radius: 10px;
     background: #fff;
     resize: none;
     padding-left: 10px;
     padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.cart-icon{
+  font-size: 40px;
+  color: white;
+}
+
+.add-product{
+  font-size: 25px;
+  color: #050446
+}
+
+.cart-lenght{
+  color: #050446;
+  position: absolute;
+  top: 8px;
+  left: 5px;
+  font-weight: 600;
+  font-size: 1em;
+  min-width: 25px;
+  z-index: 10;
 }

@@ -12,7 +12,7 @@ import * as firebase from 'firebase';
 import { tap } from 'rxjs/operators';
 import { ProductsService } from '../services/products/products.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AdComponent } from '../ad/ad.component'
+import { AdComponent } from '../ad/ad.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -22,16 +22,6 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 
 export class HomePage implements OnInit {
-  private dynamicColor: string;
-  devices: Device[] = [];
-
-  emailUsuario: string;
-  observableUser = new Observable<User>();
-  usuario: User = new User();
-  carro = [];
-  producto: Product;
-  productos: Product[] = [];
-  contadorItems: BehaviorSubject <number>;
 
   constructor( private carritoServicio: CarritoService,
                private modalCtrl: ModalController,
@@ -64,6 +54,41 @@ export class HomePage implements OnInit {
     });
 
   }
+  private dynamicColor: string;
+  devices: Device[] = [];
+
+  emailUsuario: string;
+  observableUser = new Observable<User>();
+  usuario: User = new User();
+  carro = [];
+  contadorItems: BehaviorSubject <number>;
+  producto: Product;
+  productos: Product[] = [];
+
+
+  customOptions: OwlOptions = {
+    loop: true,
+    autoWidth: true,
+    center:true,
+    mouseDrag: true,
+    touchDrag: false,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      1: {
+        items: 1
+      },
+      2: {
+        items: 1
+      },
+      3: {
+        items: 3
+      },
+    },
+    nav: false
+  };
 
   verDetalles(producto: Product) {
     this.router.navigate(['/product-details'], {state: {producto, usuario: this.usuario}});
@@ -106,30 +131,6 @@ export class HomePage implements OnInit {
 
   onClickRegister(){
     this.router.navigate(['/register']);
-  }
-
-  customOptions: OwlOptions = {
-    loop: true,
-    autoWidth: true,
-    center:true,
-    mouseDrag: true,
-    touchDrag: false,
-    pullDrag: true,
-    dots: true,
-    navSpeed: 700,
-    navText: ['', ''],
-    responsive: {
-      1: {
-        items: 1
-      },
-      2: {
-        items: 1
-      },
-      3: {
-        items: 3
-      },
-    },
-    nav: false
   }
 
 }

@@ -1,16 +1,16 @@
-<ion-item lines="none" class="acc-header" (click)="toggle()">
+<ion-item lines="none" class="acc-header" (click)="toggle()" color="lightblue">
   <ion-avatar style="margin-right: 15px;">
     <img src="assets/avatar.svg">
   </ion-avatar>
 
   <ion-label color="dark">
-    <h2>{{user.name}}</h2>
-    <h4>{{time | fromNow}}</h4>
+    <h3>{{user.name}}</h3>
+    <h5>{{time}}</h5>
     <p style="overflow: visible">{{question}}</p>
   </ion-label>
 
 
-  <ion-text *ngIf="textoDerecha!=undefined" color="dark" style="font-size: 14px;" slot="end">{{textoDerecha}}</ion-text>
+  <ion-text *ngIf="textoDerecha!=undefined" color="primary" style="font-size: 14px;" slot="end">{{textoDerecha}}</ion-text>
   <ion-icon [@rotatedState]="!showBody? 'default':'rotated'" name="chevron-down-outline" slot="end"></ion-icon>
 </ion-item>
 
