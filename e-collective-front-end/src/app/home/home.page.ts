@@ -66,6 +66,10 @@ export class HomePage implements OnInit {
   productos: Product[] = [];
 
   customOptions: OwlOptions = {
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+		autoplaySpeed: 2000,
     loop: true,
     autoWidth: true,
     center:true,

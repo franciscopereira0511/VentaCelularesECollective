@@ -30,7 +30,7 @@ export class ProductsService {
 
   getProduct(idProduct: string): Observable<Product> {
     console.log(idProduct);
-    return this.productList.doc<Product>(idProduct).valueChanges();
+    return this.productList.doc<Product>("H1234").valueChanges();
   }
 
   insertProduct(product:Product){
