@@ -7,7 +7,7 @@
       <ion-label color="light">E - Collective</ion-label>
     </ion-button>
     
-    <ion-title>Administrativar ofertas</ion-title>
+    <ion-title>Administrar ofertas</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -104,11 +104,11 @@
                     <h3><b>{{producto.discount}}</b></h3>
                   </ion-label>
                   <ion-buttons>
-                    <ion-button slot="end" fill="clear" (click) = "updateProduct(producto)">
+                    <ion-button slot="end" fill="clear" (click) = "updatePromo(producto)">
                       <ion-icon name="construct-outline"></ion-icon>                
                   </ion-button> 
     
-                  <ion-button slot="end" fill="clear" (click) = "deleteProduct(producto)">
+                  <ion-button slot="end" fill="clear" (click) = "deletePromo(producto)">
                   <ion-icon name="trash-outline"></ion-icon>
                   </ion-button>
                   </ion-buttons>
@@ -120,11 +120,12 @@
         </ion-card>
       </ion-col>
 
+
       <ion-col size-xl="4" size-md="4" size-xs="12"  >
 
         <ion-card>
           <ion-card-header lines="none">
-            <ion-card-title class="ion-text-center">Lista de promociones</ion-card-title>
+            <ion-card-title class="ion-text-center">Lista de productos</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <div>
@@ -155,9 +156,9 @@
           </ion-card-content>
 
         </ion-card>
-        
+       
       </ion-col>
-      
+  
 
     </ion-row>
   </ion-grid>

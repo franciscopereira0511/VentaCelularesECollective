@@ -1,6 +1,6 @@
 import { ProductsService } from './../services/products/products.service';
 import { ModalController, ToastController } from '@ionic/angular';
-import { Product } from 'src/app/models/product/product';
+import { Product } from '../models/product/product';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Answer, Question } from '../question/question.model';
@@ -33,6 +33,7 @@ export class ProductDetailsPage implements OnInit {
 
   questions: Question[] = [
     {id: '23423',
+    idProduct: 'H1234',
     user: {email: 'f@gmail.com',
     name: 'Francisco Pereira',
     rol: 1,
@@ -88,6 +89,11 @@ export class ProductDetailsPage implements OnInit {
 
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
+
+    this.productService.getQuestions(this.producto.id).subscribe(products=>{
+      this.questions=products;
+    });
+      
   }
 
   async showToast(msg: string, pColor: string) {
@@ -125,6 +131,7 @@ export class ProductDetailsPage implements OnInit {
       console.log(this.usuario.name);
       const question: Question = {
         id: '',
+        idProduct: this.producto.id,
         user: this.usuario,
         time: this.getFechaCreado(),
         question: this.pregunta,
@@ -132,7 +139,7 @@ export class ProductDetailsPage implements OnInit {
       };
       this.questions.push(question);
       this.pregunta = '';
-      // this.productService.addQuestion(question);
+      this.productService.insertQuestion(question);
     }
   }
 

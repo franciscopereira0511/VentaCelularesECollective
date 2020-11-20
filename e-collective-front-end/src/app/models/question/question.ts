@@ -1,6 +1,18 @@
-export class Question {
+import { User } from '../user/user';
+
+export interface Answer {
     id: string;
-    user: string;
-    product: string;
-    answers: string[];
+    questionId: string;
+    user: User;
+    answer: string;
+    time: string;
+}
+
+export interface Question {
+    id: string;
+    idProduct: string;
+    user: User;
+    question: string;
+    time: string;
+    answers: Answer[];
 }

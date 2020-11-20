@@ -30,7 +30,12 @@ export class ProductsService {
 
   getProduct(idProduct: string): Observable<Product> {
     console.log(idProduct);
-    return this.productList.doc<Product>("H1234").valueChanges();
+    return this.productList.doc<Product>(idProduct).valueChanges();
+  }
+
+  getPromo(idProduct: string): Observable<Product> {
+    console.log(idProduct);
+    return this.promosList.doc<Product>(idProduct).valueChanges();
   }
 
   insertProduct(product:Product){
@@ -66,6 +71,7 @@ export class ProductsService {
   }
 
   getPromos():Observable<Product[]>{
+    this.productList = this.firestore.collection<Product>('products');
     this.promosList = this.firestore.collection<Product>('products',ref =>{
       return ref.where('discount','>',0)
     })
@@ -83,8 +89,8 @@ export class ProductsService {
     return this.questionList.doc<Question>(idQuestion).valueChanges();
   }
 
-  insertQuestion(question:Question){
-    return this.questionList.doc().set(_.omit(question, ['id']));
+  insertQuestion(question){
+    return this.firestore.collection("questions").add(_.omit(question, ['id']));
   }
 
   updateQuestion(question:Question){

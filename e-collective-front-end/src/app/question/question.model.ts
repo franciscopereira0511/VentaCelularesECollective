@@ -10,6 +10,7 @@ export interface Answer {
 
 export interface Question {
     id: string;
+    idProduct:string;
     user: User;
     question: string;
     time: string;

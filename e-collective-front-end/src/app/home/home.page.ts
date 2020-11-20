@@ -64,6 +64,7 @@ export class HomePage implements OnInit {
   contadorItems: BehaviorSubject <number>;
   producto: Product;
   productos: Product[] = [];
+  ofertas = [];
 
   customOptions: OwlOptions = {
     autoplay: true,
@@ -105,6 +106,9 @@ export class HomePage implements OnInit {
     this.contadorItems = this.carritoServicio.getContadorItems();
     this.productsService.getProducts().subscribe(products=>{
       this.productos=products;
+    });
+    this.productsService.getPromos().subscribe(products=>{
+      this.ofertas=products;
     });
   }
   

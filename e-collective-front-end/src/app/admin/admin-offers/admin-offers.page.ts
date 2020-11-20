@@ -32,7 +32,7 @@ export class AdminOffersPage implements OnInit {
     this.searchPForm = this.fb.group({
       idProduct:[null, Validators.required]
     });
-    this.productService.getPromos().subscribe(promos=>{
+    this.productService.getProducts().subscribe(promos=>{
       this.promos=promos;
     });
   }
