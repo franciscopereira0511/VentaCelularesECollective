@@ -39,13 +39,16 @@
 
 <ion-content>     
   
-  <div>Some tags before</div>
-  <owl-carousel-o [options]="customOptions">
-    <ng-template carouselSlide>Slide 1</ng-template>  
-    <ng-template carouselSlide>Slide 2</ng-template>  
-    <ng-template carouselSlide>Slide 3</ng-template>  
+  <owl-carousel-o [options]="customOptions" *ngFor="let producto of productos"> 
+    <ng-container *ngFor="let producto of productos">
+      <ng-template carouselSlide>
+        <div class="slider">
+          <img class="deviceImage" [src]="producto.imgUrl" />
+        </div>
+      </ng-template>
+    </ng-container>
+ 
   </owl-carousel-o>
-  <div>Some tags after</div>
   
   
   <ion-grid>
