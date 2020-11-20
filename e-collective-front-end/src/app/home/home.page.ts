@@ -66,9 +66,9 @@ export class HomePage implements OnInit {
 
   }
 
-
   ngOnInit(){
-    let x = this.dialog.open(AdComponent,{});
+    this.dialog.open(AdComponent,{});
+
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
     return this.productService.getProducts()
@@ -82,29 +82,7 @@ export class HomePage implements OnInit {
     });
   }
   
-   customOptions: OwlOptions = {
-    loop: true,
-    autoWidth: true,
-    center:true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 700,
-    navText: ['', ''],
-    responsive: {
-      1: {
-        items: 1
-      },
-      2: {
-        items: 2
-      },
-      3: {
-        items: 3
-      },
-    },
-    nav: true
-  }
+   
 
   agregarEnCarrito(producto){
     this.carritoServicio.agregarProducto(producto);
@@ -131,4 +109,29 @@ export class HomePage implements OnInit {
   onClickRegister(){
     this.router.navigate(['/register']);
   }
+
+  customOptions: OwlOptions = {
+    loop: true,
+    autoWidth: true,
+    center:true,
+    mouseDrag: true,
+    touchDrag: false,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      1: {
+        items: 1
+      },
+      2: {
+        items: 1
+      },
+      3: {
+        items: 3
+      },
+    },
+    nav: false
+  }
+
 }
