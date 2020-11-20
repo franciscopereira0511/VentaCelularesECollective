@@ -104,10 +104,7 @@ export class HomePage implements OnInit {
     this.carritoServicio.agregarProducto(producto);
   }
 
-  addProduct(){
-    this.producto =  {id: 'fre6hh', name: 'Galaxia', model: 'Galaxy 4', price: 128000, quantity: 1, imgUrl: 'https://www.tuexpertomovil.com/wp-content/uploads/2013/12/Samsung-Galaxy-S4-015.jpg'};
-    this.productsService.updateProduct(this.producto);
-  }
+
 
   async abrirCarrito(){
     const modal = await this.modalCtrl.create({

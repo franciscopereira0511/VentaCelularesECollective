@@ -55,7 +55,7 @@
                   </ion-avatar>
                   <ion-label style="margin-left: 15px;">
                     <h3><b>{{usuario.name}}{{usuario.email}}</b></h3>
-                    <h3>Breve descripcion</h3>
+                    <h3>{{usuario.email}}</h3>
                     <h3>{{usuario.birthdate}}</h3>
                   </ion-label>
                   <ion-buttons>
@@ -79,7 +79,7 @@
           <ion-list id='lista-empleados'>
             <ion-item *ngFor = "let user of users">
               <ion-avatar>
-                <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
+                <img [src]="user.imageData">
               </ion-avatar>
               <ion-label style="margin-left: 15px;">
                 <h3><b>{{user.name}}</b></h3>

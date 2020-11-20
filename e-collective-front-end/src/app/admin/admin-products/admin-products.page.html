@@ -127,17 +127,20 @@
               <ion-list id='lista-productos'>
                 <ion-item>
                   <ion-avatar>
-                    <img [src]="product.imgUrl">
+                    <img [src]="producto.imgUrl">
                   </ion-avatar>
                   <ion-label style="margin-left: 15px;">
-                    <h3><b>{{product.name}}{{product.model}}</b></h3>
-                    <h3>Breve descripcion</h3>
-                    <h3>{{product.price}}</h3>
+                    <h3><b>{{producto.name}} {{producto.model}}</b></h3>
+                    <h3><i>₡ {{producto.price}} c/IVA</i></h3>
                   </ion-label>
                   <ion-buttons>
-                    <ion-button slot="end" fill="clear">
-                      <ion-icon name="add-circle-outline"></ion-icon>      
-                    </ion-button> 
+                    <ion-button slot="end" fill="clear" (click) = "updateProduct(producto)">
+                      <ion-icon name="construct-outline"></ion-icon>                
+                  </ion-button> 
+    
+                  <ion-button slot="end" fill="clear" (click) = "deleteProduct(producto)">
+                  <ion-icon name="trash-outline"></ion-icon>
+                  </ion-button>
                   </ion-buttons>
     
                 </ion-item>
@@ -149,30 +152,37 @@
 
       <ion-col size-xl="4" size-md="4" size-xs="12"  >
 
-        <div>
-          <h2>Lista de productos</h2>
-          <ion-list id='lista-empleados'>
-            <ion-item *ngFor="let producto of productos">
-              <ion-avatar>
-                <img [src]="producto.imgUrl">
-              </ion-avatar>
-              <ion-label style="margin-left: 15px;">
-                <h3><b>{{producto.name}} {{producto.model}}</b></h3>
-                <h3>₡ {{producto.price}} c/IVA</h3>
-              </ion-label>
-              <ion-buttons>
-                <ion-button slot="end" fill="clear" (click) = "updateProduct(producto)">
-                  <ion-icon name="construct-outline"></ion-icon>                
-              </ion-button> 
+        <ion-card>
+          <ion-card-header lines="none">
+            <ion-card-title class="ion-text-center">Lista de productos</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div>
+              <ion-list id='lista-empleados'>
+                <ion-item *ngFor="let producto of productos">
+                  <ion-avatar>
+                    <img [src]="producto.imgUrl">
+                  </ion-avatar>
+                  <ion-label style="margin-left: 15px;">
+                    <h3><b>{{producto.name}} {{producto.model}}</b></h3>
+                    <h3>₡ {{producto.price}} c/IVA</h3>
+                  </ion-label>
+                  <ion-buttons>
+                    <ion-button slot="end" fill="clear" (click) = "updateProduct(producto)">
+                      <ion-icon name="construct-outline"></ion-icon>                
+                  </ion-button> 
+    
+                  <ion-button slot="end" fill="clear" (click) = "deleteProduct(producto)">
+                  <ion-icon name="trash-outline"></ion-icon>
+                  </ion-button>
+                  </ion-buttons>
+    
+                </ion-item>
+              </ion-list>
+            </div>
+          </ion-card-content>
 
-              <ion-button slot="end" fill="clear" (click) = "deleteProduct(producto)">
-              <ion-icon name="trash-outline"></ion-icon>
-              </ion-button>
-              </ion-buttons>
-
-            </ion-item>
-          </ion-list>
-        </div>
+        </ion-card>
         
       </ion-col>
       

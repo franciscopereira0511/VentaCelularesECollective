@@ -14,7 +14,7 @@ import { Question } from 'src/app/models/question/question';
 export class ProductsService {
 
   productList: AngularFirestoreCollection<Product>;
-  promosList: AngularFirestoreCollection<Promos>;
+  promosList: AngularFirestoreCollection<Product>;
   questionList: AngularFirestoreCollection<Question>;
 
   selectedProduct: Product = new Product();
@@ -29,11 +29,12 @@ export class ProductsService {
   }
 
   getProduct(idProduct: string): Observable<Product> {
+    console.log(idProduct);
     return this.productList.doc<Product>(idProduct).valueChanges();
   }
 
   insertProduct(product:Product){
-    return this.productList.doc(product.id).set(_.omit(product, ['id']));
+    return this.productList.doc(product.id).set(product);
   }
 
   updateProduct(product:Product){
@@ -64,31 +65,17 @@ export class ProductsService {
     ).subscribe();
   }
 
-  getPromos():Observable<Promos[]>{
-    this.promosList = this.firestore.collection<Promos>('promos');
+  getPromos():Observable<Product[]>{
+    this.promosList = this.firestore.collection<Product>('products',ref =>{
+      return ref.where('discount','>',0)
+    })
     return this.promosList.valueChanges({idField: 'id'});
   }
 
-  getPromo(idPromo: string): Observable<Promos> {
-    return this.promosList.doc<Promos>(idPromo).valueChanges();
-  }
 
-  insertPromos(promo:Promos){
-    return this.promosList.doc(promo.id).set(_.omit(promo, ['id']));
-  }
-
-  updatePromos(promo:Promos){
-    return this.promosList.doc(promo.id).update(_.omit(promo, ['id']));
-  }
-
-  deletePromos(idPromos: string): any|undefined {
-    return this.promosList.doc(idPromos).delete();
-  }
-
-
-
-  getQuestions():Observable<Question[]>{
-    this.questionList = this.firestore.collection<Question>('Question');
+  getQuestions(idProduct):Observable<Question[]>{
+    this.questionList = this.firestore.collection<Question>('questions',
+    ref=> ref.where('idProduct','==',idProduct));
     return this.questionList.valueChanges({idField: 'id'});
   }
 
@@ -97,7 +84,7 @@ export class ProductsService {
   }
 
   insertQuestion(question:Question){
-    return this.questionList.doc(question.id).set(_.omit(question, ['id']));
+    return this.questionList.doc().set(_.omit(question, ['id']));
   }
 
   updateQuestion(question:Question){

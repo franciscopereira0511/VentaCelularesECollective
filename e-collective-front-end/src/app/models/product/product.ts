@@ -5,5 +5,6 @@ export class Product {
     price: number;
     quantity: number;
     imgUrl: any;
+    discount: number;
 
 }

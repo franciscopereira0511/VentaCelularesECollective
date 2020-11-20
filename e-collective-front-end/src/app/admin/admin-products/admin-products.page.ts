@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/product/product';
 import { ProductsService } from 'src/app/services/products/products.service';
@@ -21,6 +20,7 @@ export class AdminProductsPage implements OnInit {
   productos: Product[] = [];
 
   product:Observable<Product> = new Observable<Product>();
+  producto:Product;
   searching:boolean = false;
 
   constructor(private fb: FormBuilder,private toastCtrl: ToastController,
@@ -76,7 +76,8 @@ export class AdminProductsPage implements OnInit {
         model: this.productForm.get('modelo').value,
         price: this.productForm.get('precio').value,
         quantity: 1,
-        imgUrl: this.productPicture
+        imgUrl: this.productPicture,
+        discount:0,
       }; 
 
       if(product.imgUrl != null){
@@ -96,8 +97,9 @@ export class AdminProductsPage implements OnInit {
     else {
       const identificador = this.searchForm.get('idProduct').value;
       this.product = this.productService.getProduct(identificador).pipe(
-        tap(user => {
-          if (user) {
+        tap(product => {
+          if (product) {
+            this.producto = product;
             console.log('success');
             this.searching = true;
           } else {
@@ -113,8 +115,8 @@ export class AdminProductsPage implements OnInit {
     this.productForm.get('marca').setValue(product.name);
     this.productForm.get('modelo').setValue(product.model);
     this.productForm.get('precio').setValue(product.price);
-    this.previewImage = product.imgUrl;
-    console.log("Heeeeo")
+    //this.productPicture = product.imgUrl;
+    this.previewImage = product.imgUrl
   }
 
   deleteProduct(product){
