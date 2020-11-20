@@ -12,7 +12,7 @@ import * as firebase from 'firebase';
 import { tap } from 'rxjs/operators';
 import { ProductsService } from '../services/products/products.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AdComponent } from '../ad/ad.component'
+import { AdComponent } from '../ad/ad.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -22,22 +22,12 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 
 export class HomePage implements OnInit {
-  private dynamicColor: string;
-  devices: Device[] = [];
-
-  emailUsuario: string;
-  observableUser = new Observable<User>();
-  usuario: User = new User();
-  carro = [];
-  producto: Product;
-  productos: Product[] = [];
-  contadorItems: BehaviorSubject <number>;
 
   constructor( private carritoServicio: CarritoService,
                private modalCtrl: ModalController,
                private router: Router,
                private productsService: ProductsService,
-               private auth: AuthService,             
+               private auth: AuthService,
                private route: ActivatedRoute,
                private dialog: MatDialog,
                ) {
@@ -46,13 +36,12 @@ export class HomePage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
 
         this.emailUsuario = this.router.getCurrentNavigation().extras.state.email;
-        console.log(this.emailUsuario);
 
         if (firebase.auth().currentUser != null){
           this.observableUser = this.auth.getUserByEmail(this.emailUsuario).pipe(
             tap(user => {
-              console.log("aaah perro");
               if (user) {
+                this.usuario = user;
                 console.log(user.imageData);
                 this.auth.setSubject(user);
                 console.log('success');
@@ -65,25 +54,25 @@ export class HomePage implements OnInit {
     });
 
   }
+  private dynamicColor: string;
+  devices: Device[] = [];
 
+  emailUsuario: string;
+  observableUser = new Observable<User>();
+  usuario: User = new User();
+  carro = [];
+  contadorItems: BehaviorSubject <number>;
+  producto: Product;
+  productos: Product[] = [];
 
-  ngOnInit(){
-    let x = this.dialog.open(AdComponent,{});
-    this.carro = this.carritoServicio.getCarro();
-    this.contadorItems = this.carritoServicio.getContadorItems();
-    this.productsService.getProducts().subscribe(products=>{
-      this.productos=products;
-    });
-  }
-  
-   customOptions: OwlOptions = {
+  customOptions: OwlOptions = {
     loop: true,
     autoWidth: true,
     center:true,
-    mouseDrag: false,
+    mouseDrag: true,
     touchDrag: false,
-    pullDrag: false,
-    dots: false,
+    pullDrag: true,
+    dots: true,
     navSpeed: 700,
     navText: ['', ''],
     responsive: {
@@ -97,8 +86,25 @@ export class HomePage implements OnInit {
         items: 3
       },
     },
-    nav: true
+    nav: false
+  };
+
+  verDetalles(producto: Product) {
+    this.router.navigate(['/product-details'], {state: {producto, usuario: this.usuario}});
   }
+
+
+  ngOnInit(){
+    this.dialog.open(AdComponent,{});
+
+    this.carro = this.carritoServicio.getCarro();
+    this.contadorItems = this.carritoServicio.getContadorItems();
+    this.productsService.getProducts().subscribe(products=>{
+      this.productos=products;
+    });
+  }
+  
+   
 
   agregarEnCarrito(producto){
     this.carritoServicio.agregarProducto(producto);
@@ -122,4 +128,7 @@ export class HomePage implements OnInit {
   onClickRegister(){
     this.router.navigate(['/register']);
   }
+
+
+
 }

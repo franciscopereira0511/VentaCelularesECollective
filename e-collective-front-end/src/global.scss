@@ -34,3 +34,12 @@
     --border-radius: 10px;
     padding: 25px;
 }
+
+.ion-color-lightblue {
+    --ion-color-base: var(--ion-color-lightblue);
+    --ion-color-base-rgb: var(--ion-color-lightblue-rgb);
+    --ion-color-contrast: var(--ion-color-lightblue-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-lightblue-contrast-rgb);
+    --ion-color-shade: var(--ion-color-lightblue-shade);
+    --ion-color-tint: var(--ion-color-lightblue-tint);
+}

@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-button mode="ios" fill="clear" slot="start" href="/home">
+        <ion-label color="light">E - Collective</ion-label>
+      </ion-button>
+
+    </ion-buttons>
+
+
+    <ion-title class="ion-text-center">Detalles</ion-title>
+
+    <ion-button slot="end" fill="clear" (click)= "abrirCarrito()" #carro>
+      <div class = "cart-lenght"> {{contadorItems | async}} </div>
+      <ion-icon name = "cart" class = "cart-icon"></ion-icon>        
+    </ion-button> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+  <ion-grid>
+    <ion-row>
+
+        <ion-col size-xl="4" size-md="4" size-xs="12">
+            <img [src]="producto.imgUrl"/>
+        </ion-col>
+        <ion-col size-xl="5" size-md="5" size-xs="12">
+     
+            <ion-label color="dark">
+              <h1><b>{{producto.name}} {{producto.model}}</b></h1>
+              <h3><b>Marca: </b>{{producto.name}}</h3>
+              <h3><b>Modelo: </b>{{producto.model}}</h3>
+              <h3><b>Estado: </b>{{producto.model}}</h3>
+              <h3><b>Capacidad: </b>{{producto.model}}</h3>
+              <p align="justify"><b>Descripción: </b>El HUAWEI Y9 Prime 2019 cuenta con una línea divisoria única que hace que este diseño destaque entre el resto. En la parte posterior lisa, la textura especial de seda brilla bajo la luz y se pueden ver los detalles finos claramente. Pantalla Ultra FullView de HUAWEILa extraordinaria pantalla Ultra FullView de 6.59" HUAWEI ofrece un horizonte ultra ancho con cero muesca. Disfruta de una diversión ilimitada mientras ves vídeos, juegas o leyendo libros electrónicos, todo en una pantalla casi sin bisel. Cámara emergente automáticaLa cámara frontal aparece automáticamente en 1 segundo cuando tomas selfies y se retrae cuando hayas terminado. La cámara siempre está disponible para que puedas tomar selfies con diversión continua. Velocidad rápida, alta eficienciaEl chipset de octa-core Kirin 710F mejorado mejora eficientemente la velocidad de funcionamiento y reduce el consumo de energía. Tu teléfono funciona sin problemas, incluso si estás jugando a juegos con un uso intensivo de gráficos y streaming en directo. Almacenamiento grande de 4 GB+128 GBMantenga todos sus momentos inolvidables diarios con HUAWEI Y9 Prime 2019. Sus preciadas fotos, videos y mensajes se pueden guardar con la memoria ROM de 128 GB y almacenamiento ampliable de 512 GB. Potente bateríaLa potente batería integrada de 4000 mAh funciona con el procesador inteligente de ahorro de energía para aumentar considerablemente la eficiencia energética general del dispositivo. HUAWEI Y9 Prime 2019 puede soportar la mayoría de sus tareas diarias.</p>
+            </ion-label>
+          
+        </ion-col>
+        <ion-col size-xl="3" size-md="3" size-xs="12">
+          <ion-list >
+            <ion-item color="light" lines="none" class="ion-text-center">
+              <ion-label style="margin-bottom: 0px;"><h2><b>₡ {{producto.price}} c/IVA</b></h2></ion-label>
+          </ion-item>
+          <ion-item color="light" lines="none" text-center>
+            <ion-label>
+              <ion-button expand="block"(click)="agregarEnCarrito(producto)" mode="ios" style="font-size: 16px; height: 40px;">
+                <ion-icon name = "cart" ></ion-icon>
+                Agregar al carrito
+              </ion-button>
+
+            </ion-label>
+
+          </ion-item>
+          </ion-list>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+
+  <ion-card style="margin-bottom: 50px; margin-top: 30px" >
+    <ion-card-header>
+      <ion-card-title>Preguntas y respuestas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row align-items-center no-padding>
+        <ion-col size="1" align-items-center>
+          <ion-avatar>
+            <img src="assets/avatar.svg">
+          </ion-avatar>
+  
+        </ion-col>
+        <ion-col size="9" align-items-center>
+          <ion-textarea placeholder="Escribe una pregunta aquí..." auto-grow="true" [(ngModel)]="pregunta" class="message-input"></ion-textarea>
+  
+        </ion-col>
+        <ion-col size="2" align-items-center>
+          <ion-button expand="block" mode="ios" fill="clear" [disabled]="pregunta ===''" class="msg-btn" (click)="createQuestion()">
+            Preguntar
+          </ion-button>
+  
+        </ion-col>
+      </ion-row>
+  
+    <app-question *ngFor="let question of questions">
+      <app-answer
+                  textoDerecha="Ver {{question.answers.length}} respuestas" 
+                  user={{question.user}} 
+                  time={{question.time}}
+                  question={{question.question}} 
+      >
+        <ion-item *ngFor="let answer of question.answers" color="light">
+          <ion-avatar style="margin-right: 15px;">
+              <img src="assets/avatar.svg">
+          </ion-avatar>
+          <ion-label >
+              <h3  *ngIf="answer.user.rol <= 1">{{answer.user.name}} (cliente)</h3>
+              <h3  *ngIf="answer.user.rol > 1">{{answer.user.name}} <b>(Servicio al cliente E-collective)</b></h3>
+              <h5>{{answer.time}}</h5>
+              <p style="overflow: visible">{{answer.answer}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-footer>
+
+            <ion-row align-items-center no-padding>
+              <ion-col size="10">
+                <ion-textarea placeholder="Escribe una respuesta aquí..." auto-grow="true" [(ngModel)]="respuesta" class="message-input"></ion-textarea>
+              </ion-col>
+              <ion-col size="2">
+                <ion-button expand="block" mode="ios" fill="clear" color="primary" [disabled]="respuesta ===''" class="msg-btn" (click)="createAnswer(question)">
+                  Responder
+                </ion-button>
+              </ion-col>
+            </ion-row>
+        
+ 
+        </ion-footer>
+      </app-answer>
+  
+    </app-question>
+
+    </ion-card-content>
+    
+</ion-card>
+
+
+  
+
+</ion-content>
