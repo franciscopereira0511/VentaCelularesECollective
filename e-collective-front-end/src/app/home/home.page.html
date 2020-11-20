@@ -39,19 +39,48 @@
 
 <ion-content>     
   
-  <div >
-    <owl-carousel-o [options]="customOptions" >
-      
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-      <ng-template carouselSlide><img src="../../assets/images/Samsung.jpg"></ng-template>  
-    
-    </owl-carousel-o>
-  </div>
+  <owl-carousel-o [options]="customOptions" *ngIf=" productos.length"> 
+    <ng-container>
+      <ng-template carouselSlide *ngFor="let producto of productos">
+        <div class="slider">
+          <ion-card>           
+            <h1 mat-card-title style = "color: green; font-size: 2em; font-style:italic;" > 
+              <b>OFERTA ESPECIAL</b>
+            </h1>
+            <ion-card-header>
+              <div style="display: flex; align-items: center; justify-content: center;">
+
+              <img style ="width: 50%;" class="deviceImage" [src]="producto.imgUrl" />
+                
+              </div>
+              <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
+              <ion-label><b>₡ {{producto.price}} c/IVA</b></ion-label>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-footer>
+                <ion-row>
+                  <ion-col size="6" class="slim">
+                    <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="verDetalles(producto)">
+                      <ion-text><h2><b>Ver detalles</b></h2></ion-text>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col size="6" class="slim">
+                    <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="agregarEnCarrito(producto)">
+                      <ion-text><h2><b>Agregar al carrito</b></h2></ion-text>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-footer>
+
+            </ion-card-content>
+          </ion-card>
+
+
+        </div>
+      </ng-template>
+    </ng-container>
+ 
+  </owl-carousel-o>
   
   
   <ion-grid>

@@ -65,7 +65,6 @@ export class HomePage implements OnInit {
   producto: Product;
   productos: Product[] = [];
 
-
   customOptions: OwlOptions = {
     loop: true,
     autoWidth: true,
@@ -81,7 +80,7 @@ export class HomePage implements OnInit {
         items: 1
       },
       2: {
-        items: 1
+        items: 2
       },
       3: {
         items: 3
@@ -132,5 +131,7 @@ export class HomePage implements OnInit {
   onClickRegister(){
     this.router.navigate(['/register']);
   }
+
+
 
 }

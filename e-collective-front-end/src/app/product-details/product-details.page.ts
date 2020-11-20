@@ -31,7 +31,7 @@ export class ProductDetailsPage implements OnInit {
   fecha: string = this.getFechaCreado();
 
 
-  questions: Question[] = [
+  /*questions: Question[] = [
     {id: '23423',
     user: {email: 'f@gmail.com',
     name: 'Francisco Pereira',
@@ -76,7 +76,7 @@ export class ProductDetailsPage implements OnInit {
     ]
     }
   ];
-
+*/
 
   ngOnInit() {
     const state = this.router.getCurrentNavigation().extras.state;
