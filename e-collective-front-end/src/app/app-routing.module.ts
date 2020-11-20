@@ -30,14 +30,35 @@ const routes: Routes = [
   {
     path: 'cart-modal',
     loadChildren: () => import('./cart-modal/cart-modal.module').then( m => m.CartModalPageModule)
-  },  {
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'admin-user',
+    loadChildren: () => import('./admin/admin-user/admin-user.module').then( m => m.AdminUserPageModule)
+  },  {
+    path: 'admin-employees',
+    loadChildren: () => import('./admin/admin-employees/admin-employees.module').then( m => m.AdminEmployeesPageModule)
+  },
+  {
+    path: 'admin-employees',
+    loadChildren: () => import('./admin/admin-employees/admin-employees.module').then( m => m.AdminEmployeesPageModule)
+  },
+  {
+    path: 'admin-products',
+    loadChildren: () => import('./admin/admin-products/admin-products.module').then( m => m.AdminProductsPageModule)
+  },
+  {
+    path: 'admin-offers',
+    loadChildren: () => import('./admin/admin-offers/admin-offers.module').then( m => m.AdminOffersPageModule)
   }
+
 
 
 ];

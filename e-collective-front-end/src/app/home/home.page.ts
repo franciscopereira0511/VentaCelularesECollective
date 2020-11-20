@@ -6,11 +6,11 @@ import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { CartModalPage } from '../cart-modal/cart-modal.page';
 import { CarritoService } from '../services/carrito.service';
-import { ProductService } from '../services/product/product.service';
 import { Product } from '../models/product/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { tap } from 'rxjs/operators';
+import { ProductsService } from '../services/products/products.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AdComponent } from '../ad/ad.component'
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -36,7 +36,7 @@ export class HomePage implements OnInit {
   constructor( private carritoServicio: CarritoService,
                private modalCtrl: ModalController,
                private router: Router,
-               private productService: ProductService,
+               private productsService: ProductsService,
                private auth: AuthService,             
                private route: ActivatedRoute,
                private dialog: MatDialog,
@@ -71,14 +71,8 @@ export class HomePage implements OnInit {
 
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
-    return this.productService.getProducts()
-    .snapshotChanges().subscribe(item => {
-      this.productos = [];
-      item.forEach(element => {
-        const productJSON = JSON.parse(JSON.stringify(element.payload));
-        productJSON.$id = element.key;
-        this.productos.push(productJSON as Product);
-      });
+    this.productsService.getProducts().subscribe(products=>{
+      this.productos=products;
     });
   }
   
@@ -89,8 +83,8 @@ export class HomePage implements OnInit {
   }
 
   addProduct(){
-    this.producto =  {$id: 'fre6hh', name: 'Iphone', model: 'Galaxy 6', price: 284900, quantity: 1, imgUrl: '../../assets/images/Iphone.jpg'};
-    this.productService.insertProduct(this.producto);
+    this.producto =  {id: 'fre6hh', name: 'Galaxia', model: 'Galaxy 4', price: 128000, quantity: 1, imgUrl: 'https://www.tuexpertomovil.com/wp-content/uploads/2013/12/Samsung-Galaxy-S4-015.jpg'};
+    this.productsService.updateProduct(this.producto);
   }
 
   async abrirCarrito(){

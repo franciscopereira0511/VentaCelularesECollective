@@ -13,6 +13,7 @@ import { CartModalPageModule } from './cart-modal/cart-modal.module';
 import { CommonModule} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
+
 //firebase
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -23,7 +24,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage'
 import { Routes, RouterModule } from '@angular/router'; // CLI imports router
 
 //Services
-import { ProductService} from './services/product/product.service'
+import {ProductsService} from './services/products/products.service';
+
 
 //Materials
 import { MatDialogModule} from '@angular/material/dialog';
@@ -48,7 +50,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
   providers: [
     AngularFireAuth,
     AngularFirestore,
-    ProductService,
+    ProductsService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
