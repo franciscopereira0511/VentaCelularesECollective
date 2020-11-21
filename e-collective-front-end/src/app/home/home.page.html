@@ -1,13 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
+<ion-header [translucent]="true" >
+  <ion-toolbar class="toolbar1">
+        <ion-buttons slot="start" *ngIf="!isDesktop">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-button mode="ios" fill="clear" slot="start" href="/home">
-          <ion-label color="light">E - Collective</ion-label>
-        </ion-button>
+ 
+          <a href="/home" slot="start">
+            <img src="\assets\images\e-collectiveWG.png" class="logo">
+          </a>
+          
+
         <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar>
 
         <div style="display: flex; align-items: center; justify-content: center;" *ngIf="(observableUser | async) as user; else noLogin">
@@ -28,12 +29,42 @@
           </ion-button>
         </ng-template>
 
-        <ion-button slot="end" fill="clear" (click)= "abrirCarrito()" #carro>
+        <ion-button style="padding-right: 10px;" slot="end" fill="clear" (click)= "abrirCarrito()" #carro>
           <div class = "cart-lenght"> {{contadorItems | async}} </div>
           <ion-icon name = "cart" class = "cart-icon"></ion-icon>        
         </ion-button> 
-      </ion-toolbar>
-      </ion-header>
+
+
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="isDesktop" class="toolbar2">
+    <ion-row >
+      <ion-col size="12">
+        <div class="navbar" class="ion-text-center">
+          <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../home']"  >
+            <ion-label color="light">Inicio</ion-label>
+            
+          </ion-button>
+          <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../locations']" >
+            <ion-label color="light">Ubicaciones</ion-label>
+          </ion-button>
+          <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../about-us']" >
+            <ion-label color="light">Acerca de Nosotros</ion-label>
+          </ion-button>
+          <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../news']" >
+            <ion-label color="light">Noticias</ion-label>
+          </ion-button>
+          <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../faq']"  >
+            <ion-label color="light">Preguntas frecuentes</ion-label>
+          </ion-button>
+          <div *ngIf = "this.usuario && (this.usuario.rol == 1 || this.usuario.rol == 2)">
+            <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../admin-user']"  >
+              <ion-label color="light">Administrar</ion-label>
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
@@ -44,21 +75,19 @@
       <ng-template carouselSlide *ngIf ="producto.discount!=0">
         <div class="slider" >
           <ion-card>           
-            <h1 mat-card-title style = "color: green; font-size: 2em; font-style:italic;" > 
+            <h1 style = "color: #6bad29; font-size: 2em; font-style:italic;" > 
               <b>OFERTA ESPECIAL</b>
             </h1>
             <ion-card-header>
               <div style="display: flex; align-items: center; justify-content: center;">
-
-              <img style ="width: 50%;" class="deviceImage" [src]="producto.imgUrl" />
-                
-              </div>  
-              <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
-              <ion-label *ngIf ="producto.discount!=0"><b><s>₡ {{producto.price}} c/IVA</s></b></ion-label>
-              <div *ngIf ="producto.discount!=0"></div>
-              <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
+                <img style ="width: 50%;" class="deviceOfferImage" [src]="producto.imgUrl" />
+              </div>
               
-              <ion-label *ngIf ="producto.discount==0"><b><s>₡ {{producto.price}} c/IVA</s></b></ion-label>
+              <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
+              <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
+              <ion-label *ngIf ="producto.discount!=0"><s>  ₡ {{producto.price}} c/IVA</s></ion-label>
+              
+              <ion-label *ngIf ="producto.discount==0"><b>₡ {{producto.price}} c/IVA</b></ion-label>
 
             </ion-card-header>
             <ion-card-content>
@@ -66,12 +95,12 @@
                 <ion-row>
                   <ion-col size="6" class="slim">
                     <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="verDetalles(producto)">
-                      <ion-text><h2>Ver detalles</h2></ion-text>
+                      <h3><b>Ver detalles</b></h3>
                     </ion-button>
                   </ion-col>
                   <ion-col size="6" class="slim">
                     <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="agregarEnCarrito(producto)">
-                      <ion-text><h2>Agregar al carrito</h2></ion-text>
+                      <h3><b>Agregar al carrito</b></h3>
                     </ion-button>
                   </ion-col>
                 </ion-row>
@@ -96,14 +125,11 @@
             
             <ion-card-header>
               <div style="display: flex; align-items: center; justify-content: center;">
-
-              <img class="deviceImage" [src]="producto.imgUrl" />
-                
+                <img class="deviceImage" [src]="producto.imgUrl" />
               </div>
               <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
-              <ion-label *ngIf ="producto.discount!=0"><b><s>₡ {{producto.price}} c/IVA</s></b></ion-label>
-              <div *ngIf ="producto.discount!=0"></div>
               <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
+              <ion-label *ngIf ="producto.discount!=0"><s>  ₡ {{producto.price}} c/IVA</s></ion-label>
               
               <ion-label *ngIf ="producto.discount==0"><b>₡ {{producto.price}} c/IVA</b></ion-label>
 
@@ -113,12 +139,12 @@
                 <ion-row>
                   <ion-col size="6" class="slim">
                     <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="verDetalles(producto)">
-                      <ion-text>Ver detalles</ion-text>
+                      <h3><b>Ver detalles</b></h3>
                     </ion-button>
                   </ion-col>
                   <ion-col size="6" class="slim">
                     <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="agregarEnCarrito(producto)">
-                      <ion-text>Agregar al carrito</ion-text>
+                      <h3><b>Agregar al carrito</b></h3>
                     </ion-button>
                   </ion-col>
                 </ion-row>
@@ -131,7 +157,7 @@
     </ion-grid>
 
     <ion-footer>
-      <ion-toolbar>
+      <ion-toolbar class="toolbar1">
         <img slot="start" alt="logo" height="100px" src="../../assets/images/LogoFortechBlanco.png">
     
     

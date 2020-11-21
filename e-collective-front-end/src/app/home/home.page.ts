@@ -1,3 +1,4 @@
+import { ScreensizeService } from './../services/screensize.service';
 import { AuthService } from './../services/auth/auth.service';
 import { User } from './../models/user/user';
 import { Component, OnInit } from '@angular/core';
@@ -22,38 +23,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 
 export class HomePage implements OnInit {
-
-  constructor( private carritoServicio: CarritoService,
-               private modalCtrl: ModalController,
-               private router: Router,
-               private productsService: ProductsService,
-               private auth: AuthService,
-               private route: ActivatedRoute,
-               private dialog: MatDialog,
-               ) {
-    this.dynamicColor = 'light';
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-
-        this.emailUsuario = this.router.getCurrentNavigation().extras.state.email;
-
-        if (firebase.auth().currentUser != null){
-          this.observableUser = this.auth.getUserByEmail(this.emailUsuario).pipe(
-            tap(user => {
-              if (user) {
-                this.usuario = user;
-                console.log(user.imageData);
-                this.auth.setSubject(user);
-                console.log('success');
-              } else {
-                console.log('nelson');
-              }
-            }));
-        }
-      }
-    });
-
-  }
+  isDesktop: boolean;
   private dynamicColor: string;
   devices: Device[] = [];
 
@@ -70,7 +40,7 @@ export class HomePage implements OnInit {
     autoplay: true,
     autoplayTimeout: 3000,
     autoplayHoverPause: true,
-		autoplaySpeed: 2000,
+		autoplaySpeed: 3000,
     loop: true,
     autoWidth: true,
     center:true,
@@ -94,8 +64,46 @@ export class HomePage implements OnInit {
     nav: false
   };
 
-  verDetalles(producto: Product) {
-    this.router.navigate(['/product-details'], {state: {producto, usuario: this.usuario}});
+  constructor( private carritoServicio: CarritoService,
+               private modalCtrl: ModalController,
+               private router: Router,
+               private productsService: ProductsService,
+               private auth: AuthService,
+               private route: ActivatedRoute,
+               private dialog: MatDialog,
+               private scrSize: ScreensizeService
+               ) {
+    this.dynamicColor = 'light';
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+
+        this.emailUsuario = this.router.getCurrentNavigation().extras.state.email;
+
+        if (firebase.auth().currentUser != null){
+          this.observableUser = this.auth.getUserByEmail(this.emailUsuario).pipe(
+            tap(user => {
+              if (user) {
+                this.usuario = user;
+                console.log(user.imageData);
+                this.auth.setSubject(user);
+                console.log('success');
+              } else {
+                console.log('nelson');
+              }
+            }));
+        }
+      }
+    });
+
+    this.scrSize.isDesktopView().subscribe(isDesktop => {
+      if (this.isDesktop && !isDesktop) {
+        // Reload because our routing is out of place
+        window.location.reload();
+      }
+ 
+      this.isDesktop = isDesktop;
+    });
+
   }
 
 
@@ -112,13 +120,13 @@ export class HomePage implements OnInit {
     });
   }
   
-   
+  verDetalles(producto: Product) {
+    this.router.navigate(['/product-details'], {state: {producto, usuario: this.usuario}});
+  }
 
   agregarEnCarrito(producto){
     this.carritoServicio.agregarProducto(producto);
   }
-
-
 
   async abrirCarrito(){
     const modal = await this.modalCtrl.create({

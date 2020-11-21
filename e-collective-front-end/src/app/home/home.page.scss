@@ -1,13 +1,37 @@
-ion-toolbar {
-  --background: #050446;
-}
+
 
 ion-title {
   color: white;
 }
 
+ion-searchbar {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.logo{
+  height: 100px;
+  width: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.toolbar2{
+  --background:#1c1f4c;
+}
+
+.toolbar1{
+  --background:#131635;
+}
+
+
+
 ion-content {
   --background: #f0f0f0; // Replace this with color of your choice
+}
+
+ion-card-content {
+  padding-bottom: 0;
 }
 
 ion-menu-button {
@@ -23,8 +47,14 @@ ion-searchbar {
 }
 
 .deviceImage {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
+  margin: auto;
+}
+
+.deviceOfferImage {
+  width: 150px;
+  height: 150px;
   margin: auto;
 }
 
@@ -50,11 +80,23 @@ ion-searchbar {
 }
 
 h1{
-  background-color: #050446;
+  background-color: #131635;
+}
+
+h3 {
+  margin-bottom: 0px;
 }
 
 .slim {
-  max-height: 50px;
+  max-height: 40px;
   margin-top: 0px;
   padding-top: 0px;
+}
+
+.superSlim {
+  max-height: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
