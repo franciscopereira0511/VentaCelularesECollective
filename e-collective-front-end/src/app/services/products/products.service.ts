@@ -33,10 +33,6 @@ export class ProductsService {
     return this.productList.doc<Product>(idProduct).valueChanges();
   }
 
-  getPromo(idProduct: string): Observable<Product> {
-    console.log(idProduct);
-    return this.promosList.doc<Product>(idProduct).valueChanges();
-  }
 
   insertProduct(product:Product){
     return this.productList.doc(product.id).set(product);
@@ -93,12 +89,22 @@ export class ProductsService {
     return this.firestore.collection("questions").add(_.omit(question, ['id']));
   }
 
+  insertAnswer(answer){
+    console.log(answer.questionId)
+    return this.firestore.collection("questions").doc(answer.questionId).collection("answers").add(_.omit(answer, ['id']));
+  }
+
   updateQuestion(question:Question){
     return this.questionList.doc(question.id).update(_.omit(question, ['id']));
   }
 
   deleteQuestion(idQuestion: string): any|undefined {
     return this.questionList.doc(idQuestion).delete();
+  }
+
+  getPromo(idProduct: string): Observable<Product> {
+    console.log(idProduct);
+    return this.promosList.doc<Product>(idProduct).valueChanges();
   }
 
 }

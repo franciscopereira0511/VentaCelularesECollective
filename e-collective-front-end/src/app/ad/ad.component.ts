@@ -12,17 +12,18 @@ export class AdComponent implements OnInit {
 
   producto: Product;
   productos = [];
-  price = 500;
-  discountPercent = 20;
+  price = 100000;
+  discountPercent = 10;
   discounted  = this.price - (this.price*(this.discountPercent*0.01));
-  imagen = "../../assets/images/Samsung.jpg";
-  name = "Samsung XL 21";
+  imagen = "https://firebasestorage.googleapis.com/v0/b/ecollective2.appspot.com/o/products%2FAlcatel-3L-3030_clr_560x700_chrome-3.png?alt=media&token=9d3774d9-1006-432f-9e1b-c6bc1e74f49f";
+  name = "Alcatel 1S";
 
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService ) { }
 
   ngOnInit(){
-    this.productsService.getProducts().subscribe(products=>{
-      this.productos=products;
+    this.productsService.getPromo("H1234").subscribe(oferta=>{
+      this.producto=oferta;
     });
+
   }
 }

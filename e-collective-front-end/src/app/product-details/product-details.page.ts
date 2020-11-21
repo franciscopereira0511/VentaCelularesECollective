@@ -119,7 +119,7 @@ export class ProductDetailsPage implements OnInit {
       };
       question.answers.push(answer);
       this.respuesta = '';
-      // this.productService.addAnswer(question);
+      this.productService.insertAnswer(answer);
     }
 
   }
