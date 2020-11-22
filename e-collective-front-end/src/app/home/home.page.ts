@@ -108,8 +108,7 @@ export class HomePage implements OnInit {
 
 
   ngOnInit(){
-    this.dialog.open(AdComponent,{});
-
+    this.showAd();
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
     this.productsService.getProducts().subscribe(products=>{
@@ -120,6 +119,10 @@ export class HomePage implements OnInit {
     });
   }
   
+  showAd(){
+    this.dialog.open(AdComponent,{});
+  }
+
   verDetalles(producto: Product) {
     this.router.navigate(['/product-details'], {state: {producto, usuario: this.usuario}});
   }
