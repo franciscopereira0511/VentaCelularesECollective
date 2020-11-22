@@ -41,7 +41,7 @@ export class AdComponent implements OnInit {
   }
 
   searchProduct(){
-    this.product = this.productsService.getPromo('BBQ10 ').pipe(
+    this.product = this.productsService.getPromo('BBQ10').pipe(
       tap(product => {
         if (product) {
           this.oferta = product;
