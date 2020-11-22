@@ -31,7 +31,7 @@ export class CartModalPage implements OnInit {
   }
 
   getTotal(){
-    return this.carro.reduce((i,j) => i+ j.price *j.quantity,0);
+    return this.carro.reduce((i,j) => i+ (j.price - (0.01 *j.discount)*j.price) *j.quantity,0);
   }
 
 

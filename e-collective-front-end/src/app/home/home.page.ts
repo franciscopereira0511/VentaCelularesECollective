@@ -71,7 +71,7 @@ export class HomePage implements OnInit {
                private auth: AuthService,
                private route: ActivatedRoute,
                private dialog: MatDialog,
-               private scrSize: ScreensizeService
+               private scrSize: ScreensizeService,
                ) {
     this.dynamicColor = 'light';
     this.route.queryParams.subscribe(params => {
