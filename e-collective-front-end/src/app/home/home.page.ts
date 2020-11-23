@@ -109,6 +109,7 @@ export class HomePage implements OnInit {
 
   ngOnInit(){
     this.showAd();
+    
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
     this.productsService.getProducts().subscribe(products=>{
@@ -120,7 +121,10 @@ export class HomePage implements OnInit {
   }
   
   showAd(){
-    this.dialog.open(AdComponent,{});
+    this.dialog.open(AdComponent,{data: {
+      dataKey: this.usuario
+    }});
+    
   }
 
   verDetalles(producto: Product) {

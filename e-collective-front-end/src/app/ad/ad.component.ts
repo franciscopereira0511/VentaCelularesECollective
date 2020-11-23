@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Product } from '../models/product/product';
 import { ProductsService } from '../services/products/products.service';
-import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
+import { Router } from '@angular/router';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ad',
@@ -23,7 +23,7 @@ export class AdComponent implements OnInit {
   discount: number;
   discounted: number;
   
-  constructor( private productsService: ProductsService) { }
+  constructor( private productsService: ProductsService, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialog) { }
 
   newAd(){
     this.productsService.getPromos().subscribe(products=>{
@@ -36,7 +36,13 @@ export class AdComponent implements OnInit {
       this.discount = this.productos[this.randomAd].discount;
       this.discounted = (this.price - (0.01 *this.discount)*this.price);
       
+      this.producto = this.productos[this.randomAd];
         });
+  }
+  
+  verDetalles() {
+    this.router.navigate(['/product-details'], {state: {producto: this.producto, usuario: this.data}});
+    this.dialogRef.closeAll();
   }
 
   ngOnInit(){  

@@ -7,16 +7,26 @@
   
   <div style= "padding: 2%;">
     <div style="font-size: 200%; padding-left: 1%;  margin-bottom: 5%; font-style:italic;">
+      <br />
       {{name}} 
     </div>
 
     <div style="padding-left: 1%; font-size: 125%;  margin-bottom: 1%;">
       <s>Precio Anterior: ₡{{price}}</s>
     </div>
-    
+  
     <div style="padding-left: 1%; font-size: 155%; margin-bottom: 1%;"> 
       <b>Precio de Oferta: ₡{{discounted}}</b> 
     </div> 
+    
+    <br />
+    <br />
+    
+    <div>
+      <ion-button expand="block"(click)="verDetalles()" matDialogClose mode="ios" style="font-size: 16px; height: 40px;">
+        Ver Detalles
+      </ion-button>
+    </div>
+  
   </div>  
-
 </mat-card-content>
