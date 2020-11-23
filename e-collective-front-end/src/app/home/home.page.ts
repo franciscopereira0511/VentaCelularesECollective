@@ -78,13 +78,14 @@ export class HomePage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
 
         this.emailUsuario = this.router.getCurrentNavigation().extras.state.email;
-
+        console.log(this.emailUsuario);
         if (firebase.auth().currentUser != null){
+          console.log("entró");
           this.observableUser = this.auth.getUserByEmail(this.emailUsuario).pipe(
             tap(user => {
               if (user) {
+                this.auth.setUser(user);
                 this.usuario = user;
-                console.log(user.imageData);
                 this.auth.setSubject(user);
                 console.log('success');
               } else {

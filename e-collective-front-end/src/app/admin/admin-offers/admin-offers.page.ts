@@ -60,7 +60,7 @@ export class AdminOffersPage implements OnInit {
           tap(product => {
             if (product) {
               this.producto = product;
-              this.producto.discount = promo.discount;
+              this.producto.discount = Number(promo.discount);
               this.productService.insertProduct(this.producto);
               console.log('success');
             } else {

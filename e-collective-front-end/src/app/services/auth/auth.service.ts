@@ -53,7 +53,7 @@ export class AuthService {
           console.log('IMG_URL: ',urlImage);
           user.imageData = this.downloadURL;
           console.log(user);
-          this.firestore.collection('users').doc(user.email).set(_.omit(user, ['email']));
+          this.firestore.collection('users').doc(user.email).set(user);
           this.setUser(user);
         })
       })
@@ -100,6 +100,10 @@ export class AuthService {
           return null;
         }
       }));
+  }
+
+  getUserData(email){
+    return this.firestore.collection<User>('users',ref=>ref.where('email','==',email)).valueChanges();
   }
 
   getEmployees(){

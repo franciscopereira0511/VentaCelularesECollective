@@ -56,11 +56,9 @@
           <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../contact']"  >
             <ion-label color="light">Contáctenos</ion-label>
           </ion-button>
-          <div *ngIf = "this.usuario && (this.usuario.rol == 1 || this.usuario.rol == 2)">
-            <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../admin-user']"  >
+            <ion-button class="superSlim" *ngIf = "this.usuario && (this.usuario.rol == 1 || this.usuario.rol == 2)" fill="clear" mode="ios" [routerLink]="['../admin-user']"  >
               <ion-label color="light">Administrar</ion-label>
             </ion-button>
-          </div>
         </div>
       </ion-col>
     </ion-row>
