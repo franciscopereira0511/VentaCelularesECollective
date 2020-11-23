@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
 
   emailUsuario: string;
   observableUser = new Observable<User>();
-  usuario: User = new User();
+  usuario: User;
   carro = [];
   contadorItems: BehaviorSubject <number>;
   producto: Product;
@@ -145,6 +145,13 @@ export class HomePage implements OnInit {
     this.router.navigate(['/register']);
   }
 
-
+  onClickLogOut(){
+    this.auth.logout();
+    this.auth.setSubject(null);
+    this.router.navigate(['/home'])
+    .then(() => {
+      window.location.reload();
+    });
+  }
 
 }

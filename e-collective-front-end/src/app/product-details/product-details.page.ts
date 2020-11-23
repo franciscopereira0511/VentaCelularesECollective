@@ -92,8 +92,14 @@ export class ProductDetailsPage implements OnInit {
 
     this.productService.getQuestions(this.producto.id).subscribe(products=>{
       this.questions=products;
+      this.questions.forEach(question => {
+        this.productService.getAnswers(question.id).subscribe(answers =>
+          question.answers = answers
+          )
+      });
     });
-      
+    
+
   }
 
   async showToast(msg: string, pColor: string) {

@@ -18,7 +18,6 @@ import { ScreensizeService } from './services/screensize.service';
 })
 export class AppComponent {
   private user; 
-  private admin = "keab1981@gmail.com";
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -39,7 +38,6 @@ export class AppComponent {
       this.screensizeService.onResize(this.platform.width());
 
       this.auth.getObservable().subscribe((data) => {
-        console.log('Data received', data);
         this.user = data;
       });
     });

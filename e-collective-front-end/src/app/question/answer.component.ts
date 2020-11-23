@@ -31,8 +31,9 @@ export class AnswerComponent implements OnInit {
   @Input() question: string;
   @Input() textoDerecha: string;
 
-  @Input() user: User;
+  @Input() userImage: string;
   @Input() time: number;
+  @Input() userName:string;
 
 
 

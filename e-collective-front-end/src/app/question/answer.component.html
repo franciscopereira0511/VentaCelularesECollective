@@ -1,10 +1,10 @@
 <ion-item lines="none" class="acc-header" (click)="toggle()" color="lightblue">
   <ion-avatar style="margin-right: 15px;">
-    <img src="assets/avatar.svg">
+    <img [src]="userImage">
   </ion-avatar>
 
   <ion-label color="dark">
-    <h3>{{user.name}}</h3>
+    <h3>{{userName}}</h3>
     <h5>{{time}}</h5>
     <p style="overflow: visible">{{question}}</p>
   </ion-label>

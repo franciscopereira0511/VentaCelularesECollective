@@ -6,7 +6,7 @@ import { finalize, map } from 'rxjs/operators'
 import { Product } from 'src/app/models/product/product';
 import { Promos } from 'src/app/models/promos/promos';
 import * as _ from 'lodash';
-import { Question } from 'src/app/models/question/question';
+import { Answer, Question } from 'src/app/models/question/question';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +89,10 @@ export class ProductsService {
     return this.firestore.collection("questions").add(_.omit(question, ['id']));
   }
 
+  getAnswers(idQuestion){
+    return this.firestore.collection("questions").doc<Question>(idQuestion).collection<Answer>("answers").valueChanges();
+  }
+
   insertAnswer(answer){
     console.log(answer.questionId)
     return this.firestore.collection("questions").doc(answer.questionId).collection("answers").add(_.omit(answer, ['id']));
@@ -106,5 +110,24 @@ export class ProductsService {
     console.log(idProduct);
     return this.promosList.doc<Product>(idProduct).valueChanges();
   }
+/*
+  getCompleteQuestions(idQuestion: string): Promise<Question> {
+    let question: Question;
+    const questionRef = this.firestore.collection<Question>('questions').doc(idQuestion);
+    return questionRef.ref.get()
+      .then(dc => {
+        if (dc.exists) {
+          return question = {
+            id: idQuestion,
+            idProduct: dc.data().idProduct,
+            user: dc.data().user,
+            question: dc.data().question,
+            time:dc.data().question,
+            answers: dc.data().answers.map(e => ({id: idQuestion, questionId: e.questionId, user: e.user, answer: e.answer,time:e.time})),
+          };
+        } 
+      });
+  }
+*/
 
 }

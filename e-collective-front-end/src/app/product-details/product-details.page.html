@@ -68,9 +68,16 @@
     <ion-card-content>
       <ion-row align-items-center no-padding>
         <ion-col size="1" align-items-center>
-          <ion-avatar>
-            <img src="assets/avatar.svg">
-          </ion-avatar>
+          <div *ngIf ="usuario ; else noUser">
+            <ion-avatar>
+              <img [src]="usuario.imageData">
+            </ion-avatar>
+          </div>
+          <ng-template #noUser>
+            <ion-avatar>
+              <img src="assets/avatar.svg">
+            </ion-avatar>
+          </ng-template>
   
         </ion-col>
         <ion-col size="9" align-items-center>
@@ -88,13 +95,14 @@
     <app-question *ngFor="let question of questions">
       <app-answer
                   textoDerecha="Ver {{question.answers.length}} respuestas" 
-                  user={{question.user}} 
+                  userImage={{question.user.imageData}} 
                   time={{question.time}}
                   question={{question.question}} 
+                  userName={{question.user.name}}
       >
         <ion-item *ngFor="let answer of question.answers" color="light">
           <ion-avatar style="margin-right: 15px;">
-              <img src="assets/avatar.svg">
+              <img [src]="answer.user.imageData">
           </ion-avatar>
           <ion-label >
               <h3  *ngIf="answer.user.rol <= 1">{{answer.user.name}} (cliente)</h3>
