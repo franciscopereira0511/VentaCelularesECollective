@@ -113,7 +113,7 @@ export class ProductDetailsPage implements OnInit {
   }
 
   createAnswer(question: Question) {
-    if(this.usuario.name === undefined) {
+    if(this.usuario === undefined) {
       this.showToast('Debe iniciar sesión para agregar una respuesta.', 'danger')
     } else {
       const answer: Answer = {
@@ -131,7 +131,7 @@ export class ProductDetailsPage implements OnInit {
   }
 
   createQuestion() {
-    if(this.usuario.name === undefined) {
+    if(this.usuario === undefined) {
       this.showToast('Debe iniciar sesión para agregar una pregunta.', 'danger')
     } else {
       console.log(this.usuario.name);
