@@ -1,0 +1,78 @@
+<ion-header [translucent]="true" >
+  <ion-toolbar class="toolbar1">
+    <a href="/home" slot="start">
+      <img src="\assets\images\e-collectiveWG.png" class="logo">
+    </a>
+    <ion-title>Formulario de contacto</ion-title>
+        <ion-buttons slot="start">
+          <ion-button slot="end" fill="clear" mode="ios" [routerLink]="['../home']"  >
+            <ion-label color="light"><u>Volver al inicio</u></ion-label>
+          </ion-button>
+        </ion-buttons>
+ 
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="contactForm">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Nombre completo *</ion-label>
+            <ion-input formControlName="nombre" name="Fullname"></ion-input> 
+          </ion-item>
+  
+          <ion-text *ngIf="!contactForm.get('nombre').valid && contactForm.get('nombre').touched" color="danger">
+            <p>Es necesario ingresar un nombre. </p>
+          </ion-text>
+  
+          <ion-item>
+            <ion-label position="floating">Correo Electrónico *</ion-label>
+            <ion-input formControlName="correo" name="Email"></ion-input> 
+          </ion-item>
+
+          <small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie.</small>
+  
+          <ion-text *ngIf="!contactForm.get('correo').valid && contactForm.get('correo').touched" color="danger">
+            <p>Es necesario ingresar un correo electrónico válido. </p>
+          </ion-text>
+  
+          <ion-item>
+            <ion-label position="floating">Asunto *</ion-label>
+            <ion-input formControlName="asunto" name="_subject"></ion-input> 
+          </ion-item>
+  
+          <ion-text *ngIf="!contactForm.get('asunto').valid && contactForm.get('asunto').touched" color="danger">
+            <p>Es necesario ingresar un asunto para el correo. </p>
+          </ion-text>
+  
+          <ion-item lines="none">
+            <ion-label position="stacked">Mensaje *</ion-label>
+            <ion-textarea auto-grow="true" formControlName="mensaje" class="message-input" name="Comment"></ion-textarea>
+          </ion-item>
+  
+          <ion-text *ngIf="!contactForm.get('correo').valid && contactForm.get('correo').touched" color="danger">
+            <p>Es necesario ingresar un mensaje para el correo. </p>
+          </ion-text>
+  
+  
+        </ion-list>
+      </form>
+  
+      <ion-button 
+        expand="full" 
+        class="ion-margin-top"
+        (click)="onClickSend(contactForm.value)"
+        mode="ios"
+      >Enviar
+      </ion-button>
+
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>

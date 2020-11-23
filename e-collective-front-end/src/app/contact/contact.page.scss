@@ -1,0 +1,44 @@
+.logo{
+    height: 100px;
+    width: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  
+.toolbar1{
+    --background:#131635;
+}
+
+ion-title {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+
+ion-content {
+  --background: #f0f0f0; // Replace this with color of your choice
+}
+
+ion-card {
+    margin-top: 30px !important;
+    max-width: 700px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.message-input{
+    color: black;
+    width: 100%;
+    border: 1px solid var(--ion-color-medium);
+    background: #fff;
+    resize: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    height: 200px;
+}
+

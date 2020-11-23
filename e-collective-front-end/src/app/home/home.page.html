@@ -43,19 +43,21 @@
         <div class="navbar" class="ion-text-center">
           <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../home']"  >
             <ion-label color="light">Inicio</ion-label>
-            
           </ion-button>
           <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../locations']" >
             <ion-label color="light">Ubicaciones</ion-label>
           </ion-button>
           <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../about-us']" >
-            <ion-label color="light">Acerca de Nosotros</ion-label>
+            <ion-label color="light">Acerca de nosotros</ion-label>
           </ion-button>
           <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../news']" >
             <ion-label color="light">Noticias</ion-label>
           </ion-button>
           <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../faq']"  >
             <ion-label color="light">Preguntas frecuentes</ion-label>
+          </ion-button>
+          <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../contact']"  >
+            <ion-label color="light">Contáctenos</ion-label>
           </ion-button>
           <div *ngIf = "this.usuario && (this.usuario.rol == 1 || this.usuario.rol == 2)">
             <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../admin-user']"  >

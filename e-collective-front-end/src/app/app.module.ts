@@ -1,3 +1,4 @@
+import { ContactService } from './services/contact.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -48,7 +49,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     MatDialogModule,
     CarouselModule, HttpClientModule,],
   providers: [
+    ContactService,
     AngularFireAuth,
+    HttpClientModule,
     AngularFirestore,
     ProductsService,
     StatusBar,
