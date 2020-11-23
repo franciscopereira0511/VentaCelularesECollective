@@ -1,14 +1,21 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header [translucent]="true" >
+  <ion-toolbar class="toolbar1">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    
-    <ion-button mode="ios" fill="clear" slot="end" href="/home">
+    <a href="/home" slot="start">
       <img src="\assets\images\e-collectiveWG.png" class="logo">
-    </ion-button>
+    </a>
     
     <ion-title>Administrativo</ion-title>
+        <ion-buttons slot="start">
+          <ion-button slot="end" fill="clear" mode="ios" [routerLink]="['../home']"  >
+            <ion-label color="light"><u>Volver al inicio</u></ion-label>
+          </ion-button>
+        </ion-buttons>
+ 
+
+
   </ion-toolbar>
 </ion-header>
 

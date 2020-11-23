@@ -28,10 +28,6 @@ const routes: Routes = [
     loadChildren: () => import('./faq/faq.module').then( m => m.FAQPageModule)
   },
   {
-    path: 'cart-modal',
-    loadChildren: () => import('./cart-modal/cart-modal.module').then( m => m.CartModalPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
@@ -46,11 +42,7 @@ const routes: Routes = [
   {
     path: 'admin-employees',
     loadChildren: () => import('./admin/admin-employees/admin-employees.module').then( m => m.AdminEmployeesPageModule)
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },
+  },  
   {
     path: 'product-details',
     loadChildren: () => import('./product-details/product-details.module').then( m => m.ProductDetailsPageModule)
@@ -66,14 +58,11 @@ const routes: Routes = [
   {
     path: 'admin-offers',
     loadChildren: () => import('./admin/admin-offers/admin-offers.module').then( m => m.AdminOffersPageModule)
-  },  {
+  },
+  {
     path: 'contact',
     loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
   }
-
-
-
-
 ];
 
 @NgModule({
