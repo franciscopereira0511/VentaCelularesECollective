@@ -14,13 +14,15 @@ ion-searchbar {
   padding-right: 30px;
 }
 
+.toolbar1{
+  --background:#131635;
+}
+
 .toolbar2{
   --background:#1c1f4c;
 }
 
-.toolbar1{
-  --background:#131635;
-}
+
 
 ion-content {
   --background: #f0f0f0; // Replace this with color of your choice

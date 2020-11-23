@@ -66,7 +66,11 @@ const routes: Routes = [
   {
     path: 'admin-offers',
     loadChildren: () => import('./admin/admin-offers/admin-offers.module').then( m => m.AdminOffersPageModule)
+  },  {
+    path: 'contact',
+    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
   }
+
 
 
 

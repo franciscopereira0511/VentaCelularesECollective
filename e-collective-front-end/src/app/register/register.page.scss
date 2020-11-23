@@ -19,3 +19,19 @@ ion-title {
 ion-content {
     --background: #f0f0f0; // Replace this with color of your choice
 }
+
+.logo-image {
+    width: 15%;
+    height: auto;
+    margin: auto;
+    padding-bottom: 20px;
+}
+// Para dispositivos pequeños, hice el logo un poco mas grande. 
+@media (max-width: 479px) {
+    .logo-image {
+        width: 50%;
+        height: auto;
+        margin: auto;
+        padding-bottom: 20px;
+    }
+}
