@@ -30,12 +30,14 @@ import {ProductsService} from './services/products/products.service';
 
 //Materials
 import { MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule } from '@angular/material/card';
  
 //Carrusel
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { AdComponent } from './ad/ad.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,AdComponent],
   entryComponents: [],
   imports: [BrowserModule, 
     AngularFireStorageModule,
@@ -43,10 +45,12 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     AppRoutingModule, 
     BrowserAnimationsModule, 
     CartModalPageModule,
+    AppRoutingModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
     CommonModule,
     MatDialogModule,
+    MatCardModule,
     CarouselModule, HttpClientModule,],
   providers: [
     ContactService,
