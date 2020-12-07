@@ -9,7 +9,7 @@
           </a>
           
 
-        <ion-searchbar slot = "start" placeholder="Buscar teléfonos celulares..."></ion-searchbar>
+        <ion-searchbar slot = "start"  showCancelButton="never" (ionInput)="search($event)" placeholder="Buscar por marca, modelo, precio..."></ion-searchbar>
 
         <div style="display: flex; align-items: center; justify-content: center;" *ngIf="(observableUser | async) as user; else noLogin">
           <ion-button mode="ios" fill="clear" (click)= "onClickLogin()">
@@ -41,6 +41,9 @@
     <ion-row >
       <ion-col size="12">
         <div class="navbar" class="ion-text-center">
+          <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../order-history']"  >
+            <ion-label color="light">Historial de compras</ion-label>
+          </ion-button>
           <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../locations']" >
             <ion-label color="light">Ubicaciones</ion-label>
           </ion-button>
@@ -56,9 +59,6 @@
           <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../contact']"  >
             <ion-label color="light">Contáctenos</ion-label>
           </ion-button>
-          <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../order-history']"  >
-            <ion-label color="light">Historial de compras</ion-label>
-          </ion-button>
           <ion-button class="superSlim" *ngIf = "this.usuario && (this.usuario.rol == 1 || this.usuario.rol == 2)" fill="clear" mode="ios" [routerLink]="['../admin-user']"  >
             <ion-label color="light">Administrar</ion-label>
           </ion-button>
@@ -70,7 +70,7 @@
 
 <ion-content>     
   
-  <owl-carousel-o [options]="customOptions" *ngIf=" productos.length"> 
+<!--   <owl-carousel-o [options]="customOptions" *ngIf=" productos.length"> 
     <ng-container *ngFor="let producto of productos">
       <ng-template carouselSlide *ngIf ="producto.discount!=0">
         <div class="slider" >
@@ -114,47 +114,60 @@
       </ng-template>
     </ng-container>
  
-  </owl-carousel-o>
-  
-  
-  <ion-grid>
-      <ion-row>
-        <ion-col size-xl="3" size-md="6" size-xs="12" *ngFor="let producto of productos">
-          <ion-card>
+  </owl-carousel-o> -->
 
-            
-            <ion-card-header>
-              <div style="display: flex; align-items: center; justify-content: center;">
-                <img class="deviceImage" [src]="producto.imgUrl" />
-              </div>
-              <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
-              <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
-              <ion-label *ngIf ="producto.discount!=0"><s>  ₡ {{producto.price}} c/IVA</s></ion-label>
-              
-              <ion-label *ngIf ="producto.discount==0"><b>₡ {{producto.price}} c/IVA</b></ion-label>
+  <!-- <ion-searchbar slot = "start"  showCancelButton="never" (ionInput)="search($event)" placeholder="Buscar teléfonos celulares..."></ion-searchbar> -->
 
-            </ion-card-header>
-            <ion-card-content>
-              <ion-footer>
-                <ion-row>
-                  <ion-col size="6" class="slim">
-                    <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="verDetalles(producto)">
-                      <h3><b>Ver detalles</b></h3>
-                    </ion-button>
-                  </ion-col>
-                  <ion-col size="6" class="slim">
-                    <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="agregarEnCarrito(producto)">
-                      <h3><b>Agregar al carrito</b></h3>
-                    </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-footer>
 
-            </ion-card-content>
-          </ion-card>
+
+
+
+  <ion-grid >
+      <ion-row id ='lista-productos'>
+
+        <ion-col size-xl="3" size-md="6" size-xs="12" *ngFor="let producto of productos" >
+
+
+            <ion-card >
+              <ion-card-header>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                  <img class="deviceImage" [src]="producto.imgUrl" />
+                </div>
+                <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
+                <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
+                <ion-label *ngIf ="producto.discount!=0"><s>  ₡ {{producto.price}} c/IVA</s></ion-label>
+                
+                <ion-label *ngIf ="producto.discount==0"><b>₡ {{producto.price}} c/IVA</b></ion-label>
+
+              </ion-card-header>
+              <ion-card-content>
+                <ion-footer>
+                  <ion-row>
+                    <ion-col size="6" class="slim">
+                      <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="verDetalles(producto)">
+                        <h3><b>Ver detalles</b></h3>
+                      </ion-button>
+                    </ion-col>
+                    <ion-col size="6" class="slim">
+                      <ion-button class="slim" mode="ios" fill="clear" expand="full" (click)="agregarEnCarrito(producto)">
+                        <h3><b>Agregar al carrito</b></h3>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-footer>
+
+              </ion-card-content>
+            </ion-card>
+
+
         </ion-col>
       </ion-row>
     </ion-grid>
+
+
+    
+
+
 
     <ion-footer>
       <ion-toolbar class="toolbar1">

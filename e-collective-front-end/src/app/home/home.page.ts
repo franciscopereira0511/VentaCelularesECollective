@@ -34,6 +34,7 @@ export class HomePage implements OnInit {
   contadorItems: BehaviorSubject <number>;
   producto: Product;
   productos: Product[] = [];
+  items: any = [];
   ofertas = [];
 
   customOptions: OwlOptions = {
@@ -150,6 +151,17 @@ export class HomePage implements OnInit {
 
   onClickLogOut() {
 
+  }
+
+  search(ev: any){
+    if(this.items.length==0) { this.items = Array.from(document.getElementById('lista-productos').children); }
+    const query = ev.target.value.toLowerCase();
+    requestAnimationFrame(() => {
+      this.items.forEach(item => {
+        const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+        item.style.display = shouldShow ? 'block' : 'none';
+      });
+    });
   }
 
 
