@@ -11,11 +11,14 @@ import { Product } from '../models/product/product'
 export class CartModalPage implements OnInit {
   carro: Product[] = [];
 
-  constructor(private carritoServicio: CarritoService, private modalCtr:ModalController) { }
+  constructor(private carritoServicio: CarritoService, private modalCtr: ModalController) { }
 
   ngOnInit() {
     this.carro = this.carritoServicio.getCarro();
-    console.log(this.carritoServicio.getCarro());
+    let i = 0;
+    this.carro.forEach(product => {
+      i += product.price;
+    });
   }
 
   decreaseProduct(product){
@@ -31,7 +34,7 @@ export class CartModalPage implements OnInit {
   }
 
   getTotal(){
-    return this.carro.reduce((i,j) => i+ (j.price - (0.01 *j.discount)*j.price) *j.quantity,0);
+    return this.carro.reduce((i, j) => i + (j.price - (0.01 * j.discount) * j.price) * j.quantity, 0);
   }
 
 
@@ -40,3 +43,4 @@ close(){
 }
 
 }
+ 

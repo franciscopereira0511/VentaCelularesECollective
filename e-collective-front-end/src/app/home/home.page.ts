@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
 
   emailUsuario: string;
   observableUser = new Observable<User>();
-  usuario: User;
+  usuario: User = new User();
   carro = [];
   contadorItems: BehaviorSubject <number>;
   producto: Product;
@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
 		autoplaySpeed: 3000,
     loop: true,
     autoWidth: true,
-    center:true,
+    center: true,
     mouseDrag: true,
     touchDrag: false,
     pullDrag: true,
@@ -78,14 +78,13 @@ export class HomePage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
 
         this.emailUsuario = this.router.getCurrentNavigation().extras.state.email;
-        console.log(this.emailUsuario);
+
         if (firebase.auth().currentUser != null){
-          console.log("entró");
           this.observableUser = this.auth.getUserByEmail(this.emailUsuario).pipe(
             tap(user => {
               if (user) {
-                this.auth.setUser(user);
                 this.usuario = user;
+                console.log(user.imageData);
                 this.auth.setSubject(user);
                 console.log('success');
               } else {
@@ -101,7 +100,7 @@ export class HomePage implements OnInit {
         // Reload because our routing is out of place
         window.location.reload();
       }
- 
+
       this.isDesktop = isDesktop;
     });
 
@@ -110,22 +109,18 @@ export class HomePage implements OnInit {
 
   ngOnInit(){
     this.showAd();
-    
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
-    this.productsService.getProducts().subscribe(products=>{
-      this.productos=products;
+    this.productsService.getProducts().subscribe(products => {
+      this.productos = products;
     });
-    this.productsService.getPromos().subscribe(products=>{
-      this.ofertas=products;
+    this.productsService.getPromos().subscribe(products => {
+      this.ofertas = products;
     });
   }
-  
+
   showAd(){
-    this.dialog.open(AdComponent,{data: {
-      dataKey: this.usuario
-    }});
-    
+    this.dialog.open(AdComponent, {});
   }
 
   verDetalles(producto: Product) {
@@ -153,13 +148,10 @@ export class HomePage implements OnInit {
     this.router.navigate(['/register']);
   }
 
-  onClickLogOut(){
-    this.auth.logout();
-    this.auth.setSubject(null);
-    this.router.navigate(['/home'])
-    .then(() => {
-      window.location.reload();
-    });
+  onClickLogOut() {
+
   }
+
+
 
 }

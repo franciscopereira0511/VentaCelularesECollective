@@ -8,18 +8,21 @@ ion-title {
     color: white;
 }
 
+.toolbar1{
+    --background:#131635;
+}
+
+ion-content {
+    --background: #f0f0f0; // Replace this with color of your choice
+}
 
 ion-menu-button {
     color: white;
   }
 
-.toolbar1{
-    --background:#131635;
-}
-
-  .logo{
+.logo{
     height: 100px;
     width: auto;
     padding-left: 30px;
     padding-right: 30px;
-  }
+}
