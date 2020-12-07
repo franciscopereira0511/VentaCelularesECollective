@@ -52,6 +52,7 @@ export class CarritoService {
     for (const [index, p] of this.carro.entries()){
       if (p.id === producto.id){
         this.contadorItems.next(this.contadorItems.value - p.quantity);
+        p.quantity = 1;
         this.carro.splice(index, 1);
       }
     }
