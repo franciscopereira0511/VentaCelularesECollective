@@ -1,8 +1,30 @@
+ion-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: white;
+}
+
 ion-img{
 display: inline-block;
 height:90px;
 width:100%;
 }
+
+.white {
+    color: white;
+}
+
+ion-content {
+    --background: #f0f0f0; // Replace this with color of your choice
+}
+
+.toolbar1{
+    --background:#131635;
+  }
   
 .product-price{
     text-align: right;

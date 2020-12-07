@@ -135,8 +135,7 @@ export class HomePage implements OnInit {
   async abrirCarrito(){
     const modal = await this.modalCtrl.create({
       component: CartModalPage,
-      componentProps: { productos: this.devices },
-      cssClass: 'cart-modal'
+      componentProps: { usuario: this.usuario },
     });
     modal.present();
   }

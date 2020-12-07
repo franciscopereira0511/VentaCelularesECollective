@@ -70,7 +70,7 @@
 
 <ion-content>     
   
-<!--   <owl-carousel-o [options]="customOptions" *ngIf=" productos.length"> 
+<owl-carousel-o [options]="customOptions" *ngIf=" productos.length"> 
     <ng-container *ngFor="let producto of productos">
       <ng-template carouselSlide *ngIf ="producto.discount!=0">
         <div class="slider" >
@@ -84,7 +84,7 @@
               </div>
               
               <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
-              <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
+              <ion-label *ngIf ="producto.discount!=0" style="margin-right: 10px;" color="danger"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
               <ion-label *ngIf ="producto.discount!=0"><s>  ₡ {{producto.price}} c/IVA</s></ion-label>
               
               <ion-label *ngIf ="producto.discount==0"><b>₡ {{producto.price}} c/IVA</b></ion-label>
@@ -114,13 +114,7 @@
       </ng-template>
     </ng-container>
  
-  </owl-carousel-o> -->
-
-  <!-- <ion-searchbar slot = "start"  showCancelButton="never" (ionInput)="search($event)" placeholder="Buscar teléfonos celulares..."></ion-searchbar> -->
-
-
-
-
+  </owl-carousel-o> 
 
   <ion-grid >
       <ion-row id ='lista-productos'>
@@ -134,7 +128,7 @@
                   <img class="deviceImage" [src]="producto.imgUrl" />
                 </div>
                 <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>
-                <ion-label *ngIf ="producto.discount!=0"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
+                <ion-label *ngIf ="producto.discount!=0" style="margin-right: 10px;" color="danger"><b>₡ {{producto.price - (0.01 *producto.discount)*producto.price}} c/IVA</b></ion-label>
                 <ion-label *ngIf ="producto.discount!=0"><s>  ₡ {{producto.price}} c/IVA</s></ion-label>
                 
                 <ion-label *ngIf ="producto.discount==0"><b>₡ {{producto.price}} c/IVA</b></ion-label>
