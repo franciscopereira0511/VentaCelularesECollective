@@ -35,7 +35,14 @@
             </ion-item>
 
             <div class="ion-text-center">
-              <ion-label><b>Hola, Usuario</b></ion-label>
+              <ion-label><b>Hola, usuario</b></ion-label>
+
+              
+            <ion-menu-toggle>
+              <ion-button fill="clear" expand="full" mode="ios" [routerLink]="['../login']">
+                <ion-label>Iniciar sesión</ion-label>
+              </ion-button>
+            </ion-menu-toggle>
             </div>
           </ng-template>
 
