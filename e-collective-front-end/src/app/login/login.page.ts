@@ -45,8 +45,6 @@ export class LoginPage implements OnInit {
 
     this.authService.login(usuario.email, usuario.password)
     .then((res) => {
-      console.log(res);
-      this.authService.setUser(res);
       this.showToast('¡Bienvenido!', 'success');
 
       this.router.navigate(['home'], navigationExtras);

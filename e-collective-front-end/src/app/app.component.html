@@ -49,6 +49,13 @@
           </ion-menu-toggle>
 
           <ion-menu-toggle>
+            <ion-item lines="none" button [routerLink]="['../order-history']"> 
+              <ion-icon name="cart-outline" slot="start"></ion-icon>
+              <ion-label>Historial de compras</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
             <ion-item lines="none" button [routerLink]="['../locations']"> 
               <ion-icon name="location-outline" slot= "start"></ion-icon>
               <ion-label>Ubicaciones</ion-label>

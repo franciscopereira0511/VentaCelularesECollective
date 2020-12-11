@@ -1,24 +1,31 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="toolbar1">
+
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-      <ion-button mode="ios" fill="clear" slot="start" href="/home">
-        <ion-label color="light">E - Collective</ion-label>
-      </ion-button>
-
     </ion-buttons>
 
+    <a href="/home" slot="start">
+      <img src="\assets\images\e-collectiveWG.png" class="logo">
+    </a>
 
-    <ion-title class="ion-text-center">Detalles</ion-title>
+  <ion-title class="ion-text-center">Detalles</ion-title>
 
-    <ion-button slot="end" fill="clear" (click)= "abrirCarrito()" #carro>
-      <div class = "cart-lenght"> {{contadorItems | async}} </div>
-      <ion-icon name = "cart" class = "cart-icon"></ion-icon>        
-    </ion-button> 
+  <ion-buttons slot="start">
+    <ion-button slot="end" fill="clear" mode="ios" [routerLink]="['../home']"  >
+      <ion-label color="light"><u>Volver al inicio</u></ion-label>
+    </ion-button>
+  </ion-buttons>
+
+  <ion-button style="padding-right: 10px;" slot="end" fill="clear" (click)= "abrirCarrito()" #carro>
+    <div class = "cart-lenght"> {{contadorItems | async}} </div>
+    <ion-icon name = "cart" class = "cart-icon"></ion-icon>        
+  </ion-button> 
   </ion-toolbar>
+
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding">  
   <ion-card>
   <ion-grid>
     <ion-row>

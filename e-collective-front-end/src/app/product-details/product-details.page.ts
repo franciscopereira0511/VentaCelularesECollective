@@ -1,5 +1,5 @@
 import { ProductsService } from './../services/products/products.service';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { Product } from '../models/product/product';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -21,7 +21,8 @@ export class ProductDetailsPage implements OnInit {
               private modalCtrl: ModalController,
               private carritoServicio: CarritoService,
               private productService: ProductsService,
-              private toastCtrl: ToastController) { }
+              private toastCtrl: ToastController,
+              private alertCtrl: AlertController) { }
   producto: Product;
   usuario: User;
   respuesta = '';
@@ -31,52 +32,7 @@ export class ProductDetailsPage implements OnInit {
   fecha: string = this.getFechaCreado();
 
 
-  questions: Question[] = [
-    {id: '23423',
-    idProduct: 'H1234',
-    user: {email: 'f@gmail.com',
-    name: 'Francisco Pereira',
-    rol: 1,
-    birthdate: '2323',
-    imageData: '',
-    uid: '223'},
-    question: '¿Qué tal la calidad de este celulars?',
-    time: this.fecha,
-
-    answers: [
-      {id: '23423',
-      questionId: '234234',
-      user: {email: 'f@gmail.com',
-      name: 'Kenner Ortiz',
-      rol: 3,
-      birthdate: '2323',
-      imageData: '',
-      uid: '223'},
-      answer: 'Pues bastante bien si te soy honesto. Está en perfecto estado.',
-      time: this.fecha},
-      {id: '23423',
-      questionId: '234234',
-      user: {email: 'f@gmail.com',
-      name: 'Mariano Torres',
-      rol: 1,
-      birthdate: '2323',
-      imageData: '',
-      uid: '223'},
-      answer: 'Opino que está muy bien. Sin quejas.',
-      time: this.fecha},
-      {id: '23423',
-      questionId: '234234',
-      user: {email: 'f@gmail.com',
-      name: 'David Mora',
-      rol: 1,
-      birthdate: '2323',
-      imageData: '',
-      uid: '223'},
-      answer: 'Fatal este producto, le pongo un rotundo 0.',
-      time: this.fecha}
-    ]
-    }
-  ];
+  questions: Question[] = [  ];
 
 
   ngOnInit() {
@@ -84,7 +40,7 @@ export class ProductDetailsPage implements OnInit {
     if (state) {
       this.producto = state.producto;
       this.usuario = state.usuario;
-      console.log(this.usuario);
+      // console.log(this.usuario);
     }
 
     this.carro = this.carritoServicio.getCarro();
@@ -112,9 +68,35 @@ export class ProductDetailsPage implements OnInit {
     (await toast).present();
   }
 
+  async presentAlertLogin() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Debe iniciar sesión',
+      message: 'Es necesario registrarse/iniciar sesión para escribir preguntas o respuestas.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Se canceló la operación.');
+          }
+        }, {
+          text: 'Iniciar sesión',
+          handler: () => {
+            this.router.navigate(['/login']);
+          }
+        }
+      ]
+    });
+
+
+    await alert.present();
+  }
+
   createAnswer(question: Question) {
     if(this.usuario === undefined) {
-      this.showToast('Debe iniciar sesión para agregar una respuesta.', 'danger')
+      this.presentAlertLogin();
     } else {
       const answer: Answer = {
         id: '',
@@ -131,8 +113,8 @@ export class ProductDetailsPage implements OnInit {
   }
 
   createQuestion() {
-    if(this.usuario === undefined) {
-      this.showToast('Debe iniciar sesión para agregar una pregunta.', 'danger')
+    if (this.usuario === undefined) {
+      this.presentAlertLogin();
     } else {
       console.log(this.usuario.name);
       const question: Question = {
@@ -152,8 +134,7 @@ export class ProductDetailsPage implements OnInit {
   async abrirCarrito(){
     const modal = await this.modalCtrl.create({
       component: CartModalPage,
-      componentProps: { },
-      cssClass: 'cart-modal'
+      componentProps: { usuario: this.usuario }
     });
     modal.present();
   }

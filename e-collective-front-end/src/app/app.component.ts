@@ -17,7 +17,7 @@ import { ScreensizeService } from './services/screensize.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  private user; 
+  user; 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
