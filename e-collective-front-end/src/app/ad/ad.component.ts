@@ -3,7 +3,7 @@ import { Product } from '../models/product/product';
 import { ProductsService } from '../services/products/products.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ad',
@@ -11,8 +11,6 @@ import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
   styleUrls: ['./ad.component.scss'],
 })
 export class AdComponent implements OnInit {
-
-  product:Observable<Product> = new Observable<Product>();
   producto: Product;
   productos: Product[] = [];
   randomAd: number;

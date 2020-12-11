@@ -73,6 +73,7 @@ export class HomePage implements OnInit {
                private dialog: MatDialog,
                private scrSize: ScreensizeService,
                ) {
+                this.showAd();
     this.dynamicColor = 'light';
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -109,7 +110,7 @@ export class HomePage implements OnInit {
 
 
   ngOnInit(){
-    this.showAd();
+    
     
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
@@ -147,6 +148,10 @@ export class HomePage implements OnInit {
 
   onClickLogin() {
     this.router.navigate(['/login']);
+  }
+
+  onClickLogged(){
+    this.router.navigate(['/edit-profile']);
   }
 
   onClickRegister(){
