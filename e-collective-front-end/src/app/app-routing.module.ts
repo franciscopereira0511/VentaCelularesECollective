@@ -70,7 +70,7 @@ const routes: Routes = [
   },
   {
     path: 'edit-profile',
-    loadChildren: () => import('./order-history/order-history.module').then( m => m.OrderHistoryPageModule)
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   }
 
 ];

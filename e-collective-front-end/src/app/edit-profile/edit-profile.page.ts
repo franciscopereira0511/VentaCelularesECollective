@@ -36,22 +36,23 @@ export class EditProfilePage implements OnInit {
     private fb: FormBuilder,
     private toastCtrl: ToastController,
     private firestore: AngularFirestore,
-    ) { 
-        this.auth.getUserByEmail("mariano.soto.777@gmail.com").subscribe(userA=>{
-        this.usuarioActual = userA;
-        this.nombre = "Nombre: " + userA.name;
-        this.previewImage = userA.imageData;
-        this.emailUsuario = userA.email;
-        this.birthdate = userA.birthdate.substring(0,10);
-        this.rolUser = userA.rol;
-        this.id = userA.uid;
-      });
-      }
+    ) {  }
 
       ngOnInit() {
         this.userForm = this.fb.group({
           contrasena: [null, [Validators.required, Validators.minLength(8)]],
         });
+        const state = this.router.getCurrentNavigation().extras.state;
+        if (state) {
+          this.usuarioActual = state.usuario;
+          this.nombre = this.usuarioActual.name;
+          this.previewImage = this.usuarioActual.imageData;
+          this.emailUsuario = this.usuarioActual.email;
+          this.birthdate = this.usuarioActual.birthdate.substring(0,10);
+          this.rolUser = this.usuarioActual.rol;
+          this.id = this.usuarioActual.uid;
+          // console.log(this.usuario);
+        }else{console.log("Nelson")}
       }
   
       async showToast(msg: string, pColor: string) {
@@ -84,7 +85,7 @@ export class EditProfilePage implements OnInit {
           name: this.nombre,
           rol: this.rolUser,
           birthdate: this.birthdate,
-          imageData: this.previewImage,
+          imageData: this.profilePicture,
           uid: this.id
         };
 
@@ -96,11 +97,13 @@ export class EditProfilePage implements OnInit {
 
         const credenciales = this.userForm.get('contrasena').value;
 
-        this.auth.register(this.emailUsuario, credenciales)
-       .then( (res) => {
-        usuario.uid = firebase.auth().currentUser.uid;
+        var user = firebase.auth().currentUser;
+        user.updatePassword(credenciales)
+       .then( e => {
+         usuario.uid = user.uid;
+         console.log(usuario.uid)
          if(usuario.imageData != null){
-          this.auth.uploadImage(usuario,this.previewImage); 
+          this.auth.uploadImage(usuario,this.profilePicture); 
          }
         else{
           usuario.imageData = 'assets/avatar.svg'

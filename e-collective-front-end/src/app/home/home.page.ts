@@ -86,7 +86,7 @@ export class HomePage implements OnInit {
             tap(user => {
               if (user) {
                 this.usuario = user;
-                console.log(user.imageData);
+                //console.log(user.imageData);
                 this.auth.setSubject(user);
                 console.log('success');
               } else {
@@ -146,7 +146,7 @@ export class HomePage implements OnInit {
   }
 
   onClickLogged(){
-    this.router.navigate(['/edit-profile']);
+    this.router.navigate(['/edit-profile'], {state: {usuario: this.usuario}});
   }
 
   onClickRegister(){

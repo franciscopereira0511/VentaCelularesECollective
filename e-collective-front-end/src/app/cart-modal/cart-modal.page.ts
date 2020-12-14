@@ -3,6 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { CarritoService } from '../services/carrito.service';
 import { Product } from '../models/product/product';
+import { auth } from 'firebase';
+import { ProductsService } from '../services/products/products.service';
 
 @Component({
   selector: 'app-cart-modal',
@@ -11,9 +13,10 @@ import { Product } from '../models/product/product';
 })
 export class CartModalPage implements OnInit {
   carro: Product[] = [];
+  orderId;
   @Input() usuario;
 
-  constructor(private carritoServicio: CarritoService, private modalCtr: ModalController,
+  constructor(private carritoServicio: CarritoService, private modalCtr: ModalController, private productService: ProductsService,
               private router: Router, private toastCtrl: ToastController, private alertCtrl: AlertController) { }
 
   ngOnInit() {
@@ -64,9 +67,31 @@ export class CartModalPage implements OnInit {
 
   createBuyOrder() {
     if (this.usuario.email) {
-      console.log('orden de compra creada');
-      this.showToast('Se creó la orden de compra exitosamente.', 'success');
+
+      let total = 0;
+      this.carro.forEach(p => {
+        total += p.quantity * (p.price - (0.01 *p.discount)*p.price)
+      });
+
+      const date = Date.now().toString();
+
+      const orden = {
+        id:date,
+        persona:this.usuario.name,
+        email: this.usuario.email,
+        fecha:new Date(),
+        total: total
+      }
+
+      this.productService.insertOrder(orden);
+      this.carro.forEach(p => {
+        this.productService.insertOrderProducts(date,p);
+      });
+
       // Aquí se debe insertar la función que guarda la orden de compra en la base de datos.
+      this.carritoServicio.vaciarCarrito();
+      this.modalCtr.dismiss();
+      this.showToast('Se creó la orden de compra exitosamente.', 'success');
     }
     else {
       this.modalCtr.dismiss();
