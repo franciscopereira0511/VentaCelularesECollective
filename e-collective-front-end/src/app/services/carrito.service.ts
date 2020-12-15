@@ -57,4 +57,9 @@ export class CarritoService {
       }
     }
   }
+
+  vaciarCarrito(){
+    this.carro = [];
+    this.contadorItems.next(this.contadorItems.value - this.contadorItems.value);
+  }
 }

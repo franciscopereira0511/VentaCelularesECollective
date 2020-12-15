@@ -74,6 +74,7 @@ export class HomePage implements OnInit {
                private dialog: MatDialog,
                private scrSize: ScreensizeService,
                ) {
+                this.showAd();
     this.dynamicColor = 'light';
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -85,7 +86,7 @@ export class HomePage implements OnInit {
             tap(user => {
               if (user) {
                 this.usuario = user;
-                console.log(user.imageData);
+                //console.log(user.imageData);
                 this.auth.setSubject(user);
                 console.log('success');
               } else {
@@ -142,6 +143,10 @@ export class HomePage implements OnInit {
 
   onClickLogin() {
     this.router.navigate(['/login']);
+  }
+
+  onClickLogged(){
+    this.router.navigate(['/edit-profile'], {state: {usuario: this.usuario}});
   }
 
   onClickRegister(){

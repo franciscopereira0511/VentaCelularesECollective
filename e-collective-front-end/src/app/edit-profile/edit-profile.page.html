@@ -1,0 +1,60 @@
+<ion-content class="ion-padding">
+  <a routerLink="">
+    <ion-img class="logo-image" src="assets/images/e-collective.png"></ion-img>
+  </a>
+  <ion-card >
+    <ion-card-header lines="none">
+      <ion-card-title class="ion-text-center">Editar Informacion de Usuario</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+     <div class="ion-text-center">
+        <ion-avatar style="margin:auto; height: 100px; width: 100px">
+          <img [src]="previewImage" ><br>
+        </ion-avatar>
+    
+        <input style="display:none" type="file" accept="image/*" (change)="onProfilePictureSelected($event)" #fileInput>
+        <ion-button style="max-height: 20px;" mode="ios" fill="clear" (click)="fileInput.click()">Seleccionar</ion-button>
+      </div>
+
+      <form [formGroup]="userForm">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">{{nombre}}</ion-label>
+            <ion-input placeholder="Nuevo Nombre"></ion-input> 
+          </ion-item>
+          
+          <ion-item>
+            <ion-label position="floating">Fecha de nacimiento: {{birthdate}}</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" min="1910-03-14"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">{{emailUsuario}}</ion-label>
+            <ion-input disabled = "true"></ion-input> 
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" placeholder="Nueva Contraseña" formControlName="contrasena"></ion-input> 
+          </ion-item>
+
+           <ion-text *ngIf="!userForm.get('contrasena').valid && userForm.get('contrasena').touched" color="danger">
+            <p>Es necesario ingresar una contraseña de 8 o más dígitos para su cuenta. </p>
+          </ion-text>
+
+        </ion-list>        
+      </form>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button 
+        expand="full" 
+        class="ion-margin-top"
+        (click)="editInfo()"
+        mode="ios"
+      >Cambiar Informacion
+      </ion-button>
+
+</ion-content>

@@ -16,6 +16,7 @@ export class ProductsService {
   productList: AngularFirestoreCollection<Product>;
   promosList: AngularFirestoreCollection<Product>;
   questionList: AngularFirestoreCollection<Question>;
+  orderList: AngularFirestoreCollection<any>;
 
   selectedProduct: Product = new Product();
   private filePath:any;
@@ -110,24 +111,27 @@ export class ProductsService {
     console.log(idProduct);
     return this.promosList.doc<Product>(idProduct).valueChanges();
   }
-/*
-  getCompleteQuestions(idQuestion: string): Promise<Question> {
-    let question: Question;
-    const questionRef = this.firestore.collection<Question>('questions').doc(idQuestion);
-    return questionRef.ref.get()
-      .then(dc => {
-        if (dc.exists) {
-          return question = {
-            id: idQuestion,
-            idProduct: dc.data().idProduct,
-            user: dc.data().user,
-            question: dc.data().question,
-            time:dc.data().question,
-            answers: dc.data().answers.map(e => ({id: idQuestion, questionId: e.questionId, user: e.user, answer: e.answer,time:e.time})),
-          };
-        } 
-      });
+
+  insertOrder(order){
+    return this.firestore.collection("orders").doc(order.id).set(_.omit(order, ['id']));
   }
-*/
+
+  insertOrderProducts(orderId,product){
+    return this.firestore.collection("orders").doc(orderId).collection("productList").add(product);
+  }
+
+  getOrders(email):Observable<any[]>{
+    this.orderList = this.firestore.collection<any>('orders',
+    ref=> ref.where('email','==',email));
+    return this.orderList.valueChanges({idField: 'id'});
+  }
+
+  getOrder(idOrder: string): Observable<any> {
+    return this.orderList.doc<any>(idOrder).valueChanges();
+  }
+
+  getOrderProducts(idOrder){
+    return this.firestore.collection("orders").doc<any>(idOrder).collection<any>("productList").valueChanges();
+  }
 
 }
