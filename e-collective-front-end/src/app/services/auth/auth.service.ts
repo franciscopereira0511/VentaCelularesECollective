@@ -14,7 +14,7 @@ export class AuthService {
   private fooSubject = new Subject<any>();
   usersList: AngularFirestoreCollection<User>;;
   private loginID = '';
-  private user : User = new User();
+  private user;
   private filePath:any;
   private downloadURL: Observable<string>;
 
@@ -69,8 +69,20 @@ export class AuthService {
     this.loginID = user.email;
   }
 
+  getUsername() {
+    if(this.user){
+      return this.user.email;
+    } else {
+      return null;
+    }
+  }
+
   getUser(){
-    return this.user;
+    if(this.user){
+      return this.user
+    } else {
+      return null;
+    }
   }
 
   getUsers():Observable<User[]>{
@@ -103,7 +115,7 @@ export class AuthService {
   }
 
   getUserData(email){
-    return this.firestore.collection<User>('users',ref=>ref.where('email','==',email)).valueChanges();
+    return this.firestore.collection<User>('users',ref=>ref.where('email','==',email)).valueChanges({idField: 'id'});
   }
 
   getEmployees(){

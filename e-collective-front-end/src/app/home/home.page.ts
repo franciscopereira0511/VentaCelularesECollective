@@ -3,7 +3,7 @@ import { AuthService } from './../services/auth/auth.service';
 import { User } from './../models/user/user';
 import { Component, OnInit } from '@angular/core';
 import { Device } from 'src/models/device.model';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { CartModalPage } from '../cart-modal/cart-modal.page';
 import { CarritoService } from '../services/carrito.service';
@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
 
   emailUsuario: string;
   observableUser = new Observable<User>();
-  usuario: User = new User();
+  usuario;
   carro = [];
   contadorItems: BehaviorSubject <number>;
   producto: Product;
@@ -73,10 +73,11 @@ export class HomePage implements OnInit {
                private route: ActivatedRoute,
                private dialog: MatDialog,
                private scrSize: ScreensizeService,
+               private alertCtrl: AlertController
                ) {
                 this.showAd();
-    this.dynamicColor = 'light';
-    this.route.queryParams.subscribe(params => {
+                this.dynamicColor = 'light';
+                this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
 
         this.emailUsuario = this.router.getCurrentNavigation().extras.state.email;
@@ -86,7 +87,7 @@ export class HomePage implements OnInit {
             tap(user => {
               if (user) {
                 this.usuario = user;
-                //console.log(user.imageData);
+                // console.log(user.imageData);
                 this.auth.setSubject(user);
                 console.log('success');
               } else {
@@ -97,7 +98,8 @@ export class HomePage implements OnInit {
       }
     });
 
-    this.scrSize.isDesktopView().subscribe(isDesktop => {
+
+                this.scrSize.isDesktopView().subscribe(isDesktop => {
       if (this.isDesktop && !isDesktop) {
         // Reload because our routing is out of place
         window.location.reload();
@@ -110,7 +112,7 @@ export class HomePage implements OnInit {
 
 
   ngOnInit(){
-    this.showAd();
+    this.usuario = this.auth.getUser;
     this.carro = this.carritoServicio.getCarro();
     this.contadorItems = this.carritoServicio.getContadorItems();
     this.productsService.getProducts().subscribe(products => {
@@ -119,6 +121,43 @@ export class HomePage implements OnInit {
     this.productsService.getPromos().subscribe(products => {
       this.ofertas = products;
     });
+  }
+
+  async presentAlertLogin() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Debe iniciar sesión',
+      message: 'Es necesario registrarse/iniciar sesión para ver tu historial de compras.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Se canceló la operación.');
+          }
+        }, {
+          text: 'Iniciar sesión',
+          handler: () => {
+            this.router.navigate(['/login']);
+          }
+        }
+      ]
+    });
+
+
+    await alert.present();
+  }
+
+  onClickHistorialCompras() {
+    
+    if(this.emailUsuario !== undefined) {
+      console.log(this.emailUsuario);
+      this.router.navigate(['/order-history']);
+    }
+    else {
+      this.presentAlertLogin();
+    }
   }
 
   showAd(){
@@ -158,7 +197,7 @@ export class HomePage implements OnInit {
   }
 
   search(ev: any){
-    if(this.items.length==0) { this.items = Array.from(document.getElementById('lista-productos').children); }
+    if (this.items.length == 0) { this.items = Array.from(document.getElementById('lista-productos').children); }
     const query = ev.target.value.toLowerCase();
     requestAnimationFrame(() => {
       this.items.forEach(item => {

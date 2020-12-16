@@ -41,7 +41,7 @@
     <ion-row >
       <ion-col size="12">
         <div class="ion-text-center">
-          <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../order-history']"  >
+          <ion-button class="superSlim" fill="clear" mode="ios" (click)="onClickHistorialCompras()">
             <ion-label color="light">Historial de compras</ion-label>
           </ion-button>
           <ion-button class="superSlim" fill="clear" mode="ios" [routerLink]="['../locations']" >
@@ -100,7 +100,7 @@
             </h1>
             <ion-card-header>
               <div style="display: flex; align-items: center; justify-content: center;">
-                <img style ="width: 50%;" class="deviceOfferImage" [src]="producto.imgUrl" />
+                <img class="deviceOfferImage" [src]="producto.imgUrl" />
               </div>
               
               <ion-card-title>{{producto.name}} {{producto.model}}</ion-card-title>

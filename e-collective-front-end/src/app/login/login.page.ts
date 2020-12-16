@@ -43,11 +43,20 @@ export class LoginPage implements OnInit {
     };
 
 
-    this.authService.login(usuario.email, usuario.password)
-    .then((res) => {
-      this.showToast('¡Bienvenido!', 'success');
+    this.authService.login(usuario.email, usuario.password).then((res) => {
+      this.authService.getUserData(usuario.email).subscribe(data => {
+        this.authService.setUser(data[0]);
 
-      this.router.navigate(['home'], navigationExtras);
+        this.inputUser = '';
+        this.inputPassword = '';
+
+        this.showToast('¡Bienvenido!', 'success');
+
+        this.router.navigate(['home'], navigationExtras);
+
+
+      });
+
 
     }).catch((error) => {
       this.showToast('Verifique sus credenciales.', 'danger');

@@ -49,13 +49,17 @@ ion-searchbar {
   width: 250px;
   height: 250px;
   margin: auto;
+  object-fit: contain;
 }
 
 .deviceOfferImage {
   width: 150px;
-  height: 250px;
+  height: 150px;
   margin: auto;
+  object-fit: contain;
 }
+
+
 
 .cart-icon{
   font-size: 40px;

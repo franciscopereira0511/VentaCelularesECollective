@@ -4,7 +4,7 @@
   </a>
   <ion-card >
     <ion-card-header lines="none">
-      <ion-card-title class="ion-text-center">Editar Informacion de Usuario</ion-card-title>
+      <ion-card-title class="ion-text-center">Editar perfil</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
@@ -46,15 +46,17 @@
         </ion-list>        
       </form>
 
+      <ion-button 
+      expand="full" 
+      class="ion-margin-top"
+      (click)="editInfo()"
+      mode="ios"
+    >Guardar cambios
+</ion-button>
+
     </ion-card-content>
   </ion-card>
 
-  <ion-button 
-        expand="full" 
-        class="ion-margin-top"
-        (click)="editInfo()"
-        mode="ios"
-      >Cambiar Informacion
-      </ion-button>
+
 
 </ion-content>

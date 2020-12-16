@@ -65,28 +65,46 @@ export class CartModalPage implements OnInit {
     await alert.present();
   }
 
+  formatDate(date) {
+    if (date !== undefined && date !== '') {
+      const myDate = new Date(date);
+      const month = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'][myDate.getMonth()];
+      const str = myDate.getDate() + ' ' + month + ' ' + myDate.getFullYear();
+      return str;
+    }
+    return '';
+  }
+
+  // Obtiene el día actual con formato deseado
+  getFechaAsignado() {
+    const date = new Date();
+    const formattedDate = this.formatDate(date);
+
+    return formattedDate;
+  }
+
   createBuyOrder() {
     if (this.usuario.email) {
 
       let total = 0;
+      const productos = [];
       this.carro.forEach(p => {
-        total += p.quantity * (p.price - (0.01 *p.discount)*p.price)
+        total += p.quantity * (p.price - (0.01 * p.discount) * p.price);
+        productos.push(p);
       });
 
       const date = Date.now().toString();
 
       const orden = {
-        id:date,
-        persona:this.usuario.name,
+        id: date,
+        persona: this.usuario.name,
         email: this.usuario.email,
-        fecha:new Date(),
-        total: total
-      }
+        fecha: this.getFechaAsignado(),
+        total,
+        productos
+      };
 
       this.productService.insertOrder(orden);
-      this.carro.forEach(p => {
-        this.productService.insertOrderProducts(date,p);
-      });
 
       // Aquí se debe insertar la función que guarda la orden de compra en la base de datos.
       this.carritoServicio.vaciarCarrito();
