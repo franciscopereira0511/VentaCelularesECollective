@@ -26,8 +26,6 @@ export class EditProfilePage implements OnInit {
   birthdate: string = "Fecha Nacimiento";
   rolUser: number = 1;
   id: any = 0;
- 
-  
 
   constructor( 
     private router: Router,
@@ -40,7 +38,9 @@ export class EditProfilePage implements OnInit {
 
       ngOnInit() {
         this.userForm = this.fb.group({
-          contrasena: [null, [Validators.required, Validators.minLength(8)]],
+          contrasena: [null, [Validators.minLength(8)]],
+          nombre: [null, Validators.maxLength(30)],
+          fchNacimiento: [null, Validators.nullValidator]
         });
         const state = this.router.getCurrentNavigation().extras.state;
         if (state) {
@@ -51,10 +51,9 @@ export class EditProfilePage implements OnInit {
           this.birthdate = this.usuarioActual.birthdate.substring(0,10);
           this.rolUser = this.usuarioActual.rol;
           this.id = this.usuarioActual.uid;
-          // console.log(this.usuario);
         }else{console.log("Nelson")}
       }
-  
+      
       async showToast(msg: string, pColor: string) {
         const toast = this.toastCtrl.create({
           message: msg,
@@ -80,6 +79,7 @@ export class EditProfilePage implements OnInit {
       if (!this.userForm.valid){
         this.showToast('Porfavor, ingrese datos validos.', 'danger');
       }else{
+        
         const usuario: User = {
           email: this.emailUsuario,
           name: this.nombre,
@@ -89,33 +89,36 @@ export class EditProfilePage implements OnInit {
           uid: this.id
         };
 
-        const navigationExtras: NavigationExtras = {
-          state: {
-            email: this.emailUsuario
-          }
-        };
-
-        const credenciales = this.userForm.get('contrasena').value;
-
-        var user = firebase.auth().currentUser;
-        user.updatePassword(credenciales)
-       .then( e => {
-         usuario.uid = user.uid;
-         console.log(usuario.uid)
-         if(usuario.imageData != null){
-          this.auth.uploadImage(usuario,this.profilePicture); 
-         }
-        else{
-          usuario.imageData = 'assets/avatar.svg'
-          this.firestore.collection('users').doc(usuario.email).set(usuario);
-        }
+        const navigationExtras: NavigationExtras = {state: {email: this.emailUsuario}};
         
+        var user = firebase.auth().currentUser;
+        
+        if(usuario.imageData != null){
+          this.auth.uploadImage(usuario,this.profilePicture); 
+        }     
+        
+        if(this.userForm.get('fchNacimiento').value != null && this.userForm.get('fchNacimiento').value != ""){
+          usuario.birthdate = this.userForm.get('fchNacimiento').value;
+        }    
+
+        if(this.userForm.get('nombre').value != null && this.userForm.get('nombre').value != ""){
+          usuario.name = this.userForm.get('nombre').value;
+        }    
+        
+        if(this.userForm.get('contrasena').value != null || this.userForm.get('contrasena').value != ""){
+          const credenciales = this.userForm.get('contrasena').value;
+          user.updatePassword(credenciales).then( e => 
+            {          
+              usuario.uid = user.uid;                          
+          });
+        }
+
+        this.firestore.collection('users').doc(usuario.email).set(usuario);
         this.showToast('Se hizo el cambio de manera exitosa.', 'success');
-        this.router.navigate(['login'], navigationExtras);
+        this.router.navigate(['home'], navigationExtras);
 
-       });
-
-
+        
+           
       }
 
   }

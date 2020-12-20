@@ -52,6 +52,10 @@ export class AppComponent {
     });
   }
 
+  onClickLogged(){
+    this.router.navigate(['/edit-profile'], {state: {usuario: this.user}});
+  }
+
   @HostListener('window:resize', ['$event'])
   private onResize(event) {
     this.screensizeService.onResize(event.target.innerWidth);

@@ -94,6 +94,7 @@ export class HomePage implements OnInit {
                 console.log('nelson');
               }
             }));
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
         }
       }
     });
@@ -192,8 +193,13 @@ export class HomePage implements OnInit {
     this.router.navigate(['/register']);
   }
 
-  onClickLogOut() {
-
+  onClickLogOut(){
+    this.auth.logout();
+    this.auth.setSubject(null);
+    this.router.navigate(['/home'])
+    .then(() => {
+      window.location.reload();
+    });
   }
 
   search(ev: any){

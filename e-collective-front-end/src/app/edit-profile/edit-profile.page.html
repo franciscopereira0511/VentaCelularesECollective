@@ -21,12 +21,12 @@
         <ion-list>
           <ion-item>
             <ion-label position="floating">{{nombre}}</ion-label>
-            <ion-input placeholder="Nuevo Nombre"></ion-input> 
+            <ion-input placeholder="Nuevo Nombre" formControlName="nombre"></ion-input> 
           </ion-item>
           
           <ion-item>
             <ion-label position="floating">Fecha de nacimiento: {{birthdate}}</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY" min="1910-03-14"></ion-datetime>
+            <ion-datetime displayFormat="MM/DD/YYYY" min="1910-03-14" formControlName="fchNacimiento"></ion-datetime>
           </ion-item>
 
           <ion-item>
@@ -51,8 +51,15 @@
       class="ion-margin-top"
       (click)="editInfo()"
       mode="ios"
-    >Guardar cambios
-</ion-button>
+      >Guardar cambios
+      </ion-button>
+      
+      <div class="a-row" style="text-align: center">
+        <ion-text style="color:black;">
+          <a class="a-link-emphasis" [routerLink]="['../home']">Volver al inicio</a>
+        </ion-text>
+
+      </div>
 
     </ion-card-content>
   </ion-card>
