@@ -19,7 +19,7 @@ export class EditProfilePage implements OnInit {
   usuarioActual: User = null;
   userForm: FormGroup;
   
-  previewImage: any = 'assets/avatar.svg';
+  previewImage: string = 'assets/avatar.svg';
   profilePicture: File = null;
   emailUsuario: string = "Correo";
   nombre: string = "Nombre";
@@ -89,7 +89,7 @@ export class EditProfilePage implements OnInit {
           name: this.nombre,
           rol: this.rolUser,
           birthdate: this.birthdate,
-          imageData: this.profilePicture,
+          imageData: this.previewImage,
           uid: this.id
         };
 
@@ -98,14 +98,9 @@ export class EditProfilePage implements OnInit {
         var user = firebase.auth().currentUser;
         
         
-        if(usuario.imageData != null && this.usuarioActual.imageData != usuario.imageData && this.usuarioActual.imageData != this.previewImage){
+        if(this.profilePicture != null  ){
           this.auth.uploadImage(usuario,this.profilePicture); 
-         }
-        else{
-          usuario.imageData = this.profilePicture;
-          this.firestore.collection('users').doc(usuario.email).set(usuario);
-        }
-         
+         }        
         
         if(this.userForm.get('fchNacimiento').value != null && this.userForm.get('fchNacimiento').value != ""){
           usuario.birthdate = this.userForm.get('fchNacimiento').value;
