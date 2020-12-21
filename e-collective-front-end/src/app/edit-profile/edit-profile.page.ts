@@ -26,6 +26,7 @@ export class EditProfilePage implements OnInit {
   birthdate: string = "Fecha Nacimiento";
   rolUser: number = 1;
   id: any = 0;
+  switch: boolean;
 
   constructor( 
     private router: Router,
@@ -43,6 +44,7 @@ export class EditProfilePage implements OnInit {
           fchNacimiento: [null, Validators.nullValidator]
         });
         const state = this.router.getCurrentNavigation().extras.state;
+        
         if (state) {
           this.usuarioActual = state.usuario;
           this.nombre = this.usuarioActual.name;
@@ -52,6 +54,7 @@ export class EditProfilePage implements OnInit {
           this.rolUser = this.usuarioActual.rol;
           this.id = this.usuarioActual.uid;
         }else{console.log("Nelson")}
+        this.switch = false;
       }
       
       async showToast(msg: string, pColor: string) {
@@ -72,6 +75,7 @@ export class EditProfilePage implements OnInit {
           reader.onload = (e: any) => {
             this.previewImage = e.target.result;
           };
+          this.switch = true;
         }
       }
 
@@ -93,9 +97,15 @@ export class EditProfilePage implements OnInit {
         
         var user = firebase.auth().currentUser;
         
-        if(usuario.imageData != null){
+        
+        if(usuario.imageData != null && this.usuarioActual.imageData != usuario.imageData && this.usuarioActual.imageData != this.previewImage){
           this.auth.uploadImage(usuario,this.profilePicture); 
-        }     
+         }
+        else{
+          usuario.imageData = this.profilePicture;
+          this.firestore.collection('users').doc(usuario.email).set(usuario);
+        }
+         
         
         if(this.userForm.get('fchNacimiento').value != null && this.userForm.get('fchNacimiento').value != ""){
           usuario.birthdate = this.userForm.get('fchNacimiento').value;
@@ -105,7 +115,7 @@ export class EditProfilePage implements OnInit {
           usuario.name = this.userForm.get('nombre').value;
         }    
         
-        if(this.userForm.get('contrasena').value != null || this.userForm.get('contrasena').value != ""){
+        if(this.userForm.get('contrasena').value != null && this.userForm.get('contrasena').value != ""){
           const credenciales = this.userForm.get('contrasena').value;
           user.updatePassword(credenciales).then( e => 
             {          
