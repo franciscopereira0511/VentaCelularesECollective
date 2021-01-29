@@ -20,11 +20,16 @@ export class OrderHistoryPage implements OnInit {
 
       this.productsService.getOrders(this.username).subscribe(orders => {
         this.buyOrders = orders;
+        console.log(this.buyOrders);
       });
     }
     
     
 
+  }
+
+  onSubmit() {
+    console.log('Facturar');
   }
 
 }

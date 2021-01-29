@@ -8,11 +8,11 @@
     </a>
     
     <ion-title>Mi historial de compras</ion-title>
-        <ion-buttons slot="start">
-          <ion-button slot="end" fill="clear" mode="ios" [routerLink]="['../home']"  >
-            <ion-label color="light"><u>Volver al inicio</u></ion-label>
-          </ion-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button slot="end" fill="clear" mode="ios" [routerLink]="['../home']"  >
+        <ion-label color="light"><u>Volver al inicio</u></ion-label>
+      </ion-button>
+    </ion-buttons>
  
   </ion-toolbar>
 </ion-header>
@@ -36,10 +36,11 @@
           <h5><b>Precio por unidad: </b>{{producto.price}}</h5>
         </ion-label>
 
-
-
       </ion-item>
     </ion-list>  
+    <ion-button fill="clear" mode="ios" (click)="onSubmit()"  >
+      <ion-label color="Primary">Facturar</ion-label>
+    </ion-button>
   </ion-card>
 
 </ion-content>
