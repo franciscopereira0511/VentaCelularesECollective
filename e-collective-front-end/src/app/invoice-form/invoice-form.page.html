@@ -1,0 +1,76 @@
+<ion-content class="ion-padding">
+
+  <a routerLink="">
+    <ion-img class="logo-image" src="assets/images/e-collective.png"></ion-img>
+  </a>
+
+  <ion-card >
+    <ion-card-header lines="none">
+      <ion-card-title class="ion-text-center">Registrar Factura</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+    
+      <form [formGroup]="invoiceForm">
+      <ion-list>
+        <ion-item>
+          <ion-input placeholder="Nombre de la Empresa" formControlName="nombreE"></ion-input>
+        </ion-item>
+
+        <ion-text>
+          <p>Es necesario ingresar el nombre de la empresa. </p>
+        </ion-text>
+  
+        <ion-item>
+          <ion-input placeholder="Nombre de la Tienda" formControlName="nombreT"></ion-input>
+        </ion-item>
+  
+        <ion-text>
+          <p>Es necesario ingresar el nombre de la tienda. </p>
+        </ion-text>
+  
+        <ion-item>
+          <ion-input placeholder="Llave de autentificacion" formControlName="llave"></ion-input>
+        </ion-item>
+  
+        <ion-text>
+          <p>Llave de autentificacion de la empresa. </p>
+        </ion-text>
+  
+        <ion-item>
+          <ion-input placeholder="Numero de factura" formControlName="numero"></ion-input>
+        </ion-item>
+  
+        <ion-text>
+          <p>Numero de la factura. </p>
+        </ion-text>
+
+        <ion-item>
+          <ion-input placeholder="Descripcion o Detalle" formControlName="detalle"></ion-input>
+        </ion-item>
+  
+        <ion-text>
+          <p>Descripcion de factura. </p>
+        </ion-text>
+      </ion-list>
+    </form>
+      <ion-button 
+        expand="full" 
+        class="ion-margin-top"
+        mode="ios"
+      >Registrar Factura
+      </ion-button>
+ 
+      <div class="a-row" style="text-align: center">
+        <ion-text style="color:black;">
+          <a class="a-link-emphasis" [routerLink]="['../soap']">Volver atras</a>
+          o
+          <a class="a-link-emphasis" [routerLink]="['../home']">Volver al inicio</a>
+        </ion-text>
+
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

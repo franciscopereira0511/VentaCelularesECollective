@@ -71,7 +71,24 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
+  {
+    path: 'company-form',
+    loadChildren: () => import('./company-form/company-form.module').then( m => m.CompanyFormPageModule)
+  },  {
+    path: 'store-form',
+    loadChildren: () => import('./store-form/store-form.module').then( m => m.StoreFormPageModule)
+  },
+  {
+    path: 'invoice-form',
+    loadChildren: () => import('./invoice-form/invoice-form.module').then( m => m.InvoiceFormPageModule)
+  },
+  {
+    path: 'soap',
+    loadChildren: () => import('./soap/soap.module').then( m => m.SOAPPageModule)
   }
+
+
 
 ];
 

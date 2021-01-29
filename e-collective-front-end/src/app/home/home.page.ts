@@ -161,6 +161,10 @@ export class HomePage implements OnInit {
     }
   }
 
+  onClickSOAP(){
+    this.router.navigate(['/soap']);
+  }
+
   showAd(){
     this.dialog.open(AdComponent, {});
   }
